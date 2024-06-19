@@ -24,6 +24,12 @@ do
   Console.WriteLine($"Hello World! The counter is {counter}");
   counter++;
 } while (counter < 10);
+
+string nome = Console.ReadLine()!;
+string cognome = Console.ReadLine()!;
+Console.WriteLine("Welcome " + nome + "!");
+Console.WriteLine($"Hello, {nome} {cognome}!");
+
 /* 
 Questo è un commento multilinea
 posso scrivere su più linee e mi considera sempre lo stesso commento
