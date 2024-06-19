@@ -27,7 +27,6 @@ do
 
 string nome = Console.ReadLine()!;
 string cognome = Console.ReadLine()!;
-Console.WriteLine("Welcome " + nome + "!");
 Console.WriteLine($"Hello, {nome} {cognome}!");
 
 /* 
