@@ -62,3 +62,21 @@ assegnazione con sottrazione(-=)
 
 */
 
+
+// operatori di concatenazione
+
+
+string f = "Hello";
+
+string g = "World";
+
+string h = f + " " + g;  // h = "Hello World"
+
+
+// esempio di concatenazione con interpolazione
+
+
+string i = $"{f} {g}";
+
+
+
