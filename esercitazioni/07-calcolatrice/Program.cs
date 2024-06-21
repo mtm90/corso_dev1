@@ -2,11 +2,11 @@
 
         Console.WriteLine("Please enter the first number");
 
-        double firstNumber = Convert.ToDouble(Console.ReadLine());
+        double firstNumber = Convert.ToInt32(Console.ReadLine());
 
         Console.WriteLine("Please enter the second number");
 
-        double secondNumber = Convert.ToDouble(Console.ReadLine());
+        double secondNumber = Convert.ToInt32(Console.ReadLine());
 
         Console.WriteLine("Please enter an operator");
 
@@ -27,7 +27,7 @@
                 }
                 else
                 {
-                    Console.WriteLine("Error: Division by zero");
+                    Console.WriteLine("Error: Division by zero"); // con un if-else considero l'ipotesi in cui la divisione venga fatta per 0, loggando un messaggio di errore
                 }
                 break;
 
@@ -42,6 +42,6 @@
                 break;
 
             default:
-                Console.WriteLine("Please enter a valid operator (+, -, *, /)");
+                Console.WriteLine("Please enter a valid operator (+, -, *, /)"); // quando l'utente inserisce un valore diverso da quelli previsti, gli viene chiesto di inserire l'operatore corretto tramite un messaggio un console
                 break;
         }
