@@ -1,18 +1,18 @@
 ﻿Console.Clear();
 
-        Console.WriteLine("Please enter the first number");
+    Console.WriteLine("Please enter the first number");
 
-        double firstNumber = Convert.ToInt32(Console.ReadLine());
+    double firstNumber = Convert.ToInt32(Console.ReadLine());
 
-        Console.WriteLine("Please enter the second number");
+    Console.WriteLine("Please enter the second number");
 
-        double secondNumber = Convert.ToInt32(Console.ReadLine());
+    double secondNumber = Convert.ToInt32(Console.ReadLine());
 
-        Console.WriteLine("Please enter an operator");
+    Console.WriteLine("Please enter an operator");
 
-        string op = Console.ReadLine();
+    string op = Console.ReadLine();
 
-        switch (op)
+    switch (op)
         {
             case "*":
                 double product = firstNumber * secondNumber;
