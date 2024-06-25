@@ -4,11 +4,11 @@
 
     Console.WriteLine("Please enter the first number");
 
-    double firstNumber = Convert.ToInt32(Console.ReadLine());
+    double firstNumber = Convert.ToDouble(Console.ReadLine());
 
     Console.WriteLine("Please enter the second number");
 
-    double secondNumber = Convert.ToInt32(Console.ReadLine());
+    double secondNumber = Convert.ToDouble(Console.ReadLine());
 
     Console.WriteLine("Please enter an operator");
 
