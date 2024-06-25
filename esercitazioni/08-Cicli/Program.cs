@@ -10,3 +10,9 @@ for (int i = 0; i <=10; i++)
 {
     Console.WriteLine(i);
 }
+
+string scritta = "ciao";
+foreach (char lettera in scritta)
+{
+    Console.WriteLine(lettera);
+}
