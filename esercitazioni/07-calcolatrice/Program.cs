@@ -25,7 +25,7 @@
                 if (secondNumber != 0)
                 {
                     double division = firstNumber / secondNumber;
-                    Console.WriteLine($"Here is the result: {division}";
+                    Console.WriteLine($"Here is the result: {division}");
                 }
                 else
                 {
@@ -35,12 +35,12 @@
 
             case "+":
                 double sum = firstNumber + secondNumber;
-                Console.WriteLine($"Here is the result: {sum}";
+                Console.WriteLine($"Here is the result: {sum}");
                 break;
 
             case "-":
                 double sub = firstNumber - secondNumber;
-                Console.WriteLine($"Here is the result: {sub}";
+                Console.WriteLine($"Here is the result: {sub}");
                 break;
 
             default:
