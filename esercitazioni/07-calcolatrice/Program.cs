@@ -1,5 +1,7 @@
 ﻿Console.Clear();
 
+     Console.WriteLine("Hello! this is a calculator.");
+
     Console.WriteLine("Please enter the first number");
 
     double firstNumber = Convert.ToInt32(Console.ReadLine());
