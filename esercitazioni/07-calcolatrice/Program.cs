@@ -1,6 +1,6 @@
 ﻿Console.Clear();
 
-     Console.WriteLine("Hello! this is a calculator.");
+    Console.WriteLine("Hello! this is a calculator.");
 
     Console.WriteLine("Please enter the first number");
 
@@ -18,14 +18,14 @@
         {
             case "*":
                 double product = firstNumber * secondNumber;
-                Console.WriteLine(product);
+                Console.WriteLine($"Here is the result: {product}");
                 break;
 
             case "/":
                 if (secondNumber != 0)
                 {
                     double division = firstNumber / secondNumber;
-                    Console.WriteLine(division);
+                    Console.WriteLine($"Here is the result: {division}";
                 }
                 else
                 {
@@ -35,12 +35,12 @@
 
             case "+":
                 double sum = firstNumber + secondNumber;
-                Console.WriteLine(sum);
+                Console.WriteLine($"Here is the result: {sum}";
                 break;
 
             case "-":
                 double sub = firstNumber - secondNumber;
-                Console.WriteLine(sub);
+                Console.WriteLine($"Here is the result: {sub}";
                 break;
 
             default:
