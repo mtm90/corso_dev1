@@ -53,7 +53,7 @@ List<string> nomi = new List<string> { "Mattia", "Allison", "Sharon", "Ginevra",
         }
 
 */
-
+/* Versione 4
 List<string> nomi = new List<string> { "Mattia", "Allison", "Sharon", "Ginevra", "Daniele", "Matteo", "Silvano", "Serghej" };
 List<string> nomi2 = new List<string>();
 
@@ -82,6 +82,36 @@ List<string> nomi2 = new List<string>();
                     Thread.Sleep(300);
                 }
             Console.WriteLine();
+        }
+*/
+List<string> nomi = new List<string> { "Mattia", "Allison", "Sharon", "Ginevra", "Daniele", "Matteo", "Silvano", "Serghej" };
+
+
+bool programIsRunning = true;
+while (programIsRunning)
+    {
+        Console.WriteLine("1. Inserisci partecipante");
+        Console.WriteLine("2. Visualizza partecipanti");
+        Console.WriteLine("3. Esci");
+        int choice = Convert.ToInt32(Console.ReadLine());
+        switch (choice)
+        {
+            case 1:
+                string newMember = Console.ReadLine();
+                nomi.Add(newMember);
+                break;
+            case 2:
+                foreach (string s in nomi)
+                {
+                    Console.WriteLine(s);
+                } 
+                break;
+            case 3:
+            programIsRunning = false;
+            break;
+            
 
         }
+    }
+    
 
