@@ -40,14 +40,11 @@ List<string> nomi = new List<string> { "Mattia", "Allison", "Sharon", "Ginevra",
         while (nomi.Count > 0)
         {
             int numero = random.Next(nomi.Count);
-
             Console.WriteLine();
             Console.WriteLine("nome rimosso:");
             Console.WriteLine(nomi[numero]);
             Console.WriteLine();
-
             nomi.RemoveAt(numero);
-
             Console.WriteLine("Elenco nuovi partecipanti:");
             for (int i = 0; i < nomi.Count; i++)
             {
