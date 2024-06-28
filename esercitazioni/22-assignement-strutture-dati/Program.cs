@@ -32,7 +32,7 @@ for (int i = 0; i < nomi.Count; i++)
 }
 */
 
-
+/*
 List<string> nomi = new List<string> { "Mattia", "Allison", "Sharon", "Ginevra", "Daniele", "Matteo", "Silvano", "Serghej" };
 
         Random random = new Random();
@@ -45,9 +45,44 @@ List<string> nomi = new List<string> { "Mattia", "Allison", "Sharon", "Ginevra",
             Console.WriteLine(nomi[numero]);
             Console.WriteLine();
             nomi.RemoveAt(numero);
-            Console.WriteLine("Elenco nuovi partecipanti:");
-            for (int i = 0; i < nomi.Count; i++)
-            {
-                Console.WriteLine(nomi[i]);
-            }
+            Console.WriteLine("Elenco nuovi partecipanti:");   
+                for (int i = 0; i < nomi.Count; i++)
+                {
+                    Console.WriteLine(nomi[i]);
+                }
         }
+
+*/
+
+List<string> nomi = new List<string> { "Mattia", "Allison", "Sharon", "Ginevra", "Daniele", "Matteo", "Silvano", "Serghej" };
+List<string> nomi2 = new List<string>();
+
+        Random random = new Random();
+
+        while (nomi.Count > 0)
+        {
+            int numero = random.Next(nomi.Count);
+            Console.WriteLine("nome sorteggiato:");
+            Console.WriteLine(nomi[numero]);
+            Console.WriteLine();
+            nomi2.Add(nomi[numero]);
+            nomi.RemoveAt(numero);
+            Console.WriteLine("nuovo elenco partecipanti:");   
+                foreach (string s in nomi)
+                {
+                    Console.WriteLine(s);
+                }
+            Console.WriteLine();
+            Console.WriteLine("nuova lista:");
+                foreach (string s in nomi2)
+                {
+                    Console.WriteLine(s);
+                }
+            Console.WriteLine();
+
+        }
+
+Console.WriteLine();
+Console.WriteLine();
+
+
