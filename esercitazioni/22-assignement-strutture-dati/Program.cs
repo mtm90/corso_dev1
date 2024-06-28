@@ -94,24 +94,20 @@ while (programIsRunning)
         Console.WriteLine("2. Visualizza partecipanti");
         Console.WriteLine("3. Esci");
         int choice = Convert.ToInt32(Console.ReadLine());
-        switch (choice)
-        {
-            case 1:
-                string newMember = Console.ReadLine();
-                nomi.Add(newMember);
+            switch (choice)
+            {
+                case 1:
+                    string newMember = Console.ReadLine();
+                    nomi.Add(newMember);
+                    break;
+                case 2:
+                    foreach (string s in nomi)
+                    {Console.WriteLine(s);} 
+                    break;
+                case 3:
+                programIsRunning = false;
                 break;
-            case 2:
-                foreach (string s in nomi)
-                {
-                    Console.WriteLine(s);
-                } 
-                break;
-            case 3:
-            programIsRunning = false;
-            break;
-            
-
-        }
+            }
     }
     
 
