@@ -61,28 +61,27 @@ List<string> nomi2 = new List<string>();
 
         while (nomi.Count > 0)
         {
-            int numero = random.Next(nomi.Count);
+            int indice = random.Next(nomi.Count);
             Console.WriteLine("nome sorteggiato:");
-            Console.WriteLine(nomi[numero]);
+            Console.WriteLine(nomi[indice]);
+            Thread.Sleep(300);
             Console.WriteLine();
-            nomi2.Add(nomi[numero]);
-            nomi.RemoveAt(numero);
+            nomi2.Add(nomi[indice]);
+            nomi.RemoveAt(indice);
             Console.WriteLine("nuovo elenco partecipanti:");   
                 foreach (string s in nomi)
                 {
                     Console.WriteLine(s);
+                    Thread.Sleep(300);
                 }
             Console.WriteLine();
             Console.WriteLine("nuova lista:");
                 foreach (string s in nomi2)
                 {
                     Console.WriteLine(s);
+                    Thread.Sleep(300);
                 }
             Console.WriteLine();
 
         }
-
-Console.WriteLine();
-Console.WriteLine();
-
 
