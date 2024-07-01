@@ -38,3 +38,28 @@ Creare una console app che contiene un elenco di nomi dei partecipanti del corso
 la app permette di inserire un nuovo partecipante
 la app visualizza la lista dei partecipanti
 la app permette di uscire
+
+## Versione 6
+
+la app permette di ordinare la lista dei partecipanti in ordine alfabetic
+
+partecipanti.Sort();
+partecipanti.Reverse();
+
+## Versione 7
+
+la app permette di cercare un partecipante specifico
+
+partecipanti.Contains(nome)
+
+## Versione 8
+
+eliminare un partecipante dalla lista
+
+partecipanti.Remove(nome);
+
+## Versione 9
+
+la app permette di modificare un partecipante nella lista
+
+int indice = partecipanti.IndexOf(nome);
