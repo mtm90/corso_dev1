@@ -179,14 +179,14 @@ while (programIsRunning)
                     name = Console.ReadLine();
                     if (members.Contains(name))
                     {
-                        Console.WriteLine("New member: ");
+                        Console.WriteLine("New name: ");
                         string newName = Console.ReadLine();
                         int index = members.IndexOf(name);
                         members[index] = newName;
                         Console.WriteLine("the member was successfully edited");
                     }
                     else 
-                    {
+                    { 
                         Console.WriteLine("the member is not in list");
                     }
                 break;
