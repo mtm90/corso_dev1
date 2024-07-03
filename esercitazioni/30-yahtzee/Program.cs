@@ -1,5 +1,5 @@
 ﻿Console.Clear();
-Console.WriteLine("Let's play Yatzee! Press a key to throw 5 dices");
+Console.WriteLine("Let's play Yahtzee! Press a key to throw 5 dices");
 Console.ReadKey(true);
 Random random = new Random();
 int[] dadi = new int[5];
@@ -11,8 +11,10 @@ int[] dadi = new int[5];
 
     foreach (int i in dadi)
     {
-        Console.WriteLine(i);
+        Console.Write($"{i} ");
+        
     }
+    Console.WriteLine("");
     bool keepPlaying = true;
         while (keepPlaying)
         {
@@ -29,14 +31,8 @@ int[] dadi = new int[5];
                 Console.WriteLine("These are your final dices");
                 foreach (int i in dadi)
             {
-            Console.WriteLine(i);
+            Console.Write($"{i} ");
             }
             keepPlaying = false;
             }
         }
-
-    
-
-
-
-
