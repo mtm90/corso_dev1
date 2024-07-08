@@ -1,38 +1,48 @@
-﻿Console.Clear();
+﻿using Spectre.Console;
+
+
+Console.Clear();
 Random random = new Random();
         int lowerBound = 1;
         int upperBound = 100;
         int computerGuess;
         int guesses = 0;
 
-        Console.WriteLine("Think of a number between 1 and 100, i'm gonna try and guess it.");
+        AnsiConsole.Clear();
+        AnsiConsole.MarkupLine("[bold yellow]Think of a number between 1 and 100, I'm gonna try and guess it.[/]");
         Thread.Sleep(2000);
         bool gameIsRunning = true;
+
         while (gameIsRunning)
         {
-            Console.Clear();
-            computerGuess = random.Next(lowerBound, upperBound + 1); 
-            Console.WriteLine($"Is your number {computerGuess}?");
+            AnsiConsole.Clear();
+            computerGuess = random.Next(lowerBound, upperBound + 1);
+            
+            // Displaying the computer's guess in a box
+            var panel = new Panel($"[bold yellow]Is your number {computerGuess}?[/]")
+                .Border(BoxBorder.Double)
+                .Header("[bold green]Guess[/]");
+            AnsiConsole.Write(panel);
+            
             guesses++;
 
-            string answer = Console.ReadLine()!;
+            string answer = AnsiConsole.Ask<string>("[bold]Enter [green]'yes'[/] or [red]'no'[/]:[/]");
 
-            if (answer == "yes")
+            if (answer.ToLower() == "yes")
             {
-                Console.WriteLine("HAHA! I won!");
-                Console.WriteLine($"It took me {guesses} guesses");
+                AnsiConsole.MarkupLine("[bold green]HAHA! I won![/]");
+                AnsiConsole.MarkupLine($"[bold blue]It took me {guesses} guesses[/]");
                 gameIsRunning = false;
             }
-            else if (answer == "no")
+            else if (answer.ToLower() == "no")
             {
-                Console.WriteLine($"Is it higher or lower than {computerGuess}?");
-                string answer2 = Console.ReadLine()!;
+                string answer2 = AnsiConsole.Ask<string>($"[bold]Is it [royalblue1]higher[/] or [steelblue1_1]lower[/] than {computerGuess}?[/]");
 
-                if (answer2 == "higher")
+                if (answer2.ToLower() == "higher")
                 {
                     lowerBound = computerGuess + 1;
                 }
-                else if (answer2 == "lower")
+                else if (answer2.ToLower() == "lower")
                 {
                     upperBound = computerGuess - 1;
                 }
