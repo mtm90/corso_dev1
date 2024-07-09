@@ -33,10 +33,12 @@
         foreach (string member in team1)
         {
             Console.WriteLine(member);
+            Thread.Sleep(1000);
         }
 
         Console.WriteLine("team2:");
         foreach (string member in team2)
         {
             Console.WriteLine(member);
+            Thread.Sleep(1000);
         }
