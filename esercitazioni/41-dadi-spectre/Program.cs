@@ -1,4 +1,4 @@
-﻿using Spectre.Console;
+using Spectre.Console;
 
 Random random = new Random();
 int myScore = 100;
@@ -50,6 +50,7 @@ while (myScore > 0 && computerScore > 0)
     computerPanel.Border = BoxBorder.Double;
     computerPanel.Padding = new Padding(1, 1, 1, 1);
     AnsiConsole.Write(computerPanel);
+    computerPanel.Width = 15;
 
     int myPoints = dice1 + dice2;
     int computerPoints = dice3 + dice4;
