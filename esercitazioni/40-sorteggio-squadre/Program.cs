@@ -9,9 +9,9 @@
             "Matteo",
             "Silvano"
         };
-        List<string> team1 = new List<string>();
-        List<string> team2 = new List<string>();
-        Random random = new Random();
+        List<string> team1 = [];
+        List<string> team2 = [];
+        Random random = new();
         bool addToteam1 = true;
         while (devclass.Count > 0)
         {
