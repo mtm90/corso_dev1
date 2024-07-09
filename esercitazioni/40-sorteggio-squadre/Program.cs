@@ -1,4 +1,6 @@
-﻿List<string> devclass = new List<string>
+﻿using Spectre.Console;
+
+List<string> devclass = new List<string>
         {
             "Francesco",
             "Mattia",
@@ -29,16 +31,21 @@
             devclass.RemoveAt(randomIndex);
         }
 
-        Console.WriteLine("team1:");
+        var table1 = new Table();
+        table1.AddColumn("[bold red]team 1[/]");
         foreach (string member in team1)
         {
-            Console.WriteLine(member);
-            Thread.Sleep(1000);
-        }
+            table1.AddRow(member);
+            
 
-        Console.WriteLine("team2:");
+        }
+        AnsiConsole.Write(table1);
+        var table2 = new Table();
+        table2.AddColumn("[bold blue]team 2[/]");
+
         foreach (string member in team2)
         {
-            Console.WriteLine(member);
-            Thread.Sleep(1000);
+            table2.AddRow(member);
+
         }
+        AnsiConsole.Write(table2);
