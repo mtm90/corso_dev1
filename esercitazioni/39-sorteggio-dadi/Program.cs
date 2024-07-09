@@ -15,6 +15,7 @@
                 results[i] = random.Next(1, 7);
                 sum += results[i];
                 Console.WriteLine($"dado {i + 1}: {results[i]}");
+                Thread.Sleep(500);
                 frequency[results[i] - 1]++;
             }
             totalPoints.Add(sum);
@@ -31,6 +32,7 @@
             for (int i = 0; i < frequency.Length; i++)
             {
                 Console.WriteLine($"{i + 1}: {frequency[i]}");
+                Thread.Sleep(500);
             }
             double average = totalPoints.Average();
             Console.WriteLine("");
