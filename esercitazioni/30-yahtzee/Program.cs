@@ -55,19 +55,19 @@
                 }
                 Console.WriteLine("");
                 Console.WriteLine($"It took you {numberOfThrows} tries to make a Yahtzee!");
-                if (numberOfThrows < 5)
+                if (numberOfThrows < 7)
                 {
                     Console.WriteLine("Hot Damn... you're a pro!");
                 }
-                else if (numberOfThrows > 5 && numberOfThrows < 8)
+                else if (numberOfThrows >= 7 && numberOfThrows < 10)
                 {
                     Console.WriteLine("You're good but u can do better!");    
                 }
-                else if (numberOfThrows > 8 && numberOfThrows <12)
+                else if (numberOfThrows >= 10 && numberOfThrows <15)
                 {
                     Console.WriteLine("You're kinda trash!");  
                 }
-                else if (numberOfThrows > 12)
+                else if (numberOfThrows >= 15)
                 {
                     Console.WriteLine("You're awful, try another game this is not for you");  
                 }
