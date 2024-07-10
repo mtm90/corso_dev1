@@ -84,7 +84,7 @@ List<string> nomi2 = new List<string>();
             Console.WriteLine();
         }
 */
-List<string> members = new List<string> { "Mattia", "Allison", "Sharon", "Ginevra", "Daniele", "Matteo", "Silvano", "Serghej" };
+List<string> members = new List<string> { "Mattia", "Allison", "Sharon", "Ginevra", "Daniele", "Matteo", "Francesco", "Serghej" };
 
 bool programIsRunning = true; // creo una variabile booleana che definisce quando il programma deve funzionare
 bool sortMenuOn = false;
@@ -98,7 +98,8 @@ while (programIsRunning)
         Console.WriteLine("4. find member");
         Console.WriteLine("5. delete member");
         Console.WriteLine("6. edit member");
-        Console.WriteLine("7. Quit");
+        Console.WriteLine("7. sort in teams");
+        Console.WriteLine("8. Quit");
 
         int choice = Convert.ToInt32(Console.ReadLine()); 
             switch (choice) 
@@ -191,8 +192,45 @@ while (programIsRunning)
                     }
                 break;
                 case 7:
-                     programIsRunning = false; // per chiudere il programma è sufficiente cambiare il valore della variabile booleana, che definisce la condizione dello switch loop
+                    List<string> team1 = [];
+                    List<string> team2 = [];
+                    Random mix = new();
+                    bool addToteam1 = true;
+                    while (members.Count > 0)
+                    {
+                        int randomIndex = mix.Next(0, members.Count);
+                        if(addToteam1)
+                        {
+                            team1.Add(members[randomIndex]);
+                            addToteam1 = false;
+                        }
+                        else
+                        {
+                            team2.Add(members[randomIndex]);
+                            addToteam1 = true;
+                        }
+                        members.RemoveAt(randomIndex);
+                    }
+                    Console.WriteLine("team1:");
+                    Console.WriteLine("");
+                    foreach ( string member in team1)
+                    {
+                        Console.WriteLine(member);
+                        Thread.Sleep(1000);
+                    }
+                    Console.WriteLine("");
+                    Console.WriteLine("team2:");
+                    Console.WriteLine("");
+                    foreach ( string member in team2)
+                    {
+                        Console.WriteLine(member);
+                        Thread.Sleep(1000);
+                    }
+                    Console.WriteLine("");
                     break;
+                case 8:
+                    programIsRunning = false; // per chiudere il programma è sufficiente cambiare il valore della variabile booleana, che definisce la condizione dello switch loop
+                    break;                    
                 default:
                     Console.WriteLine("Try Again:");
                     break;
