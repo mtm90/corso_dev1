@@ -34,7 +34,7 @@
                     }
                     else
                     {
-                        Console.WriteLine($"Invalid index: {index}. Please enter a number between 1 and 5.");
+                        Console.WriteLine($"Please enter a number between 1 and 5.");
                     }
                 }
                 Console.Write("New roll: ");
