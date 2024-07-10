@@ -84,7 +84,7 @@ List<string> nomi2 = new List<string>();
             Console.WriteLine();
         }
 */
-List<string> members = new List<string> { "Mattia", "Allison", "Sharon", "Ginevra", "Daniele", "Matteo", "Francesco", "Serghej" };
+List<string> members = new List<string> { "Mattia", "Allison", "Silvano", "Ginevra", "Daniele", "Matteo", "Francesco", "Serghej" };
 
 bool programIsRunning = true; // creo una variabile booleana che definisce quando il programma deve funzionare
 bool sortMenuOn = false;
