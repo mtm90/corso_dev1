@@ -30,14 +30,12 @@ while (myScore > 0 && computerScore > 0)
     var userPanel = new Panel($"[bold]Your dice:[/]\n[green]{dice1}[/], [green]{dice2}[/]");
     userPanel.Header = new PanelHeader("[bold]Your Roll[/]", Justify.Center);
     userPanel.Border = BoxBorder.Double;
-    userPanel.Padding = new Padding(1, 1, 1, 1);
     userPanel.Width = 15;
     AnsiConsole.Write(userPanel);
 
     var computerPanel = new Panel($"[bold]My dice:[/]\n[red]{dice3}[/], [red]{dice4}[/]");
     computerPanel.Header = new PanelHeader("[bold]My Roll[/]", Justify.Center);
     computerPanel.Border = BoxBorder.Double;
-    computerPanel.Padding = new Padding(1, 1, 1, 1);
     computerPanel.Width = 15;
     AnsiConsole.Write(computerPanel);
 
