@@ -99,7 +99,8 @@ while (programIsRunning)
         Console.WriteLine("5. delete member");
         Console.WriteLine("6. edit member");
         Console.WriteLine("7. sort in teams");
-        Console.WriteLine("8. Quit");
+        Console.WriteLine("8. sort in teams with GetRange");
+        Console.WriteLine("9. Quit");
 
         int choice = Convert.ToInt32(Console.ReadLine()); 
             switch (choice) 
@@ -229,8 +230,23 @@ while (programIsRunning)
                     Console.WriteLine("");
                     break;
                 case 8:
-                    programIsRunning = false; // per chiudere il programma è sufficiente cambiare il valore della variabile booleana, che definisce la condizione dello switch loop
-                    break;                    
+                    int split = members.Count/2;
+                    List<string> squadra1 = members.GetRange(0, split);    
+                    List<string> squadra2 = members.GetRange(split, members.Count - split);
+                    Console.WriteLine("squadra 1:");
+                    foreach (string member in squadra1)
+                    {
+                        Console.WriteLine(member);
+                    }    
+                    Console.WriteLine("squadra 2:");
+                    foreach (string member in squadra2)
+                    {
+                        Console.WriteLine(member);
+                    }  
+                    break;
+                case 9:
+                    programIsRunning = false;
+                    break;
                 default:
                     Console.WriteLine("Try Again:");
                     break;
