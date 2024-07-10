@@ -46,12 +46,10 @@ while (myScore > 0 && computerScore > 0)
     if (myPoints > computerPoints)
     {
         computerScore -= pointsDifference;
-        if (computerScore < 0) computerScore = 0;
     }
     else if (myPoints < computerPoints)
     {
         myScore -= pointsDifference;
-        if (myScore < 0) myScore = 0;
     }
 
     AnsiConsole.MarkupLine("[bold]Here are the new scores:[/]");
