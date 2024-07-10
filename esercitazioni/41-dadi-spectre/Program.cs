@@ -7,7 +7,7 @@ int computerScore = 100;
 AnsiConsole.Write(new FigletText("Dice Game").Centered().Color(Color.Green));
 AnsiConsole.MarkupLine("[bold]Welcome to the dice game, you'll be playing against me![/]");
 
-AnsiConsole.MarkupLine("[bold]Here are the new scores:[/]");
+AnsiConsole.MarkupLine("[bold]Here are the scores:[/]");
 var barChart = new BarChart()
     .Width(60)
     .Label("[bold]Scores[/]")
@@ -34,7 +34,7 @@ while (myScore > 0 && computerScore > 0)
     userPanel.Width = 15;
     AnsiConsole.Write(userPanel);
 
-    var computerPanel = new Panel($"[bold]My dice:[/]\n[green]{dice3}[/], [green]{dice4}[/]");
+    var computerPanel = new Panel($"[bold]My dice:[/]\n[red]{dice3}[/], [red]{dice4}[/]");
     computerPanel.Header = new PanelHeader("[bold]My Roll[/]", Justify.Center);
     computerPanel.Border = BoxBorder.Double;
     computerPanel.Padding = new Padding(1, 1, 1, 1);
