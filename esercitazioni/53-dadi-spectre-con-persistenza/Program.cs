@@ -37,6 +37,7 @@ while (myScore > 0 && computerScore > 0)
     int dice3 = random.Next(1, 7);
     int dice4 = random.Next(1, 7);
 
+    Console.Clear();
     // Display my dice rolls with panels
     var userPanel = new Panel($"[bold]Your dice:[/]\n[green]{dice1}[/], [green]{dice2}[/]");
     userPanel.Header = new PanelHeader("[bold]Your Roll[/]", Justify.Center);
