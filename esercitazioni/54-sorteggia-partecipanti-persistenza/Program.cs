@@ -1,4 +1,9 @@
-﻿// Check if the file exists and is not empty, then load members from the file
+﻿
+
+Console.Clear();
+        List<string> members = new List<string> { "Mattia", "Allison", "Silvano", "Ginevra", "Daniele", "Matteo", "Francesco", "Serghej" };
+        string path = @"members.txt";
+            // Check if the file exists and is not empty, then load members from the file
         if (File.Exists(path) && File.ReadAllText(path).Length != 0)
         {
             string[] savedMembers = File.ReadAllLines(path);
@@ -12,7 +17,7 @@
 
         bool programIsRunning = true;
 
-        // Main program loop
+            // Main program loop
         while (programIsRunning)
         {
             AnsiConsole.WriteLine("");
