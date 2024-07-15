@@ -1,5 +1,6 @@
 ﻿using Spectre.Console;
 
+Console.Clear();
 Random random = new Random();
 int myScore = 100;
 int computerScore = 100;
