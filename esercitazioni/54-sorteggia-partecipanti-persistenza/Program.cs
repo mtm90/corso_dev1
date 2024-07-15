@@ -1,22 +1,17 @@
 ﻿using Spectre.Console;
 Console.Clear();
-List<string> members = new List<string> { "Mattia", "Allison", "Silvano", "Ginevra", "Daniele", "Matteo", "Francesco", "Serghej" };
-string path = @"members.txt";
-if (File.ReadAllText(path).Length != 0)
-{
-    string[] savedMembers = File.ReadAllLines(path);
-    for (int i = 0; i < savedMembers.Length; i++)
-    {
-        members[i] = savedMembers[i];
-    }
-}
-else {
-for (int i = 0; i < members.Count; i++)
-{
-    File.AppendAllText(path, members[i] + "\n");
-}
-}
+        List<string> members = new List<string> { "Mattia", "Allison", "Silvano", "Ginevra", "Daniele", "Matteo", "Francesco", "Serghej" };
+        string path = @"members.txt";
 
+        if (File.Exists(path) && File.ReadAllText(path).Length != 0)
+        {
+            string[] savedMembers = File.ReadAllLines(path);
+            members = new List<string>(savedMembers);
+        }
+        else
+        {
+            File.WriteAllLines(path, members);
+        }
 
 bool programIsRunning = true; // creo una variabile booleana che definisce quando il programma deve funzionare
 while (programIsRunning)
@@ -62,7 +57,7 @@ while (programIsRunning)
                     break;
                 case "order members":
                     Console.Clear();
-                    input = AnsiConsole.Prompt(
+                    string sortInput = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                             .Title("Sort Menu")
                             .PageSize(3)
@@ -70,7 +65,7 @@ while (programIsRunning)
                                 "alphabetical order", "alphabetical order inverted",
                                 "go back"
                             }));
-                    switch (input)
+                    switch (sortInput)
                         {
                             case "alphabetical order":
                             members.Sort();
@@ -119,9 +114,7 @@ while (programIsRunning)
                         int index = members.IndexOf(name);
                         members[index] = newName;
                         Console.WriteLine("the member was successfully edited");
-                    File.ReadAllLines(path);
-                    members[index] = newName;
-                    File.WriteAllLines(path, members);
+                        File.WriteAllLines(path, members);
                     }
                     else 
                     { 
@@ -132,58 +125,52 @@ while (programIsRunning)
                     Console.Clear();
                     Random mix = new();
                     bool addToteam1 = true;
-                    var table2 = new Table();
-                    table2.Width = 15;
-                    table2.AddColumn("[bold]Team 1[/]");
-                    var table3 = new Table();
-                    table3.Width = 15;
-                    table3.AddColumn("[bold]Team 2[/]");
+                    var team1Table = new Table();
+                    team1Table.Width = 15;
+                    team1Table.AddColumn("[bold]Team 1[/]");
+                    var team2Table = new Table();
+                    team2Table.Width = 15;
+                    team2Table.AddColumn("[bold]Team 2[/]");
                     while (members.Count > 0)
                     {
                         int randomIndex = mix.Next(0, members.Count);
                         if(addToteam1)
                         {
-                            table2.AddRow(members[randomIndex]);
+                            team1Table.AddRow(members[randomIndex]);
                             addToteam1 = false;
                         }
                         else
                         {
-                            table3.AddRow(members[randomIndex]);
+                            team2Table.AddRow(members[randomIndex]);
                             addToteam1 = true;
                         }
                         members.RemoveAt(randomIndex);
                     }
-                    AnsiConsole.Write(table2);
-                    AnsiConsole.Write(table3);
-                    string[] names = File.ReadAllLines(path);
-
-                    foreach (string person in names)
-                    {
-                        members.Add(person);
-                    }
-
+                    AnsiConsole.Write(team1Table);
+                    AnsiConsole.Write(team2Table);
+                    members.AddRange(File.ReadAllLines(path));
                     break;
                 case "sort in teams with GetRange":
                     Console.Clear();
                     int split = members.Count/2;
-                    List<string> squadra1 = members.GetRange(0, split);    
-                    List<string> squadra2 = members.GetRange(split, members.Count - split);
-                    var table5 = new Table();
-                    table5.Width = 15;
-                    table5.AddColumn("[bold]Team 1[/]");
-                    var table6 = new Table();
-                    table6.Width = 15;
-                    table6.AddColumn("[bold]Team 2[/]");
-                    foreach (string member in squadra1)
+                    List<string> team1 = members.GetRange(0, split);    
+                    List<string> team2 = members.GetRange(split, members.Count - split);
+                    var team1TableWithGetRange = new Table();
+                    team1TableWithGetRange.Width = 15;
+                    team1TableWithGetRange.AddColumn("[bold]Team 1[/]");
+                    var team2TableWithGetRange = new Table();
+                    team2TableWithGetRange.Width = 15;
+                    team2TableWithGetRange.AddColumn("[bold]Team 2[/]");
+                    foreach (string member in team1)
                     {
-                        table5.AddRow(member);
+                        team1TableWithGetRange.AddRow(member);
                     }
-                    foreach (string member in squadra2)
+                    foreach (string member in team2)
                     {
-                        table6.AddRow(member);
+                        team2TableWithGetRange.AddRow(member);
                     }
-                    AnsiConsole.Write(table5);
-                    AnsiConsole.Write(table6);  
+                    AnsiConsole.Write(team1TableWithGetRange);
+                    AnsiConsole.Write(team2TableWithGetRange);  
                     break;
                 case "Quit":
                     programIsRunning = false;
