@@ -1,4 +1,4 @@
-﻿
+﻿using Spectre.Console;
 
 Console.Clear();
         List<string> members = new List<string> { "Mattia", "Allison", "Silvano", "Ginevra", "Daniele", "Matteo", "Francesco", "Serghej" };
