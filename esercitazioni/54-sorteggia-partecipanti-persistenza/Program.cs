@@ -1,7 +1,7 @@
 ﻿using Spectre.Console;
 
 Console.Clear();
-List<string> members = new List<string> { "Mattia", "Allison", "Silvano", "Ginevra", "Daniele", "Matteo", "Francesco", "Serghej" };
+List<string> members = new List<string> { "Mattia", "Allison", "Unknown", "Ginevra", "Daniele", "Matteo", "Francesco", "Serghej" };
 string path = @"members.txt";
     // Check if the file exists and is not empty, then load members from the file
 if (File.Exists(path) && File.ReadAllText(path).Length != 0)
@@ -42,14 +42,14 @@ bool programIsRunning = true;
             string newMember = Console.ReadLine()!;
             if (members.Contains(newMember))
             {
-                Console.WriteLine("The name is already in the list, try a different one");
+                AnsiConsole.WriteLine($"[bold]{newMember}[/] is already in the list, try a different one");
                 Thread.Sleep(1000);
             }
             else
             {
                 members.Add(newMember);
                 File.AppendAllText(path, newMember + "\n");
-                Console.WriteLine($"{newMember} was added to the Members Menu");
+                AnsiConsole.WriteLine($"[bold]{newMember}[/] was added to the Members Menu");
                 Thread.Sleep(1000);
             }
             break;
@@ -63,7 +63,7 @@ bool programIsRunning = true;
                 table.AddRow(member);
             }
             AnsiConsole.Write(table);
-            Console.WriteLine($"Total members: {members.Count}");
+            AnsiConsole.WriteLine($"Total members: {members.Count}");
             AnsiConsole.WriteLine("Press any key to continue");
             Console.ReadKey(true);
             break;
@@ -98,55 +98,55 @@ bool programIsRunning = true;
             break;
 
         case "find members":
-            Console.WriteLine("Insert name:");
+            AnsiConsole.WriteLine("Insert name:");
             string name = Console.ReadLine()!;
             if (members.Contains(name))
             {
-                Console.WriteLine("The name is listed");
+                AnsiConsole.WriteLine("The name is listed");
                 Thread.Sleep(1000);
 
             }
             else
             {
-                Console.WriteLine("The name is not listed");
+                AnsiConsole.WriteLine("The name is not listed");
                 Thread.Sleep(1000);
             }
             break;
 
         case "delete members":
-            Console.WriteLine("Type in the name of the member you want to delete");
+            AnsiConsole.WriteLine("Type in the name of the member you want to delete");
             string memberToDelete = Console.ReadLine()!;
             if (members.Contains(memberToDelete))
             {
                 members.Remove(memberToDelete);
-                Console.WriteLine("The name was deleted");
+                AnsiConsole.WriteLine("The name was deleted");
                 Thread.Sleep(1000);
                 File.WriteAllLines(path, members);
             }
             else
             {
-                Console.WriteLine("The name is not listed");
+                AnsiConsole.WriteLine("The name is not listed");
                 Thread.Sleep(1000);
 
             }
             break;
 
         case "edit members":
-            Console.WriteLine("Member name:");
+            AnsiConsole.WriteLine("Member name:");
             name = Console.ReadLine()!;
             if (members.Contains(name))
             {
-                Console.WriteLine("New name: ");
+                AnsiConsole.WriteLine("New name: ");
                 string newName = Console.ReadLine()!;
                 int index = members.IndexOf(name);
                 members[index] = newName;
-                Console.WriteLine("The member was successfully edited");
+                AnsiConsole.WriteLine("The member was successfully edited");
                 Thread.Sleep(1000);
                 File.WriteAllLines(path, members);
             }
             else
             {
-                Console.WriteLine("The member is not in the list");
+                AnsiConsole.WriteLine("The member is not in the list");
                 Thread.Sleep(1000);
             }
             break;
@@ -216,6 +216,5 @@ bool programIsRunning = true;
             break;
     }
 }
-
     // Save the members list to the file before exiting
 File.WriteAllLines(path, members);
