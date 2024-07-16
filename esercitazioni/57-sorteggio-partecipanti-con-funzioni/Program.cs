@@ -20,6 +20,7 @@ class Program
             Console.WriteLine("7. sort in teams");
             Console.WriteLine("8. sort in teams with GetRange");
             Console.WriteLine("9. Quit");
+            Console.WriteLine();
             Console.WriteLine("Choice:");
             input = Convert.ToInt32(Console.ReadLine());
             switch(input)
@@ -195,7 +196,6 @@ class Program
             members.RemoveAt(randomIndex);
         }
         Console.WriteLine("team1:");
-        Console.WriteLine("");
         foreach ( string member in team1)
         {
             Console.WriteLine(member);
@@ -203,7 +203,6 @@ class Program
         }
         Console.WriteLine("");
         Console.WriteLine("team2:");
-        Console.WriteLine("");
         foreach ( string member in team2)
         {
             Console.WriteLine(member);
@@ -215,6 +214,7 @@ class Program
     }
     static void SortInTeamsWithGetRange()
     {
+        Console.Clear();
         int split = members.Count/2;
         List<string> squadra1 = members.GetRange(0, split);    
         List<string> squadra2 = members.GetRange(split, members.Count - split);
@@ -223,7 +223,8 @@ class Program
         {
             Console.WriteLine(member);
             Thread.Sleep(1000);
-        }    
+        }  
+        Console.WriteLine("");  
         Console.WriteLine("squadra 2:");
         foreach (string member in squadra2)
         {
