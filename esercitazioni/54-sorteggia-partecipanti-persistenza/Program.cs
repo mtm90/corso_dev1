@@ -19,7 +19,8 @@ bool programIsRunning = true;
 
     // Main program loop
     while (programIsRunning)
-    {
+    {   
+        Console.Clear();
         AnsiConsole.WriteLine("");
         var input = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
@@ -42,12 +43,14 @@ bool programIsRunning = true;
             if (members.Contains(newMember))
             {
                 Console.WriteLine("The name is already in the list, try a different one");
+                Thread.Sleep(1000);
             }
             else
             {
                 members.Add(newMember);
                 File.AppendAllText(path, newMember + "\n");
                 Console.WriteLine($"{newMember} was added to the Members Menu");
+                Thread.Sleep(1000);
             }
             break;
 
@@ -79,10 +82,15 @@ bool programIsRunning = true;
             {
                 case "alphabetical order":
                     members.Sort();
+                    AnsiConsole.WriteLine("Memmbers order changed");
+                    Thread.Sleep(1000);
+
                     break;
                 case "alphabetical order inverted":
                     members.Sort();
                     members.Reverse();
+                    AnsiConsole.WriteLine("Memmbers order changed");
+                    Thread.Sleep(1000);
                     break;
                 case "go back":
                     break;
@@ -95,10 +103,13 @@ bool programIsRunning = true;
             if (members.Contains(name))
             {
                 Console.WriteLine("The name is listed");
+                Thread.Sleep(1000);
+
             }
             else
             {
                 Console.WriteLine("The name is not listed");
+                Thread.Sleep(1000);
             }
             break;
 
@@ -109,11 +120,14 @@ bool programIsRunning = true;
             {
                 members.Remove(memberToDelete);
                 Console.WriteLine("The name was deleted");
+                Thread.Sleep(1000);
                 File.WriteAllLines(path, members);
             }
             else
             {
                 Console.WriteLine("The name is not listed");
+                Thread.Sleep(1000);
+
             }
             break;
 
@@ -127,11 +141,13 @@ bool programIsRunning = true;
                 int index = members.IndexOf(name);
                 members[index] = newName;
                 Console.WriteLine("The member was successfully edited");
+                Thread.Sleep(1000);
                 File.WriteAllLines(path, members);
             }
             else
             {
                 Console.WriteLine("The member is not in the list");
+                Thread.Sleep(1000);
             }
             break;
 
