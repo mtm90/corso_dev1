@@ -157,6 +157,8 @@ bool programIsRunning = true;
             bool addToteam1 = true;
             var team1Table = new Table().AddColumn("[bold]Team 1[/]");
             var team2Table = new Table().AddColumn("[bold]Team 2[/]");
+            team1Table.Width = 15;
+            team2Table.Width = 15;
 
     // Randomly distribute members into two teams
         while (members.Count > 0)
@@ -191,6 +193,8 @@ bool programIsRunning = true;
             List<string> team2 = members.GetRange(split, members.Count - split);
             var team1TableWithGetRange = new Table().AddColumn("[bold]Team 1[/]");
             var team2TableWithGetRange = new Table().AddColumn("[bold]Team 2[/]");
+            team1TableWithGetRange.Width = 15;
+            team2TableWithGetRange.Width = 15;
 
     // Display teams
         foreach (string member in team1)
