@@ -11,13 +11,15 @@ bool programIsRunning = true;
 
 // Main program loop
 while (programIsRunning)
-{   
+{ 
+    var highlightStyle = new Style().Foreground(Color.LightGoldenrod1);
     Console.Clear();
     AnsiConsole.WriteLine("");
     var input = AnsiConsole.Prompt(
         new SelectionPrompt<string>()
-            .Title("[bold]Members menu[/]")
+            .Title("[bold LightGoldenrod1]Members menu[/]")
             .PageSize(9)
+            .HighlightStyle(highlightStyle)
             .AddChoices(new[]
             {
                 "add member", "show members", "order members",
@@ -110,10 +112,12 @@ void ShowMembers()
 void OrderMembers()
 {
     Console.Clear();
+    var highlightStyle = new Style().Foreground(Color.Violet);
     string sortInput = AnsiConsole.Prompt(
         new SelectionPrompt<string>()
-            .Title("Sort Menu")
+            .Title("[bold Violet]Order Menu[/]")
             .PageSize(3)
+            .HighlightStyle(highlightStyle)
             .AddChoices(new[] {
                 "alphabetical order", "alphabetical order inverted",
                 "go back"
@@ -217,7 +221,9 @@ void SortInTeams()
         members.RemoveAt(randomIndex);
     }
     AnsiConsole.Write(team1Table);
+    Thread.Sleep(1000);
     AnsiConsole.Write(team2Table);
+    Thread.Sleep(1000);
     AnsiConsole.Write("");
     AnsiConsole.WriteLine("Press any key to continue");
     Console.ReadKey(true);
@@ -247,7 +253,9 @@ void SortInTeamsWithGetRange()
         team2TableWithGetRange.AddRow(member);
     }
     AnsiConsole.Write(team1TableWithGetRange);
+    Thread.Sleep(1000);
     AnsiConsole.Write(team2TableWithGetRange);
+    Thread.Sleep(1000);
     AnsiConsole.WriteLine("Press any key to continue");
     Console.ReadKey(true);
 }
