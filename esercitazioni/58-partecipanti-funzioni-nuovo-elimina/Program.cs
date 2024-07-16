@@ -104,7 +104,7 @@ void ShowMembers()
         table.AddRow(member);
     }
     AnsiConsole.Write(table);
-    AnsiConsole.WriteLine($"Total members: {members.Count}");
+    AnsiConsole.MarkupLine($"[green bold]Total members: {members.Count}[/]");
     AnsiConsole.WriteLine("Press any key to continue");
     Console.ReadKey(true);
 }
