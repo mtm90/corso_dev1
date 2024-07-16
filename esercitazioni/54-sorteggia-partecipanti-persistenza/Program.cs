@@ -139,7 +139,7 @@ Console.Clear();
                     var team1Table = new Table().AddColumn("[bold]Team 1[/]");
                     var team2Table = new Table().AddColumn("[bold]Team 2[/]");
 
-                    // Randomly distribute members into two teams
+            // Randomly distribute members into two teams
                     while (members.Count > 0)
                     {
                         int randomIndex = mix.Next(0, members.Count);
@@ -158,7 +158,7 @@ Console.Clear();
                     AnsiConsole.Write(team1Table);
                     AnsiConsole.Write(team2Table);
 
-                    // Reload members from the file after sorting into teams
+            // Reload members from the file after sorting into teams
                     members.AddRange(File.ReadAllLines(path));
                     break;
 
@@ -170,7 +170,7 @@ Console.Clear();
                     var team1TableWithGetRange = new Table().AddColumn("[bold]Team 1[/]");
                     var team2TableWithGetRange = new Table().AddColumn("[bold]Team 2[/]");
 
-                    // Display teams
+            // Display teams
                     foreach (string member in team1)
                     {
                         team1TableWithGetRange.AddRow(member);
@@ -189,5 +189,5 @@ Console.Clear();
             }
         }
 
-        // Save the members list to the file before exiting
+            // Save the members list to the file before exiting
         File.WriteAllLines(path, members);
