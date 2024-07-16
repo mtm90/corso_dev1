@@ -47,6 +47,7 @@ bool programIsRunning = true;
             {
                 members.Add(newMember);
                 File.AppendAllText(path, newMember + "\n");
+                Console.WriteLine($"{newMember} was added to the Members Menu");
             }
             break;
 
@@ -60,6 +61,8 @@ bool programIsRunning = true;
             }
             AnsiConsole.Write(table);
             Console.WriteLine($"Total members: {members.Count}");
+            AnsiConsole.WriteLine("Press any key to continue");
+            Console.ReadKey(true);
             break;
 
         case "order members":
@@ -157,6 +160,9 @@ bool programIsRunning = true;
         }
         AnsiConsole.Write(team1Table);
         AnsiConsole.Write(team2Table);
+        AnsiConsole.Write("");
+        AnsiConsole.WriteLine("Press any key to continue");
+        Console.ReadKey(true);
 
     // Reload members from the file after sorting into teams
         members.AddRange(File.ReadAllLines(path));
@@ -181,6 +187,8 @@ bool programIsRunning = true;
         }
         AnsiConsole.Write(team1TableWithGetRange);
         AnsiConsole.Write(team2TableWithGetRange);
+        AnsiConsole.WriteLine("Press any key to continue");
+        Console.ReadKey(true);
         break;
 
         case "Quit":
