@@ -57,7 +57,7 @@ bool programIsRunning = true;
         case "show members":
             Console.Clear();
             var table = new Table();
-            table.AddColumn("[bold]Members[/]");
+            table.AddColumn("[green bold]Members[/]");
             foreach (var member in members)
             {
                 table.AddRow(member);
@@ -155,8 +155,8 @@ bool programIsRunning = true;
             Console.Clear();
             Random mix = new();
             bool addToteam1 = true;
-            var team1Table = new Table().AddColumn("[bold]Team 1[/]");
-            var team2Table = new Table().AddColumn("[bold]Team 2[/]");
+            var team1Table = new Table().AddColumn("[red bold]Team 1[/]");
+            var team2Table = new Table().AddColumn("[blue bold]Team 2[/]");
             team1Table.Width = 15;
             team2Table.Width = 15;
 
@@ -191,8 +191,8 @@ bool programIsRunning = true;
             int split = members.Count / 2;
             List<string> team1 = members.GetRange(0, split);
             List<string> team2 = members.GetRange(split, members.Count - split);
-            var team1TableWithGetRange = new Table().AddColumn("[bold]Team 1[/]");
-            var team2TableWithGetRange = new Table().AddColumn("[bold]Team 2[/]");
+            var team1TableWithGetRange = new Table().AddColumn("[red bold]Team 1[/]");
+            var team2TableWithGetRange = new Table().AddColumn("[blue bold]Team 2[/]");
             team1TableWithGetRange.Width = 15;
             team2TableWithGetRange.Width = 15;
 
