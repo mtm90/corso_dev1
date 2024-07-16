@@ -42,14 +42,14 @@ bool programIsRunning = true;
             string newMember = Console.ReadLine()!;
             if (members.Contains(newMember))
             {
-                AnsiConsole.WriteLine($"[bold]{newMember}[/] is already in the list, try a different one");
+                AnsiConsole.WriteLine($"{newMember} is already in the list, try a different one");
                 Thread.Sleep(1000);
             }
             else
             {
                 members.Add(newMember);
                 File.AppendAllText(path, newMember + "\n");
-                AnsiConsole.WriteLine($"[bold]{newMember}[/] was added to the Members Menu");
+                AnsiConsole.WriteLine($"{newMember} was added to the Members Menu");
                 Thread.Sleep(1000);
             }
             break;
