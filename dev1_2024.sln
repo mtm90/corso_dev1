@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "49-sorteggio-txt", "esercit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "48-sostituisci-dato-txt", "esercitazioni\48-sostituisci-dato-txt\48-sostituisci-dato-txt.csproj", "{E42E579B-715B-4087-8674-6E2518848DED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "67-gestionale-JSON", "esercitazioni\67-gestionale-JSON\67-gestionale-JSON.csproj", "{1A55C5AD-4AD8-42D5-A9FE-70B6AA9E5C14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -142,6 +144,10 @@ Global
 		{E42E579B-715B-4087-8674-6E2518848DED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E42E579B-715B-4087-8674-6E2518848DED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E42E579B-715B-4087-8674-6E2518848DED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A55C5AD-4AD8-42D5-A9FE-70B6AA9E5C14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A55C5AD-4AD8-42D5-A9FE-70B6AA9E5C14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A55C5AD-4AD8-42D5-A9FE-70B6AA9E5C14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A55C5AD-4AD8-42D5-A9FE-70B6AA9E5C14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2F92323D-BF9B-4D95-807A-435F40FCB09E} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
@@ -165,5 +171,6 @@ Global
 		{99097EAA-1605-412F-8891-4D4A1B5519B3} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
 		{58ECF83E-7D03-432A-83BD-F370419CC614} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
 		{E42E579B-715B-4087-8674-6E2518848DED} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
+		{1A55C5AD-4AD8-42D5-A9FE-70B6AA9E5C14} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
 	EndGlobalSection
 EndGlobal
