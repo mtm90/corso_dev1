@@ -1,4 +1,10 @@
 [
-{"nome":"tenda","prezzo":"10"},
-{"nome":"casa","prezzo":"1000000"}
+{
+  "nome": "asciugamano",
+  "prezzo": "20"
+},
+{
+  "nome": "costume",
+  "prezzo": "10"
+}
 ]

@@ -14,7 +14,13 @@ class Program
             Console.WriteLine("Inserisci nome e prezzo");
             string nome = Console.ReadLine()!.Trim(); // legge il nome
             string prezzo = Console.ReadLine()!.Trim(); // legge il prezzo
+
+            
+                string jsonString = JsonConvert.SerializeObject(new { nome, prezzo }, Formatting.Indented);
+                File.AppendAllText(path, jsonString + ",\n");
+            /*
             File.AppendAllText(path, JsonConvert.SerializeObject(new {nome, prezzo = prezzo.ToString() }) + ",\n"); // scrive la riga nel file
+            */
             Console.WriteLine("Vuoi inserire un altro prodotto? (s/n)");
             string risposta = Console.ReadLine()!;
             if (risposta.Equals("n"))
