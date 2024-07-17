@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "54-sorteggia-partecipanti-p
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "58-partecipanti-funzioni-nuovo-elimina", "esercitazioni\58-partecipanti-funzioni-nuovo-elimina\58-partecipanti-funzioni-nuovo-elimina.csproj", "{CB9E7420-025E-466A-8D35-C0D082886800}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "65-da-csv-a-json", "esercitazioni\65-da-csv-a-json\65-da-csv-a-json.csproj", "{1F25772C-9C74-4AE4-A406-8BEEB5035EBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "66-creazione-JSON-con-interfaccia", "esercitazioni\66-creazione-JSON-con-interfaccia\66-creazione-JSON-con-interfaccia.csproj", "{8900288B-BD46-494F-9CDA-8E2E79BA3C68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,10 +36,20 @@ Global
 		{CB9E7420-025E-466A-8D35-C0D082886800}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB9E7420-025E-466A-8D35-C0D082886800}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB9E7420-025E-466A-8D35-C0D082886800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F25772C-9C74-4AE4-A406-8BEEB5035EBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F25772C-9C74-4AE4-A406-8BEEB5035EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F25772C-9C74-4AE4-A406-8BEEB5035EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F25772C-9C74-4AE4-A406-8BEEB5035EBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8900288B-BD46-494F-9CDA-8E2E79BA3C68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8900288B-BD46-494F-9CDA-8E2E79BA3C68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8900288B-BD46-494F-9CDA-8E2E79BA3C68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8900288B-BD46-494F-9CDA-8E2E79BA3C68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2F92323D-BF9B-4D95-807A-435F40FCB09E} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
 		{A1B4DD38-0098-4961-85BD-03D73A92C60A} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
 		{CB9E7420-025E-466A-8D35-C0D082886800} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
+		{1F25772C-9C74-4AE4-A406-8BEEB5035EBF} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
+		{8900288B-BD46-494F-9CDA-8E2E79BA3C68} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
 	EndGlobalSection
 EndGlobal
