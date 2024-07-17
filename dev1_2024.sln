@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "53-dadi-spectre-con-persist
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "54-sorteggia-partecipanti-persistenza", "esercitazioni\54-sorteggia-partecipanti-persistenza\54-sorteggia-partecipanti-persistenza.csproj", "{A1B4DD38-0098-4961-85BD-03D73A92C60A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "58-partecipanti-funzioni-nuovo-elimina", "esercitazioni\58-partecipanti-funzioni-nuovo-elimina\58-partecipanti-funzioni-nuovo-elimina.csproj", "{CB9E7420-025E-466A-8D35-C0D082886800}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +28,14 @@ Global
 		{A1B4DD38-0098-4961-85BD-03D73A92C60A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1B4DD38-0098-4961-85BD-03D73A92C60A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1B4DD38-0098-4961-85BD-03D73A92C60A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB9E7420-025E-466A-8D35-C0D082886800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB9E7420-025E-466A-8D35-C0D082886800}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB9E7420-025E-466A-8D35-C0D082886800}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB9E7420-025E-466A-8D35-C0D082886800}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2F92323D-BF9B-4D95-807A-435F40FCB09E} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
 		{A1B4DD38-0098-4961-85BD-03D73A92C60A} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
+		{CB9E7420-025E-466A-8D35-C0D082886800} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
 	EndGlobalSection
 EndGlobal
