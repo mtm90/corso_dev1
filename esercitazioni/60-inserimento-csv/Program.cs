@@ -12,7 +12,7 @@ while (true)
     string nome = Console.ReadLine()!;
     string cognome = Console.ReadLine()!;
     string età = Console.ReadLine()!;
-    string anagrafica = ($"{nome},{cognome},{età}");
+    string anagrafica = $"{nome},{cognome},{età}";
     
     if (nomi.Contains(anagrafica))
     {
