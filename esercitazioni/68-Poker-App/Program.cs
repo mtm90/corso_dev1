@@ -1,4 +1,8 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
 class Program
 {
     static string[] deck = new string[52];
@@ -18,7 +22,7 @@ class Program
     static void Main()
     {
         int input;
-        do 
+        do
         {
             Console.Clear();
             Console.WriteLine("Welcome to The Poker App! Please choose one of the following options:");
@@ -176,7 +180,7 @@ class Program
 
     static void InitializeDeck()
     {
-        string[] suits = { "Hearts", "Diamonds", "Clubs", "Spades" };
+        string[] suits = { "\u2664", "\u2661", "\u2662", "\u2667" };
         string[] values = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
 
         int index = 0;
@@ -254,35 +258,24 @@ class Program
     static bool PlayerAction()
     {
         Console.WriteLine("Enter your action: (1) Bet (2) Raise (3) Call (4) Check (5) Fold");
-        int action = Convert.ToInt32(Console.ReadLine());
 
-        int callAmount = isPlayerSmallBlind ? bigBlind - playerBet : bigBlind - playerBet;
+        int action = Convert.ToInt32(Console.ReadLine());
+        int callAmount = (isPlayerSmallBlind ? bigBlind : playerBet) - playerBet;
 
         switch (action)
         {
             case 1: // Bet
-                Console.WriteLine("Enter your bet amount:");
-                int betAmount = Convert.ToInt32(Console.ReadLine());
-                if (betAmount > playerStack)
+            case 2: // Raise
+                Console.WriteLine("Enter your bet/raise amount:");
+                int amount = Convert.ToInt32(Console.ReadLine());
+                if (amount > playerStack)
                 {
                     Console.WriteLine("Insufficient funds, betting all-in.");
-                    betAmount = playerStack;
+                    amount = playerStack;
                 }
-                playerStack -= betAmount;
-                pot += betAmount;
-                playerBet = betAmount;
-                break;
-            case 2: // Raise
-                Console.WriteLine("Enter your raise amount:");
-                int raiseAmount = Convert.ToInt32(Console.ReadLine());
-                if (raiseAmount > playerStack)
-                {
-                    Console.WriteLine("Insufficient funds, raising all-in.");
-                    raiseAmount = playerStack;
-                }
-                playerStack -= raiseAmount;
-                pot += raiseAmount;
-                playerBet += raiseAmount;
+                playerStack -= amount;
+                pot += amount;
+                playerBet += amount;
                 break;
             case 3: // Call
                 if (callAmount > playerStack)
@@ -292,17 +285,17 @@ class Program
                 }
                 playerStack -= callAmount;
                 pot += callAmount;
-                playerBet = bigBlind;
+                playerBet = bigBlind; // Assuming the player is calling the big blind
                 break;
             case 4: // Check
-                if (playerBet == bigBlind)
+                if (playerBet == bigBlind || playerBet == 0)
                 {
                     Console.WriteLine("Checked.");
                 }
                 else
                 {
-                    Console.WriteLine("Cannot check; bet required.");
-                    PlayerAction();
+                    Console.WriteLine("Cannot check; a bet is required.");
+                    return PlayerAction(); // Re-prompt action
                 }
                 break;
             case 5: // Fold
@@ -322,21 +315,16 @@ class Program
         // Simple computer logic (for demonstration purposes)
         Random rand = new Random();
         int action = rand.Next(1, 6);
-        int callAmount = isPlayerSmallBlind ? bigBlind - computerBet : bigBlind - computerBet;
+        int callAmount = (isPlayerSmallBlind ? bigBlind : playerBet) - computerBet;
 
         switch (action)
         {
             case 1: // Bet
-                int betAmount = rand.Next(1, computerStack + 1);
-                computerStack -= betAmount;
-                pot += betAmount;
-                computerBet = betAmount;
-                break;
             case 2: // Raise
-                int raiseAmount = rand.Next(1, computerStack + 1);
-                computerStack -= raiseAmount;
-                pot += raiseAmount;
-                computerBet += raiseAmount;
+                int amount = rand.Next(1, computerStack + 1);
+                computerStack -= amount;
+                pot += amount;
+                computerBet += amount;
                 break;
             case 3: // Call
                 if (callAmount > computerStack)
@@ -348,14 +336,14 @@ class Program
                 computerBet = bigBlind;
                 break;
             case 4: // Check
-                if (computerBet == bigBlind)
+                if (computerBet == bigBlind || computerBet == 0)
                 {
                     Console.WriteLine("Computer checks.");
                 }
                 else
                 {
                     Console.WriteLine("Computer cannot check; bet required.");
-                    ComputerAction();
+                    return ComputerAction(); // Re-prompt action
                 }
                 break;
             case 5: // Fold
