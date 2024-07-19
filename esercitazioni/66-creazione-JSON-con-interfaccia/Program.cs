@@ -16,8 +16,8 @@ class Program
             string prezzo = Console.ReadLine()!.Trim(); // legge il prezzo
 
             
-                string jsonString = JsonConvert.SerializeObject(new { nome, prezzo }, Formatting.Indented);
-                File.AppendAllText(path, jsonString + ",\n");
+            string jsonString = JsonConvert.SerializeObject(new { nome, prezzo }, Formatting.Indented);
+            File.AppendAllText(path, jsonString + ",\n");
             /*
             File.AppendAllText(path, JsonConvert.SerializeObject(new {nome, prezzo = prezzo.ToString() }) + ",\n"); // scrive la riga nel file
             */
