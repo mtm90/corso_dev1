@@ -1,29 +1,177 @@
-﻿class Program
+﻿
+class Program
 {
     static string[] deck = new string[52];
     static string[] playerHand = new string[2];
     static string[] communityCards = new string[5];
     static int currentCardIndex = 0;
-    static int playerStack = 500;
-    static int computerStack = 500;
+    static int playerStack = 200;
+    static int computerStack = 200;
     static int smallBlind = 1;
     static int bigBlind = 2;
     static int pot = 0;
     static int playerBet = 0;
     static int computerBet = 0;
     static bool isPlayerSmallBlind = true;
+    static string gameFilePath = "game_data.json";
 
     static void Main()
     {
+        int input;
+        do 
+        {
+            Console.Clear();
+            Console.WriteLine("Welcome to The Poker App! Please choose one of the following options:");
+            Console.WriteLine("1. Start new game");
+            Console.WriteLine("2. Load game");
+            Console.WriteLine("3. Erase game");
+            Console.WriteLine("4. View games");
+            Console.WriteLine("5. Quit");
+            input = Convert.ToInt32(Console.ReadLine());
+            switch (input)
+            {
+                case 1:
+                    StartNewGame();
+                    break;
+                case 2:
+                    LoadGame();
+                    break;
+                case 3:
+                    EraseGame();
+                    break;
+                case 4:
+                    ViewGames();
+                    break;
+                case 5:
+                    Console.WriteLine("Quitting...");
+                    break;
+                default:
+                    Console.WriteLine("Invalid option, please try again");
+                    WaitForUserInput();
+                    break;
+            }
+        } while (input != 5);
+    }
+
+    static void StartNewGame()
+    {
         while (playerStack > 0 && computerStack > 0)
         {
-            StartNewGame();
-            // Swap blinds for the next hand
-            isPlayerSmallBlind = !isPlayerSmallBlind;
+            InitializeDeck();
+            ShuffleDeck();
+            currentCardIndex = 0;
+            pot = 0;
+            playerBet = 0;
+            computerBet = 0;
+
+            DealInitialCards();
+            HandleBlinds();
+            Console.WriteLine("Preflop: No community cards yet.");
+            DisplayPlayerHand();
+            DisplayPot();
+
+            bool handEnded = false;
+
+            if (isPlayerSmallBlind)
+            {
+                handEnded = !PlayerAction() || !ComputerAction();
+            }
+            else
+            {
+                handEnded = !ComputerAction() || !PlayerAction();
+            }
+
+            if (handEnded)
+            {
+                EndHand();
+                continue;
+            }
+
+            Console.WriteLine("Flop:");
+            DealCommunityCards(1);
+            DisplayCommunityCards();
+            DisplayPot();
+
+            if (isPlayerSmallBlind)
+            {
+                handEnded = !PlayerAction() || !ComputerAction();
+            }
+            else
+            {
+                handEnded = !ComputerAction() || !PlayerAction();
+            }
+
+            if (handEnded)
+            {
+                EndHand();
+                continue;
+            }
+
+            Console.WriteLine("Turn:");
+            DealCommunityCards(2);
+            DisplayCommunityCards();
+            DisplayPot();
+
+            if (isPlayerSmallBlind)
+            {
+                handEnded = !PlayerAction() || !ComputerAction();
+            }
+            else
+            {
+                handEnded = !ComputerAction() || !PlayerAction();
+            }
+
+            if (handEnded)
+            {
+                EndHand();
+                continue;
+            }
+
+            Console.WriteLine("River:");
+            DealCommunityCards(3);
+            DisplayCommunityCards();
+            DisplayPot();
+
+            if (isPlayerSmallBlind)
+            {
+                handEnded = !PlayerAction() || !ComputerAction();
+            }
+            else
+            {
+                handEnded = !ComputerAction() || !PlayerAction();
+            }
+
+            if (handEnded)
+            {
+                EndHand();
+                continue;
+            }
+
+            DetermineWinner();
+            EndHand();
         }
+
         Console.WriteLine("Game Over");
         Console.WriteLine($"Final Player Stack: {playerStack}");
         Console.WriteLine($"Final Computer Stack: {computerStack}");
+        WaitForUserInput();
+    }
+
+    static void EndHand()
+    {
+        Console.WriteLine("Hand Over");
+        Console.WriteLine($"Pot: {pot}");
+        Console.WriteLine($"Player Stack: {playerStack}");
+        Console.WriteLine($"Computer Stack: {computerStack}");
+
+        // Clear the community cards for the next hand
+        Array.Clear(communityCards, 0, communityCards.Length);
+        // Reset bets for the next hand
+        playerBet = 0;
+        computerBet = 0;
+        // Switch blinds for the next hand
+        isPlayerSmallBlind = !isPlayerSmallBlind;
+        WaitForUserInput();
     }
 
     static void InitializeDeck()
@@ -83,101 +231,8 @@
         }
     }
 
-    static void StartNewGame()
-    {
-        // Initialize and shuffle the deck
-        InitializeDeck();
-        ShuffleDeck();
-
-        // Reset game state
-        currentCardIndex = 0;
-        pot = 0;
-        playerBet = 0;
-        computerBet = 0;
-
-        // Deal initial cards
-        DealInitialCards();
-
-        // Handle blinds and betting
-        HandleBlinds();
-        Console.WriteLine("Preflop: No community cards yet.");
-        DisplayPlayerHand();
-        DisplayPot();
-
-        // Betting round: Preflop
-        if (isPlayerSmallBlind)
-        {
-            PlayerAction(); // Player is small blind
-            ComputerAction(); // Computer is big blind
-        }
-        else
-        {
-            ComputerAction(); // Computer is small blind
-            PlayerAction(); // Player is big blind
-        }
-
-        // Deal and display community cards stage by stage
-        Console.WriteLine("Flop:");
-        DealCommunityCards(1);
-        DisplayCommunityCards();
-        DisplayPot();
-        if (isPlayerSmallBlind)
-        {
-            PlayerAction(); // Player is second to act
-            ComputerAction(); // Computer is first to act
-        }
-        else
-        {
-            ComputerAction(); // Computer is second to act
-            PlayerAction(); // Player is first to act
-        }
-
-        Console.WriteLine("Turn:");
-        DealCommunityCards(2);
-        DisplayCommunityCards();
-        DisplayPot();
-        if (isPlayerSmallBlind)
-        {
-            PlayerAction(); // Player is second to act
-            ComputerAction(); // Computer is first to act
-        }
-        else
-        {
-            ComputerAction(); // Computer is second to act
-            PlayerAction(); // Player is first to act
-        }
-
-        Console.WriteLine("River:");
-        DealCommunityCards(3);
-        DisplayCommunityCards();
-        DisplayPot();
-        if (isPlayerSmallBlind)
-        {
-            PlayerAction(); // Player is second to act
-            ComputerAction(); // Computer is first to act
-        }
-        else
-        {
-            ComputerAction(); // Computer is second to act
-            PlayerAction(); // Player is first to act
-        }
-
-        // End of the hand, determine winner
-        DetermineWinner();
-        Console.WriteLine("Hand Over");
-        Console.WriteLine($"Pot: {pot}");
-        Console.WriteLine($"Player Stack: {playerStack}");
-        Console.WriteLine($"Computer Stack: {computerStack}");
-        WaitForUserInput();
-    }
-
     static void HandleBlinds()
     {
-        Console.WriteLine("Blinds are posted:");
-        Console.WriteLine($"Small Blind: {smallBlind}");
-        Console.WriteLine($"Big Blind: {bigBlind}");
-
-        // Deduct blinds from stacks and add to the pot
         if (isPlayerSmallBlind)
         {
             playerStack -= smallBlind;
@@ -196,7 +251,7 @@
         }
     }
 
-    static void PlayerAction()
+    static bool PlayerAction()
     {
         Console.WriteLine("Enter your action: (1) Bet (2) Raise (3) Call (4) Check (5) Fold");
         int action = Convert.ToInt32(Console.ReadLine());
@@ -237,84 +292,82 @@
                 }
                 playerStack -= callAmount;
                 pot += callAmount;
-                playerBet = bigBlind; // or smallBlind based on context
+                playerBet = bigBlind;
                 break;
             case 4: // Check
-                if (playerBet == bigBlind) // Can only check if no bet is required
+                if (playerBet == bigBlind)
                 {
                     Console.WriteLine("Checked.");
                 }
                 else
                 {
                     Console.WriteLine("Cannot check; bet required.");
-                    PlayerAction(); // Re-prompt action
+                    PlayerAction();
                 }
                 break;
             case 5: // Fold
                 Console.WriteLine("You folded.");
-                Environment.Exit(0); // End the game if the player folds
-                break;
+                computerStack += pot; // Computer wins the pot
+                pot = 0;
+                return false; // Indicates hand is over
             default:
                 Console.WriteLine("Invalid action.");
-                PlayerAction(); // Re-prompt action
-                break;
+                return PlayerAction(); // Re-prompt action
         }
+        return true; // Continue if action was valid
     }
 
-    static void ComputerAction()
+    static bool ComputerAction()
     {
+        // Simple computer logic (for demonstration purposes)
         Random rand = new Random();
-        int action = rand.Next(1, 6); // Random action: 1=Bet, 2=Raise, 3=Call, 4=Check, 5=Fold
-        int betAmount = rand.Next(0, Math.Min(computerStack, bigBlind) + 1); // Random bet between 0 and big blind
+        int action = rand.Next(1, 6);
+        int callAmount = isPlayerSmallBlind ? bigBlind - computerBet : bigBlind - computerBet;
 
-        int callAmount = bigBlind - computerBet;
-
-        Console.WriteLine($"Computer action: {action}");
         switch (action)
         {
             case 1: // Bet
-                Console.WriteLine($"Computer bets {betAmount}");
+                int betAmount = rand.Next(1, computerStack + 1);
                 computerStack -= betAmount;
                 pot += betAmount;
                 computerBet = betAmount;
                 break;
             case 2: // Raise
-                Console.WriteLine($"Computer raises by {betAmount}");
-                computerStack -= betAmount;
-                pot += betAmount;
-                computerBet += betAmount;
+                int raiseAmount = rand.Next(1, computerStack + 1);
+                computerStack -= raiseAmount;
+                pot += raiseAmount;
+                computerBet += raiseAmount;
                 break;
             case 3: // Call
                 if (callAmount > computerStack)
                 {
-                    Console.WriteLine("Computer calls all-in.");
                     callAmount = computerStack;
                 }
                 computerStack -= callAmount;
                 pot += callAmount;
-                computerBet = bigBlind; // or smallBlind based on context
+                computerBet = bigBlind;
                 break;
             case 4: // Check
-                if (computerBet == bigBlind) // Can only check if no bet is required
+                if (computerBet == bigBlind)
                 {
                     Console.WriteLine("Computer checks.");
                 }
                 else
                 {
                     Console.WriteLine("Computer cannot check; bet required.");
-                    ComputerAction(); // Re-prompt action
+                    ComputerAction();
                 }
                 break;
             case 5: // Fold
                 Console.WriteLine("Computer folded.");
                 playerStack += pot; // Player wins the pot
                 pot = 0;
-                break;
+                return false; // Indicates hand is over
             default:
                 Console.WriteLine("Invalid action.");
-                ComputerAction(); // Re-prompt action
-                break;
+                return ComputerAction(); // Re-prompt action
         }
+        return true; // Continue if action was valid
     }
 
     static void DisplayPlayerHand()
@@ -363,5 +416,49 @@
     {
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
+    }
+
+    static void LoadGame()
+    {
+        if (File.Exists(gameFilePath))
+        {
+            string gameData = File.ReadAllText(gameFilePath);
+            Console.WriteLine("Loaded game data:");
+            Console.WriteLine(gameData);
+        }
+        else
+        {
+            Console.WriteLine("No saved game found.");
+        }
+        WaitForUserInput();
+    }
+
+    static void EraseGame()
+    {
+        if (File.Exists(gameFilePath))
+        {
+            File.Delete(gameFilePath);
+            Console.WriteLine("Game data erased.");
+        }
+        else
+        {
+            Console.WriteLine("No saved game found to erase.");
+        }
+        WaitForUserInput();
+    }
+
+    static void ViewGames()
+    {
+        if (File.Exists(gameFilePath))
+        {
+            string gameData = File.ReadAllText(gameFilePath);
+            Console.WriteLine("Saved games:");
+            Console.WriteLine(gameData);
+        }
+        else
+        {
+            Console.WriteLine("No saved games found.");
+        }
+        WaitForUserInput();
     }
 }
