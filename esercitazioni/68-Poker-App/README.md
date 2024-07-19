@@ -9,7 +9,7 @@ L'obiettivo principale dell'applicazione "Poker Texas Hold'em" è di fornire agl
 
 - __Divertimento__:  Offrire un'esperienza di gioco appagante e realistica, simile a una partita di poker reale.
 - __Competizione__: Consentire agli utenti di sfidare il computer con un'intelligenza artificiale adeguata.
-- __Gestione delle partite__: Permettere agli utenti di salvare, visualizzare, aggiornare e cancellare le partite giocate.
+- __Gestione delle partite__: Permettere all'utente di salvare, visualizzare e cancellare le partite giocate.
 - __Accessibilità__: Creare un'interfaccia utente semplice e intuitiva che renda facile per i giocatori avviare nuove partite e gestire le partite esistenti.
 
 ## _Funzionalità chiave_
@@ -57,7 +57,7 @@ l'applicazione deve includere le seguenti funzionalità chiave:
 
 ## _Definizione di strutture e convenzioni_
 
-- inizialmente tutte le variabili sono in camelCase
+- inizialmente tutte le variabili sono in camelCase tranne le funzioni in PascalCase
 
 ## GANTT TIMELINE
 
@@ -87,4 +87,21 @@ gantt
     Cancellare partite e prompt di conferma : 1.5, 1d
     Test e debug : 1.5, 1d
     Finalizzare applicazione : 1.5, 1d
+```
+
+## FlowChart
+
+```mermaid
+flowchart TD
+    A[Poker App] --> B{1. Start new game
+    2. Load game
+    3. Erase game
+    4. View Game history
+    5. Quit
+    }
+    B --> |1|C(New Game has started! first cards are dealt)
+    B --> |2|D(Load saved game and continue playing)
+    B --> |3|E(Erase game)
+    B --> |4|F(View game history)
+    B --> |5| A
 ```
