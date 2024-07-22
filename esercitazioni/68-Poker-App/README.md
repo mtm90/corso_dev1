@@ -105,3 +105,11 @@ flowchart TD
     B --> |4|F(View game history)
     B --> |5| A
 ```
+
+
+# determine winner
+
+per stabilire il vincitore:
+ - creare coppie chiave/valore per la nostra mano e quella del computer. Ogni coppia chiave valore detiene il valore della manio finale(carta alta, coppia, doppia coppia, tris, etc...) e il suo punteggio.
+- assegnare un punteggio ad ogni possibile mano finale in base alla gerarchia di valori dei punteggi finale del poker
+in base al punteggio si stabilisce il vincitore
