@@ -233,10 +233,10 @@ class Program
                 communityCards[1] = DealCard();
                 communityCards[2] = DealCard();
                 break;
-            case 2: // Turn: 4 cards (include one more card)
+            case 2: // Turn: 1 card
                 communityCards[3] = DealCard();
                 break;
-            case 3: // River: 5 cards (include one more card)
+            case 3: // River: 1 card
                 communityCards[4] = DealCard();
                 break;
         }
@@ -342,7 +342,7 @@ class Program
                 }
                 else
                 {
-                    int amount = rand.Next(bigBlind, computerStack + 1); // Ensure the bet is within the stack limit
+                    int amount = rand.Next(bigBlind, pot); // Ensure the bet is within the stack limit
                     computerStack -= amount;
                     pot += amount;
                     computerBet += amount;
@@ -385,6 +385,7 @@ class Program
     {
         // Placeholder for determining the winner logic
         Console.WriteLine("Determining the winner...");
+        // This is a placeholder implementation. Replace with proper hand evaluation logic.
 
         // Example winner determination (randomly for now):
         Random rand = new Random();
