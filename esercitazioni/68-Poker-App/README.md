@@ -23,18 +23,17 @@ l'applicazione deve includere le seguenti funzionalità chiave:
 
 - __Visualizzazione dei dettagli delle partite__:
 
-    - Elencare tutte le partite salvate con informazioni di base (ID partita, data, risultato).
-    - Visualizzare i dettagli di una partita specifica, inclusi i movimenti dei giocatori e lo stato delle carte.
+   
+    - Visualizzare i dettagli di una partita specifica, incluse le puntate dei giocatori e lo stato delle carte.
 
 - __Aggiornamento delle partite__:
 
     - Consentire agli utenti di riprendere una partita salvata e continuare a giocare.
-    - Salvare lo stato aggiornato della partita in qualsiasi momento.
+    - Salvataggio automatico della partita.
 
 - __Cancellazione delle partite__:
 
     - Permettere agli utenti di eliminare una partita salvata.
-    - Confermare l'azione per prevenire cancellazioni accidentali.
 
 - __Gioco contro il computer__:
 
@@ -110,6 +109,6 @@ flowchart TD
 # determine winner
 
 per stabilire il vincitore:
- - creare coppie chiave/valore per la nostra mano e quella del computer. Ogni coppia chiave valore detiene il valore della manio finale(carta alta, coppia, doppia coppia, tris, etc...) e il suo punteggio.
+ - creare coppie chiave/valore per la nostra mano e quella del computer. Ogni coppia chiave valore detiene il valore della mano finale(carta alta, coppia, doppia coppia, tris, etc...) e il suo punteggio.
 - assegnare un punteggio ad ogni possibile mano finale in base alla gerarchia di valori dei punteggi finale del poker
 in base al punteggio si stabilisce il vincitore
