@@ -18,27 +18,26 @@ l'applicazione deve includere le seguenti funzionalità chiave:
 
 - __Aggiunta di nuove partite__:
 
-    - Creare una nuova partita di poker
-    - Salvare lo stato iniziale della partita con le informazioni dei giocatori e le carte distribuite.
+    - [ ] Creare una nuova partita di poker
 
 - __Visualizzazione dei dettagli delle partite__:
 
    
-    - Visualizzare i dettagli di una partita specifica, incluse le puntate dei giocatori e lo stato delle carte.
+    - [ ] Visualizzare i dettagli di una partita specifica, incluse le puntate dei giocatori e lo stato delle carte.
 
 - __Aggiornamento delle partite__:
 
-    - Consentire agli utenti di riprendere una partita salvata e continuare a giocare.
-    - Salvataggio automatico della partita.
+    - [ ] Consentire agli utenti di riprendere una partita salvata e continuare a giocare.
+    - [x] Salvataggio automatico della partita.
 
 - __Cancellazione delle partite__:
 
-    - Permettere agli utenti di eliminare una partita salvata.
+    - [x] Permettere agli utenti di eliminare una partita salvata.
 
 - __Gioco contro il computer__:
 
-    - Implementare una logica di gioco per il computer che simuli un avversario realistico.
-    - Gestire le varie fasi del gioco (pre-flop, flop, turn, river) con decisioni automatiche del computer.
+    - [ ] Implementare una logica di gioco per il computer che simuli un avversario realistico.
+    - [x] Gestire le varie fasi del gioco (pre-flop, flop, turn, river) con decisioni automatiche del computer.
 
 ## _Analisi target e esigenze utenti_
 
@@ -49,10 +48,10 @@ l'applicazione deve includere le seguenti funzionalità chiave:
     - Utenti tecnologici: Persone che apprezzano i giochi digitali e desiderano un'applicazione ben progettata e funzionante.
 
 - __esigenze degli utenti__:
-    - Interfaccia intuitiva: Un'interfaccia facile da usare che permetta di avviare e gestire le partite senza difficoltà.
-    - Esperienza di gioco realistica: Un'IA per il computer che offra una sfida adeguata e che rispecchi il comportamento di un giocatore reale.
-    - Funzionalità di gestione delle partite: Possibilità di salvare, visualizzare, aggiornare e cancellare le partite per tenere traccia dei propri progressi e delle proprie prestazioni.
-    - Divertimento e coinvolgimento: Un gioco che sia divertente da giocare, con elementi grafici e sonori che migliorino l'esperienza utente.
+    - [ ] Interfaccia intuitiva: Un'interfaccia facile da usare che permetta di avviare e gestire le partite senza difficoltà.
+    - [ ] Esperienza di gioco realistica: Un'IA per il computer che offra una sfida adeguata e che rispecchi il comportamento di un giocatore reale.
+    - [ ] Funzionalità di gestione delle partite: Possibilità di salvare, visualizzare e cancellare le partite per tenere traccia dei propri progressi e delle proprie prestazioni.
+    - [ ] Divertimento e coinvolgimento: Un gioco che sia divertente da giocare, con elementi grafici e sonori che migliorino l'esperienza utente.
 
 ## _Definizione di strutture e convenzioni_
 
@@ -79,8 +78,7 @@ gantt
     Visualizzare partite : 1.3, 1d
     section Day 4
     Visualizzare dettagli partita : 1.4, 1d
-    Aggiornare partite : 1.4, 1d
-    Salvare stato aggiornato in JSON : 1.4, 1d
+    Salvare partita in JSON : 1.4, 1d
     section Day 5
     Implementare gioco computer : 1.5, 1d
     Cancellare partite e prompt di conferma : 1.5, 1d
@@ -104,11 +102,3 @@ flowchart TD
     B --> |4|F(View game history)
     B --> |5| A
 ```
-
-
-# determine winner
-
-per stabilire il vincitore:
- - creare coppie chiave/valore per la nostra mano e quella del computer. Ogni coppia chiave valore detiene il valore della mano finale(carta alta, coppia, doppia coppia, tris, etc...) e il suo punteggio.
-- assegnare un punteggio ad ogni possibile mano finale in base alla gerarchia di valori dei punteggi finale del poker
-in base al punteggio si stabilisce il vincitore
