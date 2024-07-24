@@ -380,7 +380,7 @@ static bool BettingRound(bool playerStarts, bool isPreflop)
 static bool ComputerAction()
 {
     Random rand = new Random();
-    int action = rand.Next(1, 5); // Randomly choose between Bet/Raise, Call, Check, Fold
+    int action = rand.Next(1, 4); // Randomly choose between Bet/Raise, Call, Check, Fold
     int callAmount = playerBet - computerBet;
 
     switch (action)
