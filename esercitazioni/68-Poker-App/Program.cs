@@ -179,50 +179,6 @@ class Program
         WaitForUserInput();
     }
 
-    static bool BettingRound(bool playerStarts, bool isPreflop)
-{
-    bool roundOver = false;
-
-    while (!roundOver)
-    {
-        if (playerStarts)
-        {
-            if (!PlayerAction(isPreflop)) return false; // Player action
-            if (playerBet == computerBet) // Check or Call leads to the computer's turn
-            {
-                if (!ComputerAction()) return false; // Computer action
-                if (playerBet == computerBet) break; // Round over if bets are equal
-            }
-        }
-        else
-        {
-            if (!ComputerAction()) return false; // Computer action
-            if (playerBet == computerBet) // Check or Call leads to the player's turn
-            {
-                if (!PlayerAction(isPreflop)) return false; // Player action
-                if (playerBet == computerBet) break; // Round over if bets are equal
-            }
-        }
-
-        // If the bets are not equal, continue the round
-        if (playerBet != computerBet)
-        {
-            if (playerStarts)
-            {
-                if (!ComputerAction()) return false; // Computer action
-                if (playerBet == computerBet) break; // Round over if bets are equal
-            }
-            else
-            {
-                if (!PlayerAction(isPreflop)) return false; // Player action
-                if (playerBet == computerBet) break; // Round over if bets are equal
-            }
-        }
-    }
-
-    return true;
-}
-
     static void EndHand()
     {
         Console.WriteLine("Hand Over");
@@ -320,6 +276,49 @@ class Program
         }
     }
 
+static bool BettingRound(bool playerStarts, bool isPreflop)
+{
+    bool roundOver = false;
+
+    while (!roundOver)
+    {
+        if (playerStarts)
+        {
+            if (!PlayerAction(isPreflop)) return false; // Player action
+            if (playerBet == computerBet) // Check or Call leads to the computer's turn
+            {
+                if (!ComputerAction()) return false; // Computer action
+                if (playerBet == computerBet) break; // Round over if bets are equal
+            }
+        }
+        else
+        {
+            if (!ComputerAction()) return false; // Computer action
+            if (playerBet == computerBet) // Check or Call leads to the player's turn
+            {
+                if (!PlayerAction(isPreflop)) return false; // Player action
+                if (playerBet == computerBet) break; // Round over if bets are equal
+            }
+        }
+
+        // If the bets are not equal, continue the round
+        if (playerBet != computerBet)
+        {
+            if (playerStarts)
+            {
+                if (!ComputerAction()) return false; // Computer action
+                if (playerBet == computerBet) break; // Round over if bets are equal
+            }
+            else
+            {
+                if (!PlayerAction(isPreflop)) return false; // Player action
+                if (playerBet == computerBet) break; // Round over if bets are equal
+            }
+        }
+    }
+
+    return true;
+}
     static bool PlayerAction(bool isPreflop)
 {
     Console.WriteLine("Enter your action: (1) Bet/Raise (2) Call (3) Check (4) Fold");
@@ -668,9 +667,31 @@ static bool ComputerAction()
     }
 
     static void ViewGameHistory()
+{
+    if (File.Exists(gameFilePath))
     {
-        // Not implemented yet
+        string json = File.ReadAllText(gameFilePath);
+        GameState gameState = JsonConvert.DeserializeObject<GameState>(json);
+
+        Console.WriteLine("Game History:");
+        Console.WriteLine($"Player Stack: {gameState.PlayerStack}");
+        Console.WriteLine($"Computer Stack: {gameState.ComputerStack}");
+        Console.WriteLine($"Pot: {gameState.Pot}");
+        Console.WriteLine($"Player Bet: {gameState.PlayerBet}");
+        Console.WriteLine($"Computer Bet: {gameState.ComputerBet}");
+        Console.WriteLine($"Player Hand: {string.Join(" ", gameState.PlayerHand)}");
+        Console.WriteLine($"Computer Hand: {string.Join(" ", gameState.ComputerHand)}");
+        Console.WriteLine($"Community Cards: {string.Join(" ", gameState.CommunityCards)}");
+        Console.WriteLine($"Current Card Index: {gameState.CurrentCardIndex}");
+        Console.WriteLine($"Is Player Small Blind: {gameState.IsPlayerSmallBlind}");
     }
+    else
+    {
+        Console.WriteLine("No saved game found.");
+    }
+    WaitForUserInput();
+}
+
 
     static void SaveGame()
     {
@@ -683,8 +704,6 @@ static bool ComputerAction()
             CurrentCardIndex = currentCardIndex,
             PlayerStack = playerStack,
             ComputerStack = computerStack,
-            SmallBlind = smallBlind,
-            BigBlind = bigBlind,
             Pot = pot,
             PlayerBet = playerBet,
             ComputerBet = computerBet,
@@ -709,8 +728,6 @@ static bool ComputerAction()
             currentCardIndex = gameState.CurrentCardIndex;
             playerStack = gameState.PlayerStack;
             computerStack = gameState.ComputerStack;
-            smallBlind = gameState.SmallBlind;
-            bigBlind = gameState.BigBlind;
             pot = gameState.Pot;
             playerBet = gameState.PlayerBet;
             computerBet = gameState.ComputerBet;
@@ -736,8 +753,6 @@ static bool ComputerAction()
         public int CurrentCardIndex { get; set; }
         public int PlayerStack { get; set; }
         public int ComputerStack { get; set; }
-        public int SmallBlind { get; set; }
-        public int BigBlind { get; set; }
         public int Pot { get; set; }
         public int PlayerBet { get; set; }
         public int ComputerBet { get; set; }
