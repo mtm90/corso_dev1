@@ -106,7 +106,9 @@ class Program
                 continue;
             }
 
-            Console.WriteLine("Flop:");
+            Console.Clear();
+            DisplayPlayerHand();
+            Console.Write("Flop:");
             DealCommunityCards(1);
             DisplayCommunityCards();
             DisplayPot();
@@ -126,7 +128,9 @@ class Program
                 continue;
             }
 
-            Console.WriteLine("Turn:");
+            Console.Clear();
+            DisplayPlayerHand();
+            Console.Write("Turn:");
             DealCommunityCards(2);
             DisplayCommunityCards();
             DisplayPot();
@@ -145,8 +149,9 @@ class Program
                 EndHand();
                 continue;
             }
-
-            Console.WriteLine("River:");
+            Console.Clear();
+            DisplayPlayerHand();
+            Console.Write("River:");
             DealCommunityCards(3);
             DisplayCommunityCards();
             DisplayPot();
@@ -165,7 +170,7 @@ class Program
                 EndHand();
                 continue;
             }
-
+            Console.Clear();
             Console.WriteLine($"Computer hand: {computerHand[0]} {computerHand[1]}");
             DetermineWinner();
             EndHand();
@@ -632,7 +637,7 @@ static bool ComputerAction()
 
     static void DisplayCommunityCards()
     {
-        Console.WriteLine("Community cards: " + string.Join(" ", communityCards.Where(card => card != null)));
+        Console.WriteLine(" " + string.Join(" ", communityCards.Where(card => card != null)));
     }
 
     static void DisplayPot()
