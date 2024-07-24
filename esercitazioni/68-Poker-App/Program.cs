@@ -94,10 +94,12 @@ class Program
             if (isPlayerSmallBlind)
             {
                 handEnded = !BettingRound(true, true);
+                Thread.Sleep(1500);
             }
             else
             {
                 handEnded = !BettingRound(false, true);
+                Thread.Sleep(1500);
             }
 
             if (handEnded)
@@ -116,10 +118,12 @@ class Program
             if (!isPlayerSmallBlind)
             {
                 handEnded = !BettingRound(true, false);
+                Thread.Sleep(1500);
             }
             else
             {
                 handEnded = !BettingRound(false, false);
+                Thread.Sleep(1500);
             }
 
             if (handEnded)
@@ -138,10 +142,12 @@ class Program
             if (!isPlayerSmallBlind)
             {
                 handEnded = !BettingRound(true, false);
+                Thread.Sleep(1500);
             }
             else
             {
                 handEnded = !BettingRound(false, false);
+                Thread.Sleep(1500);
             }
 
             if (handEnded)
@@ -159,10 +165,12 @@ class Program
             if (!isPlayerSmallBlind)
             {
                 handEnded = !BettingRound(true, false);
+                Thread.Sleep(1500);
             }
             else
             {
                 handEnded = !BettingRound(false, false);
+                Thread.Sleep(1500);
             }
 
             if (handEnded)
@@ -172,6 +180,8 @@ class Program
             }
             Console.Clear();
             Console.WriteLine($"Computer hand: {computerHand[0]} {computerHand[1]}");
+            DisplayPlayerHand();
+            DisplayCommunityCards();
             DetermineWinner();
             EndHand();
 
@@ -266,8 +276,7 @@ class Program
             computerStack -= bigBlind;
             computerBet = bigBlind;
             pot += smallBlind + bigBlind;
-            Console.WriteLine($"Player posts small blind of {smallBlind}");
-            Console.WriteLine($"Computer posts big blind of {bigBlind}");
+            
         }
         else
         {
@@ -276,8 +285,7 @@ class Program
             computerStack -= smallBlind;
             computerBet = smallBlind;
             pot += bigBlind + smallBlind;
-            Console.WriteLine($"Computer posts small blind of {smallBlind}");
-            Console.WriteLine($"Player posts big blind of {bigBlind}");
+            
         }
     }
 
@@ -290,20 +298,18 @@ static bool BettingRound(bool playerStarts, bool isPreflop)
         if (playerStarts)
         {
             if (!PlayerAction(isPreflop)) return false; // Player action
-            if (playerBet == computerBet) // Check or Call leads to the computer's turn
-            {
+            
                 if (!ComputerAction()) return false; // Computer action
                 if (playerBet == computerBet) break; // Round over if bets are equal
-            }
+            
         }
         else
         {
             if (!ComputerAction()) return false; // Computer action
-            if (playerBet == computerBet) // Check or Call leads to the player's turn
-            {
+            
                 if (!PlayerAction(isPreflop)) return false; // Player action
                 if (playerBet == computerBet) break; // Round over if bets are equal
-            }
+            
         }
 
         // If the bets are not equal, continue the round
