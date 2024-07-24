@@ -18,12 +18,12 @@ l'applicazione deve includere le seguenti funzionalità chiave:
 
 - __Aggiunta di nuove partite__:
 
-    - [ ] Creare una nuova partita di poker
+    - [x] Creare una nuova partita di poker
 
 - __Visualizzazione dei dettagli delle partite__:
 
    
-    - [ ] Visualizzare i dettagli di una partita specifica, incluse le puntate dei giocatori e lo stato delle carte.
+    - [x] Visualizzare i dettagli di una partita specifica, incluse le puntate dei giocatori e lo stato delle carte.
 
 - __Aggiornamento delle partite__:
 
@@ -51,7 +51,7 @@ l'applicazione deve includere le seguenti funzionalità chiave:
     - [ ] Interfaccia intuitiva: Un'interfaccia facile da usare che permetta di avviare e gestire le partite senza difficoltà.
     - [ ] Esperienza di gioco realistica: Un'IA per il computer che offra una sfida adeguata e che rispecchi il comportamento di un giocatore reale.
     - [ ] Funzionalità di gestione delle partite: Possibilità di salvare, visualizzare e cancellare le partite per tenere traccia dei propri progressi e delle proprie prestazioni.
-    - [ ] Divertimento e coinvolgimento: Un gioco che sia divertente da giocare, con elementi grafici e sonori che migliorino l'esperienza utente.
+    
 
 ## _Definizione di strutture e convenzioni_
 
