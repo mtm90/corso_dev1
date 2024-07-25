@@ -455,7 +455,7 @@ class Program
             }
             else
             {
-                int amount = rand.Next(bigBlind, pot); // Ensure the bet is within the stack limit
+                int amount = rand.Next(bigBlind, pot * 2); // Ensure the bet is within the stack limit
                 if (amount > computerStack)
                 {
                     amount = computerStack; // Bet only the remaining stack if not enough
