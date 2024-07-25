@@ -28,7 +28,7 @@ class Program
             Console.WriteLine("1. Start new game");
             Console.WriteLine("2. Load game");
             Console.WriteLine("3. Erase game");
-            Console.WriteLine("4. View games");
+            Console.WriteLine("4. View game history");
             Console.WriteLine("5. Quit");
             input = Convert.ToInt32(Console.ReadLine());
 
