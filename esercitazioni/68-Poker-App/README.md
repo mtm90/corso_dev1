@@ -106,6 +106,10 @@ flowchart TD
 
 # To do list
 
-- [ ] Fix high card evaluation
+- [x] Fix high card evaluation
 - [ ] Fix betting rounds mechanics
+- [ ] Fix raise amount
+- [ ] Fix when player checks the action passes to pc
+- [x] Fix double bet
 - [ ] improve graphics
+- [ ] Fix game mechanics when players use all their stack, they shouldn't be able to make more bets
