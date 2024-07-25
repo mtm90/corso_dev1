@@ -508,6 +508,9 @@ class Program
     int playerScore = EvaluateHand(playerHand, communityCards, out int playerHighCard, out List<int> playerHighCards);
     int computerScore = EvaluateHand(computerHand, communityCards, out int computerHighCard, out List<int> computerHighCards);
 
+    Console.WriteLine($"Player Hand Evaluation: Score = {playerScore}, High Cards = {string.Join(", ", playerHighCards)}");
+    Console.WriteLine($"Computer Hand Evaluation: Score = {computerScore}, High Cards = {string.Join(", ", computerHighCards)}");
+
     if (playerScore > computerScore)
     {
         Console.WriteLine("Player wins the hand.");
@@ -566,21 +569,29 @@ static int EvaluateHand(string[] hand, string[] communityCards, out int highCard
     Array.Sort(cardValues, (a, b) => GetCardValue(b).CompareTo(GetCardValue(a)));
     Array.Sort(cardSuits);
 
-    highCards = cardValues.Select(GetCardValue).ToList();
+    // Create a list of cards sorted by their values
+    var sortedCards = allCards.Select(card => new { Value = GetCardValue(card.Length == 3 ? card.Substring(0, 2) : card[0].ToString()), Suit = card.Last() })
+                              .OrderByDescending(card => card.Value)
+                              .ToList();
 
-    if (IsRoyalFlush(cardValues, cardSuits)) { highCard = GetCardValue(cardValues[0]); return 10; }
-    if (IsStraightFlush(cardValues, cardSuits)) { highCard = GetCardValue(cardValues[0]); return 9; }
-    if (IsFourOfAKind(cardValues)) { highCard = GetCardValue(cardValues[0]); return 8; }
-    if (IsFullHouse(cardValues)) { highCard = GetCardValue(cardValues[0]); return 7; }
-    if (IsFlush(cardSuits)) { highCard = GetCardValue(cardValues[0]); return 6; }
-    if (IsStraight(cardValues)) { highCard = GetCardValue(cardValues[0]); return 5; }
-    if (IsThreeOfAKind(cardValues)) { highCard = GetCardValue(cardValues[0]); return 4; }
+    // Evaluate the best 5-card hand
+    highCards = sortedCards.Take(5).Select(card => card.Value).ToList();
+    highCard = highCards.First();
+
+    if (IsRoyalFlush(cardValues, cardSuits)) { highCard = highCards[0]; return 10; }
+    if (IsStraightFlush(cardValues, cardSuits)) { highCard = highCards[0]; return 9; }
+    if (IsFourOfAKind(cardValues)) { highCard = highCards[0]; return 8; }
+    if (IsFullHouse(cardValues)) { highCard = highCards[0]; return 7; }
+    if (IsFlush(cardSuits)) { highCard = highCards[0]; return 6; }
+    if (IsStraight(cardValues)) { highCard = highCards[0]; return 5; }
+    if (IsThreeOfAKind(cardValues)) { highCard = highCards[0]; return 4; }
     if (IsTwoPair(cardValues, out highCard)) { return 3; }
     if (IsOnePair(cardValues, out highCard)) { return 2; }
 
-    highCard = GetCardValue(cardValues[0]);
+    highCard = highCards[0];
     return 1;
 }
+
 
 
     static int GetCardValue(string card)
