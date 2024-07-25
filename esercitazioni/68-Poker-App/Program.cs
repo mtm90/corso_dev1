@@ -578,7 +578,6 @@ static int EvaluateHand(string[] hand, string[] communityCards, out int highCard
     highCards = sortedCards.Take(5).Select(card => card.Value).ToList();
     highCard = highCards.First();
 
-    if (IsRoyalFlush(cardValues, cardSuits)) { highCard = highCards[0]; return 10; }
     if (IsStraightFlush(cardValues, cardSuits)) { highCard = highCards[0]; return 9; }
     if (IsFourOfAKind(cardValues)) { highCard = highCards[0]; return 8; }
     if (IsFullHouse(cardValues)) { highCard = highCards[0]; return 7; }
@@ -615,10 +614,6 @@ static int EvaluateHand(string[] hand, string[] communityCards, out int highCard
         }
     }
 
-    static bool IsRoyalFlush(string[] cardValues, char[] cardSuits)
-    {
-        return IsFlush(cardSuits) && IsStraight(cardValues) && cardValues.Contains("A");
-    }
 
     static bool IsStraightFlush(string[] cardValues, char[] cardSuits)
     {
