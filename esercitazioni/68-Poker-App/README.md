@@ -114,3 +114,4 @@ flowchart TD
 - [ ] improve graphics
 - [ ] Fix game mechanics when players use all their stack, they shouldn't be able to make more bets
 - [ ] Integrate all in action and showdown
+- [ ] Include try and catch for errors
