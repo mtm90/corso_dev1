@@ -102,3 +102,10 @@ flowchart TD
     B --> |4|F(View game history)
     B --> |5| A
 ```
+
+
+# To do list
+
+- [ ] Fix high card evaluation
+- [ ] Fix betting rounds mechanics
+- [ ] improve graphics
