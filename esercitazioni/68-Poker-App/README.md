@@ -116,3 +116,4 @@ flowchart TD
 - [ ] Integrate all in action and showdown
 - [ ] Include try and catch for errors
 - [ ] Fix hand evaluation: flush should be better than tris
+- [ ] Fix fullhouse evaluation
