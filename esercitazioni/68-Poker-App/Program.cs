@@ -8,8 +8,8 @@ class Program
     static string[] computerHand = new string[2];
     static string[] communityCards = new string[5];
     static int currentCardIndex = 0;
-    static int playerStack = 200;
-    static int computerStack = 200;
+    static int playerStack = 500;
+    static int computerStack = 500;
     static int smallBlind = 1;
     static int bigBlind = 2;
     static int pot = 0;
@@ -458,7 +458,7 @@ class Program
             return false; // Return false to indicate the player has folded
 
         default:
-            actions += "[red]Invalid action. Try again.[/]\n";
+            actions += "[red]Invalid action. Try again.[/]\n"; 
             RenderGameStatus("Player's Turn", actions);
             return PlayerAction(isPreflop, currentHand); // Retry if the action is invalid
     }
