@@ -110,8 +110,8 @@ flowchart TD
 - [x] Fix betting rounds mechanics
 - [x] Fix double bet
 - [x] improve graphics
+- [x] Fix raise amount
 - [ ] Fix when player checks the action should pass to pc
-- [ ] Fix raise amount
 - [ ] Fix game mechanics when players use all their stack, they shouldn't be able to make more bets
 - [ ] Integrate all in action and showdown
 - [ ] Include try and catch for errors
