@@ -26,9 +26,12 @@ class Program
         do
         {
             Console.Clear();
+            AnsiConsole.Write(
+        new FigletText("Poker App")
+        .Centered()
+        .Color(Color.Red));
             input = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
-                    .Title("Welcome to The Poker App! Please choose one of the following options:")
                     .PageSize(5)
                     .AddChoices(new[] { "Start new game", "Load game", "Erase game", "View game history", "Quit" }));
 
@@ -240,7 +243,7 @@ class Program
     layout["Pot and Stacks"].Update(
         new Panel(
             Align.Center(
-                new Text($"Pot: {pot}\nYour Stack: {playerStack}\nComputer Stack: {computerStack}\n" + potAndStackActions), VerticalAlignment.Middle))
+                new Markup($"Pot: [bold]{pot}[/]\nYour Stack: [bold]{playerStack}[/]\nComputer Stack: [bold]{computerStack}[/]\n" + potAndStackActions), VerticalAlignment.Middle))
             .Header($"[blue]{stage}[/]", Justify.Center)
             .Border(BoxBorder.Rounded)
             .Expand()
