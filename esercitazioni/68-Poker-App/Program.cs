@@ -1,4 +1,5 @@
 ﻿﻿using Newtonsoft.Json;
+using Spectre.Console;
 class Program
 {
     static string[] deck = new string[52];
@@ -20,33 +21,31 @@ class Program
 
     static void Main()
     {
-        int input;
+        string input;
         do
         {
             Console.Clear();
-            Console.WriteLine("Welcome to The Poker App! Please choose one of the following options:");
-            Console.WriteLine("1. Start new game");
-            Console.WriteLine("2. Load game");
-            Console.WriteLine("3. Erase game");
-            Console.WriteLine("4. View game history");
-            Console.WriteLine("5. Quit");
-            input = Convert.ToInt32(Console.ReadLine());
+            input = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("Welcome to The Poker App! Please choose one of the following options:")
+                    .PageSize(5)
+                    .AddChoices(new[] { "Start new game", "Load game", "Erase game", "View game history", "Quit" }));
 
             switch (input)
             {
-                case 1:
+                case "Start new game":
                     StartNewGame(false);
                     break;
-                case 2:
+                case "Load game":
                     LoadGame();
                     break;
-                case 3:
+                case "Erase game":
                     EraseGame();
                     break;
-                case 4:
+                case "View game history":
                     ViewGameHistory();
                     break;
-                case 5:
+                case "Quit":
                     Console.WriteLine("Quitting...");
                     break;
                 default:
@@ -54,7 +53,7 @@ class Program
                     WaitForUserInput();
                     break;
             }
-        } while (input != 5);
+        } while (input != "Quit");
     }
 
     static void StartNewGame(bool isLoadedGame)
