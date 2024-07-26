@@ -108,12 +108,13 @@ flowchart TD
 
 - [x] Fix high card evaluation
 - [x] Fix betting rounds mechanics
-- [ ] Fix raise amount
 - [x] Fix when player checks the action should pass to pc
 - [x] Fix double bet
 - [x] improve graphics
+- [ ] Fix raise amount
 - [ ] Fix game mechanics when players use all their stack, they shouldn't be able to make more bets
 - [ ] Integrate all in action and showdown
 - [ ] Include try and catch for errors
 - [ ] Fix hand evaluation: flush should be better than tris
 - [ ] Fix fullhouse evaluation
+- [ ] Fix Three of a kind evaluation
