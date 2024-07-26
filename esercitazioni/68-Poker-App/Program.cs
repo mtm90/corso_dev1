@@ -64,8 +64,8 @@ class Program
 {
     if (!isLoadedGame)
     {
-        playerStack = 200;
-        computerStack = 200;
+        playerStack = 500;
+        computerStack = 500;
     }
 
     while (playerStack > 0 && computerStack > 0)
@@ -234,7 +234,9 @@ class Program
     );
 
     layout["Community Cards"].Update(
-        new Panel(new Markup(" " + string.Join(" ", communityCards.Where(card => card != null)) + "\n" + actions))
+        new Panel(
+            Align.Center(
+                new Markup(" " + string.Join(" ", communityCards.Where(card => card != null)) + "\n" + actions), VerticalAlignment.Middle))
             .Header("[yellow]Community Cards and action[/]", Justify.Center)
             .Border(BoxBorder.Rounded)
             .Expand()
