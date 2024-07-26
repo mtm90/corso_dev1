@@ -111,7 +111,8 @@ flowchart TD
 - [x] Fix double bet
 - [x] improve graphics
 - [x] Fix raise amount
-- [ ] Fix fullhouse evaluation, program thinks three of a kind is fullhouse
+- [x] Fix fullhouse evaluation, program thinks three of a kind is fullhouse
+- [ ] Fix Higher pair wins, regardless of kicker
 - [ ] Fix when player checks the action should pass to pc
 - [ ] Fix game mechanics when players use all their stack, they shouldn't be able to make more bets
 - [ ] Integrate all in action and showdown

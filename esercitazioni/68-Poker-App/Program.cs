@@ -582,43 +582,44 @@ class Program
     }
 
     static int EvaluateHand(string[] hand, string[] communityCards, out int highCard, out List<int> highCards)
+{
+    List<string> allCards = new List<string>(hand);
+    allCards.AddRange(communityCards);
+    string[] cardValues = new string[allCards.Count];
+    char[] cardSuits = new char[allCards.Count];
+
+    for (int i = 0; i < allCards.Count; i++)
     {
-        List<string> allCards = new List<string>(hand);
-        allCards.AddRange(communityCards);
-        string[] cardValues = new string[allCards.Count];
-        char[] cardSuits = new char[allCards.Count];
-
-        for (int i = 0; i < allCards.Count; i++)
-        {
-            string card = allCards[i];
-            cardValues[i] = card.Length == 3 ? card.Substring(0, 2) : card[0].ToString();
-            cardSuits[i] = card.Last();
-        }
-
-        Array.Sort(cardValues, (a, b) => GetCardValue(b).CompareTo(GetCardValue(a)));
-        Array.Sort(cardSuits);
-
-        // Create a list of cards sorted by their values
-        var sortedCards = allCards.Select(card => new { Value = GetCardValue(card.Length == 3 ? card.Substring(0, 2) : card[0].ToString()), Suit = card.Last() })
-                                  .OrderByDescending(card => card.Value)
-                                  .ToList();
-
-        // Evaluate the best 5-card hand
-        highCards = sortedCards.Take(5).Select(card => card.Value).ToList();
-        highCard = highCards.First();
-
-        if (IsStraightFlush(cardValues, cardSuits)) { highCard = highCards[0]; return 9; }
-        if (IsFourOfAKind(cardValues)) { highCard = highCards[0]; return 8; }
-        if (IsFullHouse(cardValues)) { highCard = highCards[0]; return 7; }
-        if (IsFlush(cardSuits)) { highCard = highCards[0]; return 6; }
-        if (IsStraight(cardValues)) { highCard = highCards[0]; return 5; }
-        if (IsThreeOfAKind(cardValues)) { highCard = highCards[0]; return 4; }
-        if (IsTwoPair(cardValues, out highCard)) { return 3; }
-        if (IsOnePair(cardValues, out highCard)) { return 2; }
-
-        highCard = highCards[0];
-        return 1;
+        string card = allCards[i];
+        cardValues[i] = card.Length == 3 ? card.Substring(0, 2) : card[0].ToString();
+        cardSuits[i] = card.Last();
     }
+
+    Array.Sort(cardValues, (a, b) => GetCardValue(b).CompareTo(GetCardValue(a)));
+    Array.Sort(cardSuits);
+
+    // Create a list of cards sorted by their values
+    var sortedCards = allCards.Select(card => new { Value = GetCardValue(card.Length == 3 ? card.Substring(0, 2) : card[0].ToString()), Suit = card.Last() })
+                              .OrderByDescending(card => card.Value)
+                              .ToList();
+
+    // Evaluate the best 5-card hand
+    highCards = sortedCards.Take(5).Select(card => card.Value).ToList();
+    highCard = highCards.First();
+
+    if (IsStraightFlush(cardValues, cardSuits)) { highCard = highCards[0]; return 9; }
+    if (IsFourOfAKind(cardValues)) { highCard = highCards[0]; return 8; }
+    if (IsFullHouse(cardValues)) { highCard = highCards[0]; return 7; }
+    if (IsFlush(cardSuits)) { highCard = highCards[0]; return 6; }
+    if (IsStraight(cardValues)) { highCard = highCards[0]; return 5; }
+    if (IsThreeOfAKind(cardValues)) { highCard = highCards[0]; return 4; }
+    if (IsTwoPair(cardValues, out highCard)) { return 3; }
+    if (IsOnePair(cardValues, out highCard)) { return 2; }
+
+    highCard = highCards[0];
+    return 1;
+}
+
 
     static int GetCardValue(string card)
     {
@@ -659,27 +660,36 @@ class Program
     }
 
     static bool IsFullHouse(string[] cardValues)
+{
+    var valueCounts = new Dictionary<string, int>();
+    foreach (var value in cardValues)
     {
-        bool threeOfAKind = false;
-        bool pair = false;
-        for (int i = 0; i < cardValues.Length - 2; i++)
-        {
-            if (cardValues[i] == cardValues[i + 1] && cardValues[i] == cardValues[i + 2])
-            {
-                threeOfAKind = true;
-                break;
-            }
-        }
-        for (int i = 0; i < cardValues.Length - 1; i++)
-        {
-            if (cardValues[i] == cardValues[i + 1])
-            {
-                pair = true;
-                break;
-            }
-        }
-        return threeOfAKind && pair;
+        if (valueCounts.ContainsKey(value))
+            valueCounts[value]++;
+        else
+            valueCounts[value] = 1;
     }
+
+    bool hasThreeOfAKind = false;
+    bool hasPair = false;
+
+    foreach (var count in valueCounts.Values)
+    {
+        if (count == 3)
+            hasThreeOfAKind = true;
+        else if (count == 2)
+            hasPair = true;
+        else if (count == 4)
+        {
+            // If we have four of a kind, we can count it as both a three of a kind and a pair
+            hasThreeOfAKind = true;
+            hasPair = true;
+        }
+    }
+
+    return hasThreeOfAKind && hasPair;
+}
+
 
     static bool IsFlush(char[] cardSuits)
     {
