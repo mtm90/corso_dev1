@@ -1,5 +1,6 @@
 ﻿﻿using Newtonsoft.Json;
 using Spectre.Console;
+
 class Program
 {
     static string[] deck = new string[52];
@@ -56,186 +57,204 @@ class Program
         } while (input != "Quit");
     }
 
-    static void StartNewGame(bool isLoadedGame)
+   static void StartNewGame(bool isLoadedGame)
+{
+    if (!isLoadedGame)
     {
+        playerStack = 200;
+        computerStack = 200;
+    }
+
+    while (playerStack > 0 && computerStack > 0)
+    {
+        Console.Clear();
+
         if (!isLoadedGame)
         {
-            playerStack = 200;
-            computerStack = 200;
+            InitializeDeck();
+            ShuffleDeck();
+            currentCardIndex = 0;
+            pot = 0;
+            playerBet = 0;
+            computerBet = 0;
         }
 
-        while (playerStack > 0 && computerStack > 0)
+        HandHistory currentHand = new HandHistory();
+        handHistories.Add(currentHand);
+
+        DealInitialCards();
+        HandleBlinds();
+        Console.Clear();
+
+        RenderGameStatus("Preflop: No community cards yet.");
+
+        currentHand.Preflop = new HandStage
         {
-            Console.Clear();
+            PlayerHand = (string[])playerHand.Clone(),
+            ComputerHand = (string[])computerHand.Clone(),
+            PlayerBet = playerBet,
+            ComputerBet = computerBet,
+            Pot = pot
+        };
 
-            if (!isLoadedGame)
-            {
-                InitializeDeck();
-                ShuffleDeck();
-                currentCardIndex = 0;
-                pot = 0;
-                playerBet = 0;
-                computerBet = 0;
-            }
-
-            HandHistory currentHand = new HandHistory();
-            handHistories.Add(currentHand);
-
-            DealInitialCards();
-            HandleBlinds();
-            Console.Clear();
-            Console.WriteLine("Preflop: No community cards yet.");
-            DisplayPlayerHand();
-            DisplayPot();
-            DisplayStacks();
-
-            currentHand.Preflop = new HandStage
-            {
-                PlayerHand = (string[])playerHand.Clone(),
-                ComputerHand = (string[])computerHand.Clone(),
-                PlayerBet = playerBet,
-                ComputerBet = computerBet,
-                Pot = pot
-            };
-
-            bool handEnded = false;
-            if (isPlayerSmallBlind)
-            {
-                handEnded = !BettingRound(true, true, currentHand);
-                Thread.Sleep(1500);
-            }
-            else
-            {
-                handEnded = !BettingRound(false, true, currentHand);
-                Thread.Sleep(1500);
-            }
-
-            if (handEnded)
-            {
-                EndHand(currentHand);
-                continue;
-            }
-
-            Console.Clear();
-            DisplayPlayerHand();
-            Console.Write("Flop:");
-            DealCommunityCards(1);
-            DisplayCommunityCards();
-            DisplayPot();
-            DisplayStacks();
-            currentHand.Flop = new HandStage
-            {
-                CommunityCards = (string[])communityCards.Clone(),
-                PlayerBet = playerBet,
-                ComputerBet = computerBet,
-                Pot = pot
-            };
-
-            if (!isPlayerSmallBlind)
-            {
-                handEnded = !BettingRound(true, false, currentHand);
-                Thread.Sleep(1500);
-            }
-            else
-            {
-                handEnded = !BettingRound(false, false, currentHand);
-                Thread.Sleep(1500);
-            }
-
-            if (handEnded)
-            {
-                EndHand(currentHand);
-                continue;
-            }
-
-            Console.Clear();
-            DisplayPlayerHand();
-            Console.Write("Turn:");
-            DealCommunityCards(2);
-            DisplayCommunityCards();
-            DisplayPot();
-            DisplayStacks();
-            currentHand.Turn = new HandStage
-            {
-                CommunityCards = (string[])communityCards.Clone(),
-                PlayerBet = playerBet,
-                ComputerBet = computerBet,
-                Pot = pot
-            };
-
-            if (!isPlayerSmallBlind)
-            {
-                handEnded = !BettingRound(true, false, currentHand);
-                Thread.Sleep(1500);
-            }
-            else
-            {
-                handEnded = !BettingRound(false, false, currentHand);
-                Thread.Sleep(1500);
-            }
-
-            if (handEnded)
-            {
-                EndHand(currentHand);
-                continue;
-            }
-            Console.Clear();
-            DisplayPlayerHand();
-            Console.Write("River:");
-            DealCommunityCards(3);
-            DisplayCommunityCards();
-            DisplayPot();
-            DisplayStacks();
-            currentHand.River = new HandStage
-            {
-                CommunityCards = (string[])communityCards.Clone(),
-                PlayerBet = playerBet,
-                ComputerBet = computerBet,
-                Pot = pot
-            };
-
-            if (!isPlayerSmallBlind)
-            {
-                handEnded = !BettingRound(true, false, currentHand);
-                Thread.Sleep(1500);
-            }
-            else
-            {
-                handEnded = !BettingRound(false, false, currentHand);
-                Thread.Sleep(1500);
-            }
-
-            if (handEnded)
-            {
-                EndHand(currentHand);
-                continue;
-            }
-            Console.Clear();
-            Console.WriteLine($"Computer hand: {computerHand[0]} {computerHand[1]}");
-            DisplayPlayerHand();
-            DisplayCommunityCards();
-            DetermineWinner(currentHand);
-            EndHand(currentHand);
-
-            isLoadedGame = false; // Reset after the first loop
+        bool handEnded = false;
+        if (isPlayerSmallBlind)
+        {
+            handEnded = !BettingRound(true, true, currentHand);
+            Thread.Sleep(1500);
+        }
+        else
+        {
+            handEnded = !BettingRound(false, true, currentHand);
+            Thread.Sleep(1500);
         }
 
-        Console.WriteLine("Game Over");
-        Console.WriteLine($"Final Player Stack: {playerStack}");
-        Console.WriteLine($"Final Computer Stack: {computerStack}");
-        WaitForUserInput();
+        if (handEnded)
+        {
+            EndHand(currentHand);
+            continue;
+        }
+
+        Console.Clear();
+        DealCommunityCards(1); // Correctly deal the three flop cards
+        RenderGameStatus("Flop:");
+        
+        currentHand.Flop = new HandStage
+        {
+            CommunityCards = (string[])communityCards.Clone(),
+            PlayerBet = playerBet,
+            ComputerBet = computerBet,
+            Pot = pot
+        };
+
+        if (!isPlayerSmallBlind)
+        {
+            handEnded = !BettingRound(true, false, currentHand);
+            Thread.Sleep(1500);
+        }
+        else
+        {
+            handEnded = !BettingRound(false, false, currentHand);
+            Thread.Sleep(1500);
+        }
+
+        if (handEnded)
+        {
+            EndHand(currentHand);
+            continue;
+        }
+
+        Console.Clear();
+        DealCommunityCards(2); // Deal the turn card
+        RenderGameStatus("Turn:");
+        currentHand.Turn = new HandStage
+        {
+            CommunityCards = (string[])communityCards.Clone(),
+            PlayerBet = playerBet,
+            ComputerBet = computerBet,
+            Pot = pot
+        };
+
+        if (!isPlayerSmallBlind)
+        {
+            handEnded = !BettingRound(true, false, currentHand);
+            Thread.Sleep(1500);
+        }
+        else
+        {
+            handEnded = !BettingRound(false, false, currentHand);
+            Thread.Sleep(1500);
+        }
+
+        if (handEnded)
+        {
+            EndHand(currentHand);
+            continue;
+        }
+        Console.Clear();
+        DealCommunityCards(3); // Deal the river card
+        RenderGameStatus("River:");
+        currentHand.River = new HandStage
+        {
+            CommunityCards = (string[])communityCards.Clone(),
+            PlayerBet = playerBet,
+            ComputerBet = computerBet,
+            Pot = pot
+        };
+
+        if (!isPlayerSmallBlind)
+        {
+            handEnded = !BettingRound(true, false, currentHand);
+            Thread.Sleep(1500);
+        }
+        else
+        {
+            handEnded = !BettingRound(false, false, currentHand);
+            Thread.Sleep(1500);
+        }
+
+        if (handEnded)
+        {
+            EndHand(currentHand);
+            continue;
+        }
+        Console.Clear();
+        RenderGameStatus($"Computer hand: {computerHand[0]} {computerHand[1]}");
+        DetermineWinner(currentHand);
+        EndHand(currentHand);
+
+        isLoadedGame = false; // Reset after the first loop
     }
+
+    AnsiConsole.Write(new Markup($"[bold]Game Over[/]\nFinal Player Stack: [bold]{playerStack}[/]\nFinal Computer Stack: [bold]{computerStack}[/]"));
+    WaitForUserInput();
+}
+
+
+    static void RenderGameStatus(string stage, string actions = "", string potAndStackActions = "")
+{
+    var layout = new Layout()
+        .SplitColumns(
+            new Layout("Community Cards").Ratio(3),
+            new Layout("RightSide").SplitRows(
+            new Layout("Player Hand").Ratio(1),
+            new Layout("Pot and Stacks").Ratio(1)
+        ));
+
+    layout["Player Hand"].Update(
+        new Panel(
+            Align.Center(
+            new Text(string.Join(" ", playerHand)), VerticalAlignment.Middle))
+            .Header("[red]Your Hand[/]", Justify.Center)
+            .Border(BoxBorder.Rounded)
+            .Expand()
+    );
+
+    layout["Community Cards"].Update(
+        new Panel(new Markup(" " + string.Join(" ", communityCards.Where(card => card != null)) + "\n" + actions))
+            .Header("[yellow]Community Cards and action[/]", Justify.Center)
+            .Border(BoxBorder.Rounded)
+            .Expand()
+    );
+
+    layout["Pot and Stacks"].Update(
+        new Panel(
+            Align.Center(
+                new Text($"Pot: {pot}\nYour Stack: {playerStack}\nComputer Stack: {computerStack}\n" + potAndStackActions), VerticalAlignment.Middle))
+            .Header($"[blue]{stage}[/]", Justify.Center)
+            .Border(BoxBorder.Rounded)
+            .Expand()
+    );
+
+    AnsiConsole.Write(layout);
+}
+
 
     static void EndHand(HandHistory currentHand)
     {
         currentHand.EndPot = pot;
         currentHand.PlayerStack = playerStack;
         currentHand.ComputerStack = computerStack;
-
-        Console.WriteLine("Hand Over");
-        Console.WriteLine($"Pot: {pot}");
-        Console.WriteLine($"Player Stack: {playerStack}");
-        Console.WriteLine($"Computer Stack: {computerStack}");
         Array.Clear(communityCards, 0, communityCards.Length);
         playerBet = 0;
         computerBet = 0;
@@ -326,58 +345,59 @@ class Program
     }
 
     static bool BettingRound(bool playerStarts, bool isPreflop, HandHistory currentHand)
-{
-    // Indicates if the betting round is over
-    bool roundOver = false;
-    
-    // Determine whose turn it is initially based on the playerStarts parameter
-    bool playerTurn = playerStarts;
-
-    // Continue the loop until the betting round is concluded
-    while (!roundOver)
     {
-        if (playerTurn)
+        // Indicates if the betting round is over
+        bool roundOver = false;
+
+        // Determine whose turn it is initially based on the playerStarts parameter
+        bool playerTurn = playerStarts;
+
+        // Continue the loop until the betting round is concluded
+        while (!roundOver)
         {
-            // If it's the player's turn, execute the player's action
-            // If the player folds (returns false), the round ends immediately
-            if (!PlayerAction(isPreflop, currentHand)) return false;
-        }
-        else
-        {
-            // If it's the computer's turn, execute the computer's action
-            // If the computer folds (returns false), the round ends immediately
-            if (!ComputerAction(currentHand)) return false;
+            if (playerTurn)
+            {
+                // If it's the player's turn, execute the player's action
+                // If the player folds (returns false), the round ends immediately
+                if (!PlayerAction(isPreflop, currentHand)) return false;
+            }
+            else
+            {
+                // If it's the computer's turn, execute the computer's action
+                // If the computer folds (returns false), the round ends immediately
+                if (!ComputerAction(currentHand)) return false;
+            }
+
+            // Switch turns: if it was the player's turn, it becomes the computer's turn and vice versa
+            playerTurn = !playerTurn;
+
+            // Check if the round is over: this happens when both bets are equal and both players have acted
+            // We check if it's not the player's turn to ensure both have acted at least once after equalizing the bets
+            if (playerBet == computerBet && !playerTurn)
+            {
+                roundOver = true;
+            }
         }
 
-        // Switch turns: if it was the player's turn, it becomes the computer's turn and vice versa
-        playerTurn = !playerTurn;
-
-        // Check if the round is over: this happens when both bets are equal and both players have acted
-        // We check if it's not the player's turn to ensure both have acted at least once after equalizing the bets
-        if (playerBet == computerBet && !playerTurn)
-        {
-            roundOver = true;
-        }
+        // Return true indicating the round completed without any player folding
+        return true;
     }
-
-    // Return true indicating the round completed without any player folding
-    return true;
-}
-
-
 
     static bool PlayerAction(bool isPreflop, HandHistory currentHand)
 {
     int action;
+    string actions = "";
     while (true)
     {
-        Console.WriteLine("Enter your action: (1) Bet/Raise (2) Call (3) Check (4) Fold");
+        actions += "Enter your action: (1) [bold red]Bet/Raise[/] (2) [bold lightgoldenrod1]Call[/] (3) [bold]Check[/] (4) [bold green]Fold[/]\n";
+        RenderGameStatus("Player's Turn", actions);
         string input = Console.ReadLine();
         if (int.TryParse(input, out action) && action >= 1 && action <= 4)
         {
             break;
         }
-        Console.WriteLine("Invalid input. Please enter a number between 1 and 4.");
+        actions += "[red]Invalid input. Please enter a number between 1 and 4.[/]\n";
+        RenderGameStatus("Player's Turn", actions);
     }
 
     int callAmount = computerBet - playerBet;
@@ -388,18 +408,20 @@ class Program
             int amount;
             while (true)
             {
-                Console.WriteLine("Enter your bet/raise amount:");
+                actions += "Enter your bet/raise amount:\n";
+                RenderGameStatus("Player's Turn", actions);
                 string input = Console.ReadLine();
                 if (int.TryParse(input, out amount) && amount >= callAmount && amount <= playerStack)
                 {
                     break;
                 }
-                Console.WriteLine($"Invalid amount. You must at least call {callAmount} and cannot bet more than your stack.");
+                actions += $"[red]Invalid amount. You must at least call {callAmount} and cannot bet more than your stack.[/]\n";
+                RenderGameStatus("Player's Turn", actions);
             }
             playerStack -= amount;
             pot += amount;
             playerBet += amount;
-            Console.WriteLine($"You bet/raised {amount}");
+            actions += $"You bet/raised {amount}\n";
             currentHand.Actions.Add(new ActionRecord { Actor = "Player", Action = "Bet/Raise", Amount = amount });
             break;
 
@@ -411,39 +433,42 @@ class Program
             playerStack -= callAmount;
             pot += callAmount;
             playerBet = computerBet;
-            Console.WriteLine($"You call {callAmount}");
+            actions += $"You call {callAmount}\n";
             currentHand.Actions.Add(new ActionRecord { Actor = "Player", Action = "Call", Amount = callAmount });
             break;
 
         case 3: // Check
             if (playerBet != computerBet)
             {
-                Console.WriteLine($"You can only check if the current bet is {computerBet}.");
+                actions += $"[red]You can only check if the current bet is {computerBet}.[/]\n";
+                RenderGameStatus("Player's Turn", actions);
                 return PlayerAction(isPreflop, currentHand); // Retry if check is not valid
             }
-            Console.WriteLine("You check.");
+            actions += "You check.\n";
             currentHand.Actions.Add(new ActionRecord { Actor = "Player", Action = "Check" });
             break;
 
         case 4: // Fold
-            Console.WriteLine("You folded.");
+            actions += "You folded.\n";
             computerStack += pot; // Award the pot to the computer
             currentHand.Actions.Add(new ActionRecord { Actor = "Player", Action = "Fold" });
             return false; // Return false to indicate the player has folded
 
         default:
-            Console.WriteLine("Invalid action. Try again.");
+            actions += "[red]Invalid action. Try again.[/]\n";
+            RenderGameStatus("Player's Turn", actions);
             return PlayerAction(isPreflop, currentHand); // Retry if the action is invalid
     }
+    RenderGameStatus("Player's Turn", actions);
     return true; // Return true if the action was valid
 }
-
 
     static bool ComputerAction(HandHistory currentHand)
 {
     Random rand = new Random();
     int action = rand.Next(1, 4); // Randomly choose between Bet/Raise, Call, Check, Fold
     int callAmount = playerBet - computerBet;
+    string potAndStackActions = "";
 
     switch (action)
     {
@@ -462,7 +487,7 @@ class Program
                 computerStack -= amount;
                 pot += amount;
                 computerBet += amount;
-                Console.WriteLine($"Computer bets/raises {amount}");
+                potAndStackActions += $"Computer bets/raises {amount}\n";
                 currentHand.Actions.Add(new ActionRecord { Actor = "Computer", Action = "Bet/Raise", Amount = amount });
             }
             break;
@@ -475,7 +500,7 @@ class Program
             computerStack -= callAmount;
             pot += callAmount;
             computerBet = playerBet;
-            Console.WriteLine($"Computer calls {callAmount}");
+            potAndStackActions += $"Computer calls {callAmount}\n";
             currentHand.Actions.Add(new ActionRecord { Actor = "Computer", Action = "Call", Amount = callAmount });
             break;
 
@@ -484,113 +509,113 @@ class Program
             {
                 return ComputerAction(currentHand); // Retry if check is not valid
             }
-            Console.WriteLine("Computer checks.");
+            potAndStackActions += "Computer checks.\n";
             currentHand.Actions.Add(new ActionRecord { Actor = "Computer", Action = "Check" });
             break;
 
         case 4: // Fold
-            Console.WriteLine("Computer folds.");
+            potAndStackActions += "Computer folds.\n";
             playerStack += pot; // Award the pot to the player
             currentHand.Actions.Add(new ActionRecord { Actor = "Computer", Action = "Fold" });
             return false; // Return false to indicate the computer has folded
 
         default:
-            Console.WriteLine("Computer takes an invalid action.");
+            potAndStackActions += "[red]Computer takes an invalid action.[/]\n";
             return ComputerAction(currentHand); // Retry if action is invalid
     }
+    RenderGameStatus("Computer's Turn", "", potAndStackActions);
+    Thread.Sleep(2500);
     return true; // Return true if the action was valid
 }
 
 
     static void DetermineWinner(HandHistory currentHand)
-{
-    int playerScore = EvaluateHand(playerHand, communityCards, out int playerHighCard, out List<int> playerHighCards);
-    int computerScore = EvaluateHand(computerHand, communityCards, out int computerHighCard, out List<int> computerHighCards);
+    {
+        int playerScore = EvaluateHand(playerHand, communityCards, out int playerHighCard, out List<int> playerHighCards);
+        int computerScore = EvaluateHand(computerHand, communityCards, out int computerHighCard, out List<int> computerHighCards);
 
-    Console.WriteLine($"Player Hand Evaluation: Score = {playerScore}, High Cards = {string.Join(", ", playerHighCards)}");
-    Console.WriteLine($"Computer Hand Evaluation: Score = {computerScore}, High Cards = {string.Join(", ", computerHighCards)}");
+        AnsiConsole.Write(new Markup($"Player Hand Evaluation: Score = {playerScore}, High Cards = {string.Join(", ", playerHighCards)}\n"));
+        AnsiConsole.Write(new Markup($"Computer Hand Evaluation: Score = {computerScore}, High Cards = {string.Join(", ", computerHighCards)}\n"));
 
-    if (playerScore > computerScore)
-    {
-        Console.WriteLine("Player wins the hand.");
-        playerStack += pot;
-        currentHand.Winner = "Player";
-    }
-    else if (computerScore > playerScore)
-    {
-        Console.WriteLine("Computer wins the hand.");
-        computerStack += pot;
-        currentHand.Winner = "Computer";
-    }
-    else
-    {
-        // When scores are equal, compare the high cards
-        for (int i = 0; i < playerHighCards.Count; i++)
+        if (playerScore > computerScore)
         {
-            if (playerHighCards[i] > computerHighCards[i])
+            AnsiConsole.Write(new Markup("[bold]Player wins the hand.[/]\n"));
+            playerStack += pot;
+            currentHand.Winner = "Player";
+        }
+        else if (computerScore > playerScore)
+        {
+            AnsiConsole.Write(new Markup("[bold]Computer wins the hand.[/]\n"));
+            computerStack += pot;
+            currentHand.Winner = "Computer";
+        }
+        else
+        {
+            // When scores are equal, compare the high cards
+            for (int i = 0; i < playerHighCards.Count; i++)
             {
-                Console.WriteLine("Player wins the hand");
-                playerStack += pot;
-                currentHand.Winner = "Player";
-                return;
+                if (playerHighCards[i] > computerHighCards[i])
+                {
+                    AnsiConsole.Write(new Markup("[bold]Player wins the hand[/]\n"));
+                    playerStack += pot;
+                    currentHand.Winner = "Player";
+                    return;
+                }
+                else if (computerHighCards[i] > playerHighCards[i])
+                {
+                    AnsiConsole.Write(new Markup("[bold]Computer wins the hand[/]\n"));
+                    computerStack += pot;
+                    currentHand.Winner = "Computer";
+                    return;
+                }
             }
-            else if (computerHighCards[i] > playerHighCards[i])
-            {
-                Console.WriteLine("Computer wins the hand");
-                computerStack += pot;
-                currentHand.Winner = "Computer";
-                return;
-            }
+
+            // If all high cards are the same
+            AnsiConsole.Write(new Markup("[bold]It's a tie![/]\n"));
+            playerStack += pot / 2;
+            computerStack += pot / 2;
+            currentHand.Winner = "Tie";
+        }
+    }
+
+    static int EvaluateHand(string[] hand, string[] communityCards, out int highCard, out List<int> highCards)
+    {
+        List<string> allCards = new List<string>(hand);
+        allCards.AddRange(communityCards);
+        string[] cardValues = new string[allCards.Count];
+        char[] cardSuits = new char[allCards.Count];
+
+        for (int i = 0; i < allCards.Count; i++)
+        {
+            string card = allCards[i];
+            cardValues[i] = card.Length == 3 ? card.Substring(0, 2) : card[0].ToString();
+            cardSuits[i] = card.Last();
         }
 
-        // If all high cards are the same
-        Console.WriteLine("It's a tie!");
-        playerStack += pot / 2;
-        computerStack += pot / 2;
-        currentHand.Winner = "Tie";
+        Array.Sort(cardValues, (a, b) => GetCardValue(b).CompareTo(GetCardValue(a)));
+        Array.Sort(cardSuits);
+
+        // Create a list of cards sorted by their values
+        var sortedCards = allCards.Select(card => new { Value = GetCardValue(card.Length == 3 ? card.Substring(0, 2) : card[0].ToString()), Suit = card.Last() })
+                                  .OrderByDescending(card => card.Value)
+                                  .ToList();
+
+        // Evaluate the best 5-card hand
+        highCards = sortedCards.Take(5).Select(card => card.Value).ToList();
+        highCard = highCards.First();
+
+        if (IsStraightFlush(cardValues, cardSuits)) { highCard = highCards[0]; return 9; }
+        if (IsFourOfAKind(cardValues)) { highCard = highCards[0]; return 8; }
+        if (IsFullHouse(cardValues)) { highCard = highCards[0]; return 7; }
+        if (IsFlush(cardSuits)) { highCard = highCards[0]; return 6; }
+        if (IsStraight(cardValues)) { highCard = highCards[0]; return 5; }
+        if (IsThreeOfAKind(cardValues)) { highCard = highCards[0]; return 4; }
+        if (IsTwoPair(cardValues, out highCard)) { return 3; }
+        if (IsOnePair(cardValues, out highCard)) { return 2; }
+
+        highCard = highCards[0];
+        return 1;
     }
-}
-
-static int EvaluateHand(string[] hand, string[] communityCards, out int highCard, out List<int> highCards)
-{
-    List<string> allCards = new List<string>(hand);
-    allCards.AddRange(communityCards);
-    string[] cardValues = new string[allCards.Count];
-    char[] cardSuits = new char[allCards.Count];
-
-    for (int i = 0; i < allCards.Count; i++)
-    {
-        string card = allCards[i];
-        cardValues[i] = card.Length == 3 ? card.Substring(0, 2) : card[0].ToString();
-        cardSuits[i] = card.Last();
-    }
-
-    Array.Sort(cardValues, (a, b) => GetCardValue(b).CompareTo(GetCardValue(a)));
-    Array.Sort(cardSuits);
-
-    // Create a list of cards sorted by their values
-    var sortedCards = allCards.Select(card => new { Value = GetCardValue(card.Length == 3 ? card.Substring(0, 2) : card[0].ToString()), Suit = card.Last() })
-                              .OrderByDescending(card => card.Value)
-                              .ToList();
-
-    // Evaluate the best 5-card hand
-    highCards = sortedCards.Take(5).Select(card => card.Value).ToList();
-    highCard = highCards.First();
-
-    if (IsStraightFlush(cardValues, cardSuits)) { highCard = highCards[0]; return 9; }
-    if (IsFourOfAKind(cardValues)) { highCard = highCards[0]; return 8; }
-    if (IsFullHouse(cardValues)) { highCard = highCards[0]; return 7; }
-    if (IsFlush(cardSuits)) { highCard = highCards[0]; return 6; }
-    if (IsStraight(cardValues)) { highCard = highCards[0]; return 5; }
-    if (IsThreeOfAKind(cardValues)) { highCard = highCards[0]; return 4; }
-    if (IsTwoPair(cardValues, out highCard)) { return 3; }
-    if (IsOnePair(cardValues, out highCard)) { return 2; }
-
-    highCard = highCards[0];
-    return 1;
-}
-
-
 
     static int GetCardValue(string card)
     {
@@ -612,7 +637,6 @@ static int EvaluateHand(string[] hand, string[] communityCards, out int highCard
             default: throw new Exception("Invalid card value");
         }
     }
-
 
     static bool IsStraightFlush(string[] cardValues, char[] cardSuits)
     {
@@ -728,30 +752,9 @@ static int EvaluateHand(string[] hand, string[] communityCards, out int highCard
         return false;
     }
 
-    static void DisplayPlayerHand()
-    {
-        Console.WriteLine($"Your hand: {playerHand[0]} {playerHand[1]}");
-    }
-
-    static void DisplayCommunityCards()
-    {
-        Console.WriteLine(" " + string.Join(" ", communityCards.Where(card => card != null)));
-    }
-
-    static void DisplayPot()
-    {
-        Console.WriteLine($"Pot: {pot}");
-    }
-
-    static void DisplayStacks()
-    {
-        Console.WriteLine($"Your stack: {playerStack}");
-        Console.WriteLine($"Computer stack: {computerStack}");
-    }
-
     static void WaitForUserInput()
     {
-        Console.WriteLine("Press any key to continue...");
+        AnsiConsole.Write(new Markup("Press any key to continue...\n"));
         Console.ReadKey();
     }
 
@@ -760,11 +763,11 @@ static int EvaluateHand(string[] hand, string[] communityCards, out int highCard
         if (File.Exists(gameFilePath))
         {
             File.Delete(gameFilePath);
-            Console.WriteLine("Game data erased.");
+            AnsiConsole.Write(new Markup("Game data erased.\n"));
         }
         else
         {
-            Console.WriteLine("No game data found to erase.");
+            AnsiConsole.Write(new Markup("No game data found to erase.\n"));
         }
         WaitForUserInput();
     }
@@ -776,40 +779,40 @@ static int EvaluateHand(string[] hand, string[] communityCards, out int highCard
             string json = File.ReadAllText(gameFilePath);
             GameState gameState = JsonConvert.DeserializeObject<GameState>(json);
 
-            Console.WriteLine("Game History:");
-            Console.WriteLine($"Player Stack: {gameState.PlayerStack}");
-            Console.WriteLine($"Computer Stack: {gameState.ComputerStack}");
-            Console.WriteLine($"Pot: {gameState.Pot}");
-            Console.WriteLine($"Player Bet: {gameState.PlayerBet}");
-            Console.WriteLine($"Computer Bet: {gameState.ComputerBet}");
-            Console.WriteLine($"Player Hand: {string.Join(" ", gameState.PlayerHand)}");
-            Console.WriteLine($"Computer Hand: {string.Join(" ", gameState.ComputerHand)}");
-            Console.WriteLine($"Community Cards: {string.Join(" ", gameState.CommunityCards)}");
-            Console.WriteLine($"Current Card Index: {gameState.CurrentCardIndex}");
-            Console.WriteLine($"Is Player Small Blind: {gameState.IsPlayerSmallBlind}");
+            AnsiConsole.Write(new Markup("[bold]Game History:[/]\n"));
+            AnsiConsole.Write(new Markup($"Player Stack: [bold]{gameState.PlayerStack}[/]\n"));
+            AnsiConsole.Write(new Markup($"Computer Stack: [bold]{gameState.ComputerStack}[/]\n"));
+            AnsiConsole.Write(new Markup($"Pot: [bold]{gameState.Pot}[/]\n"));
+            AnsiConsole.Write(new Markup($"Player Bet: [bold]{gameState.PlayerBet}[/]\n"));
+            AnsiConsole.Write(new Markup($"Computer Bet: [bold]{gameState.ComputerBet}[/]\n"));
+            AnsiConsole.Write(new Markup($"Player Hand: [bold]{string.Join(" ", gameState.PlayerHand)}[/]\n"));
+            AnsiConsole.Write(new Markup($"Computer Hand: [bold]{string.Join(" ", gameState.ComputerHand)}[/]\n"));
+            AnsiConsole.Write(new Markup($"Community Cards: [bold]{string.Join(" ", gameState.CommunityCards)}[/]\n"));
+            AnsiConsole.Write(new Markup($"Current Card Index: [bold]{gameState.CurrentCardIndex}[/]\n"));
+            AnsiConsole.Write(new Markup($"Is Player Small Blind: [bold]{gameState.IsPlayerSmallBlind}[/]\n"));
 
-            Console.WriteLine("Hand Histories:");
+            AnsiConsole.Write(new Markup("[bold]Hand Histories:[/]\n"));
             foreach (var hand in gameState.HandHistories)
             {
-                Console.WriteLine($"Hand:");
-                Console.WriteLine($"  Preflop - Player: {string.Join(" ", hand.Preflop.PlayerHand)}, Computer: {string.Join(" ", hand.Preflop.ComputerHand)}, Pot: {hand.Preflop.Pot}");
+                AnsiConsole.Write(new Markup("[bold]Hand:[/]\n"));
+                AnsiConsole.Write(new Markup($"  Preflop - Player: [bold]{string.Join(" ", hand.Preflop.PlayerHand)}[/], Computer: [bold]{string.Join(" ", hand.Preflop.ComputerHand)}[/], Pot: [bold]{hand.Preflop.Pot}[/]\n"));
                 if (hand.Flop != null)
-                    Console.WriteLine($"  Flop - Community: {string.Join(" ", hand.Flop.CommunityCards)}, Pot: {hand.Flop.Pot}");
+                    AnsiConsole.Write(new Markup($"  Flop - Community: [bold]{string.Join(" ", hand.Flop.CommunityCards)}[/], Pot: [bold]{hand.Flop.Pot}[/]\n"));
                 if (hand.Turn != null)
-                    Console.WriteLine($"  Turn - Community: {string.Join(" ", hand.Turn.CommunityCards)}, Pot: {hand.Turn.Pot}");
+                    AnsiConsole.Write(new Markup($"  Turn - Community: [bold]{string.Join(" ", hand.Turn.CommunityCards)}[/], Pot: [bold]{hand.Turn.Pot}[/]\n"));
                 if (hand.River != null)
-                    Console.WriteLine($"  River - Community: {string.Join(" ", hand.River.CommunityCards)}, Pot: {hand.River.Pot}");
-                Console.WriteLine($"  Actions:");
+                    AnsiConsole.Write(new Markup($"  River - Community: [bold]{string.Join(" ", hand.River.CommunityCards)}[/], Pot: [bold]{hand.River.Pot}[/]\n"));
+                AnsiConsole.Write(new Markup("[bold]Actions:[/]\n"));
                 foreach (var action in hand.Actions)
                 {
-                    Console.WriteLine($"    {action.Actor}: {action.Action} {action.Amount}");
+                    AnsiConsole.Write(new Markup($"    {action.Actor}: {action.Action} {action.Amount}\n"));
                 }
-                Console.WriteLine($"  Winner: {hand.Winner}, End Pot: {hand.EndPot}");
+                AnsiConsole.Write(new Markup($"  Winner: [bold]{hand.Winner}[/], End Pot: [bold]{hand.EndPot}[/]\n"));
             }
         }
         else
         {
-            Console.WriteLine("No saved game found.");
+            AnsiConsole.Write(new Markup("No saved game found.\n"));
         }
         WaitForUserInput();
     }
@@ -856,13 +859,13 @@ static int EvaluateHand(string[] hand, string[] communityCards, out int highCard
             isPlayerSmallBlind = gameState.IsPlayerSmallBlind;
             handHistories = gameState.HandHistories;
 
-            Console.WriteLine("Game loaded successfully.");
+            AnsiConsole.Write(new Markup("Game loaded successfully.\n"));
             WaitForUserInput();
             StartNewGame(true);
         }
         else
         {
-            Console.WriteLine("No saved game found.");
+            AnsiConsole.Write(new Markup("No saved game found.\n"));
             WaitForUserInput();
         }
     }
