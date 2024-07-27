@@ -256,18 +256,17 @@ class Program
 
 
     static void EndHand(HandHistory currentHand)
-    {
-        currentHand.EndPot = pot;
-        currentHand.PlayerStack = playerStack;
-        currentHand.ComputerStack = computerStack;
-        Array.Clear(communityCards, 0, communityCards.Length);
-        playerBet = 0;
-        computerBet = 0;
-        pot = 0;
-        isPlayerSmallBlind = !isPlayerSmallBlind;
-        SaveGame();
-        WaitForUserInput();
-    }
+{
+    currentHand.EndPot = pot;
+    currentHand.PlayerStack = playerStack;
+    currentHand.ComputerStack = computerStack;
+    Array.Clear(communityCards, 0, communityCards.Length);
+    playerBet = 0;
+    computerBet = 0;
+    pot = 0;
+    isPlayerSmallBlind = !isPlayerSmallBlind;
+    SaveGame();
+}
 
     static void InitializeDeck()
     {
@@ -535,53 +534,61 @@ class Program
 
 
     static void DetermineWinner(HandHistory currentHand)
+{
+    int playerScore = EvaluateHand(playerHand, communityCards, out int playerHighCard, out List<int> playerHighCards);
+    int computerScore = EvaluateHand(computerHand, communityCards, out int computerHighCard, out List<int> computerHighCards);
+    string actions = $"Player Hand Evaluation: Score = {playerScore}, High Cards = {string.Join(", ", playerHighCards)}\n";
+    actions += $"Computer Hand Evaluation: Score = {computerScore}, High Cards = {string.Join(", ", computerHighCards)}\n";
+
+    if (playerScore > computerScore)
     {
-        int playerScore = EvaluateHand(playerHand, communityCards, out int playerHighCard, out List<int> playerHighCards);
-        int computerScore = EvaluateHand(computerHand, communityCards, out int computerHighCard, out List<int> computerHighCards);
-
-        AnsiConsole.Write(new Markup($"Player Hand Evaluation: Score = {playerScore}, High Cards = {string.Join(", ", playerHighCards)}\n"));
-        AnsiConsole.Write(new Markup($"Computer Hand Evaluation: Score = {computerScore}, High Cards = {string.Join(", ", computerHighCards)}\n"));
-
-        if (playerScore > computerScore)
-        {
-            AnsiConsole.Write(new Markup("[bold]Player wins the hand.[/]\n"));
-            playerStack += pot;
-            currentHand.Winner = "Player";
-        }
-        else if (computerScore > playerScore)
-        {
-            AnsiConsole.Write(new Markup("[bold]Computer wins the hand.[/]\n"));
-            computerStack += pot;
-            currentHand.Winner = "Computer";
-        }
-        else
-        {
-            // When scores are equal, compare the high cards
-            for (int i = 0; i < playerHighCards.Count; i++)
-            {
-                if (playerHighCards[i] > computerHighCards[i])
-                {
-                    AnsiConsole.Write(new Markup("[bold]Player wins the hand[/]\n"));
-                    playerStack += pot;
-                    currentHand.Winner = "Player";
-                    return;
-                }
-                else if (computerHighCards[i] > playerHighCards[i])
-                {
-                    AnsiConsole.Write(new Markup("[bold]Computer wins the hand[/]\n"));
-                    computerStack += pot;
-                    currentHand.Winner = "Computer";
-                    return;
-                }
-            }
-
-            // If all high cards are the same
-            AnsiConsole.Write(new Markup("[bold]It's a tie![/]\n"));
-            playerStack += pot / 2;
-            computerStack += pot / 2;
-            currentHand.Winner = "Tie";
-        }
+        actions += "[red bold]Player wins the hand.[/]\n";
+        playerStack += pot;
+        currentHand.Winner = "Player";
     }
+    else if (computerScore > playerScore)
+    {
+        actions += "[blue bold]Computer wins the hand.[/]\n";
+        computerStack += pot;
+        currentHand.Winner = "Computer";
+    }
+    else
+    {
+        // When scores are equal, compare the high cards
+        for (int i = 0; i < playerHighCards.Count; i++)
+        {
+            if (playerHighCards[i] > computerHighCards[i])
+            {
+                actions += "[red bold]Player wins the hand[/]\n";
+                playerStack += pot;
+                currentHand.Winner = "Player";
+                RenderGameStatus("Hand Evaluation", actions);
+                WaitForUserInput();
+                return;
+            }
+            else if (computerHighCards[i] > playerHighCards[i])
+            {
+                actions += "[blue bold]Computer wins the hand[/]\n";
+                computerStack += pot;
+                currentHand.Winner = "Computer";
+                RenderGameStatus("Hand Evaluation", actions);
+                WaitForUserInput();
+                return;
+            }
+        }
+
+        // If all high cards are the same
+        actions += "[bold]It's a tie![/]\n";
+        playerStack += pot / 2;
+        computerStack += pot / 2;
+        currentHand.Winner = "Tie";
+    }
+
+    RenderGameStatus("Hand Evaluation", actions);
+    Thread.Sleep(5000);
+    WaitForUserInput();
+}
+
 
     static int EvaluateHand(string[] hand, string[] communityCards, out int highCard, out List<int> highCards)
 {
@@ -767,9 +774,10 @@ class Program
         return false;
     }
 
-    static void WaitForUserInput()
+   static void WaitForUserInput(string actions = "")
     {
-        AnsiConsole.Write(new Markup("Press any key to continue...\n"));
+        actions += "Press any key to continue...\n";
+        RenderGameStatus(actions);
         Console.ReadKey();
     }
 

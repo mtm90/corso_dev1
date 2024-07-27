@@ -112,7 +112,7 @@ flowchart TD
 - [x] improve graphics
 - [x] Fix raise amount
 - [x] Fix fullhouse evaluation, program thinks three of a kind is fullhouse
-- [ ] Fix Higher pair wins, regardless of kicker
+- [x] Fix Higher pair wins, regardless of kicker
 - [ ] Fix when player checks the action should pass to pc
 - [ ] Fix when both players have best hand with community cards, the result is a tie and the player with higher card doesn't win
 - [ ] Fix game mechanics when players use all their stack, they shouldn't be able to make more bets
