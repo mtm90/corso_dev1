@@ -202,7 +202,6 @@ class Program
             continue;
         }
         Console.Clear();
-        RenderGameStatus($"Computer hand: {computerHand[0]} {computerHand[1]}");
         DetermineWinner(currentHand);
         EndHand(currentHand);
 
@@ -470,7 +469,7 @@ class Program
     static bool ComputerAction(HandHistory currentHand)
 {
     Random rand = new Random();
-    int action = rand.Next(1, 4); // Randomly choose between Bet/Raise, Call, Check, Fold
+    int action = rand.Next(1, 4); // Randomly choose between Bet/Raise, Call, Check
     int callAmount = playerBet - computerBet;
     string potAndStackActions = "";
 
@@ -584,7 +583,7 @@ class Program
         currentHand.Winner = "Tie";
     }
 
-    RenderGameStatus("Hand Evaluation", actions);
+    RenderGameStatus($"Computer hand: {computerHand[0]} {computerHand[1]}", actions);
     Thread.Sleep(5000);
     WaitForUserInput();
 }
