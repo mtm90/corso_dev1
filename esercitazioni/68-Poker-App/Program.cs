@@ -348,43 +348,50 @@ class Program
     }
 
     static bool BettingRound(bool playerStarts, bool isPreflop, HandHistory currentHand)
+{
+    bool roundOver = false;
+    bool playerTurn = playerStarts;
+    bool firstAction = true;
+
+    while (!roundOver)
     {
-        // Indicates if the betting round is over
-        bool roundOver = false;
-
-        // Determine whose turn it is initially based on the playerStarts parameter
-        bool playerTurn = playerStarts;
-
-        // Continue the loop until the betting round is concluded
-        while (!roundOver)
+        if (playerTurn)
         {
-            if (playerTurn)
+            if (!PlayerAction(isPreflop, currentHand))
             {
-                // If it's the player's turn, execute the player's action
-                // If the player folds (returns false), the round ends immediately
-                if (!PlayerAction(isPreflop, currentHand)) return false;
+                return false;
             }
-            else
+        }
+        else
+        {
+            if (!ComputerAction(currentHand))
             {
-                // If it's the computer's turn, execute the computer's action
-                // If the computer folds (returns false), the round ends immediately
-                if (!ComputerAction(currentHand)) return false;
-            }
-
-            // Switch turns: if it was the player's turn, it becomes the computer's turn and vice versa
-            playerTurn = !playerTurn;
-
-            // Check if the round is over: this happens when both bets are equal and both players have acted
-            // We check if it's not the player's turn to ensure both have acted at least once after equalizing the bets
-            if (playerBet == computerBet && !playerTurn)
-            {
-                roundOver = true;
+                return false;
             }
         }
 
-        // Return true indicating the round completed without any player folding
-        return true;
+        // Switch turns
+        playerTurn = !playerTurn;
+
+        // Check if the round is over
+        if (playerBet == computerBet && !playerTurn)
+        {
+            if (firstAction && !isPreflop)
+            {
+                firstAction = false;
+                continue; // Ensure both players get a chance to act at least once in postflop
+            }
+            roundOver = true;
+        }
+        else
+        {
+            firstAction = false;
+        }
     }
+
+    return true;
+}
+
 
     static bool PlayerAction(bool isPreflop, HandHistory currentHand)
 {
@@ -466,7 +473,7 @@ class Program
     return true; // Return true if the action was valid
 }
 
-    static bool ComputerAction(HandHistory currentHand)
+static bool ComputerAction(HandHistory currentHand)
 {
     Random rand = new Random();
     int action = rand.Next(1, 4); // Randomly choose between Bet/Raise, Call, Check
@@ -530,6 +537,7 @@ class Program
     Thread.Sleep(2500);
     return true; // Return true if the action was valid
 }
+
 
 
     static void DetermineWinner(HandHistory currentHand)
