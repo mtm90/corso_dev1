@@ -844,15 +844,20 @@ static bool ComputerAction(HandHistory currentHand)
         {
             File.Delete(gameFilePath);
             AnsiConsole.Write(new Markup("Game data erased.\n"));
+            Thread.Sleep(1500);
+
         }
         else
         {
             AnsiConsole.Write(new Markup("No game data found to erase.\n"));
+            Thread.Sleep(1500);
         }
     }
     catch (Exception ex)
     {
         AnsiConsole.Write(new Markup($"[red]Error erasing game data: {ex.Message}[/]\n"));
+        Thread.Sleep(6500);
+
     }
     WaitForUserInput();
 }
