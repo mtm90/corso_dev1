@@ -358,28 +358,33 @@ class Program
 
     static bool BettingRound(bool playerStarts, bool isPreflop, HandHistory currentHand)
 {
-    bool roundOver = false;
-    bool playerTurn = playerStarts;
-    bool firstAction = true;
+    bool roundOver = false; // Indicates if the betting round is over
+    bool playerTurn = playerStarts; // Determines whose turn it is to act
+    bool firstAction = true; // Flag to track the first action in the round
 
+    // Loop until the round is over
     while (!roundOver)
     {
+        // Player's turn
         if (playerTurn)
         {
+            // Player action method returns false if the player folds
             if (!PlayerAction(isPreflop, currentHand))
             {
-                return false;
+                return false; // End the round immediately
             }
         }
+        // Computer's turn
         else
         {
+            // Computer action method returns false if the computer folds
             if (!ComputerAction(currentHand))
             {
-                return false;
+                return false; // End the round immediately
             }
         }
 
-        // Switch turns
+        // Switch turns: Player turn becomes Computer's and vice versa
         playerTurn = !playerTurn;
 
         // Check if the round is over
@@ -388,17 +393,17 @@ class Program
             if (firstAction && !isPreflop)
             {
                 firstAction = false;
-                continue; // Ensure both players get a chance to act at least once in postflop
+                continue; // Ensure both players act at least once in postflop
             }
-            roundOver = true;
+            roundOver = true; // Bets are matched, end the round
         }
         else
         {
-            firstAction = false;
+            firstAction = false; // After the first action, no need to ensure both have acted
         }
     }
 
-    return true;
+    return true; // Round completed without folding, proceed to the next stage
 }
 
 
