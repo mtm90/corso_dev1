@@ -358,80 +358,69 @@ class Program
 
     static bool BettingRound(bool playerStarts, bool isPreflop, HandHistory currentHand)
 {
-    bool roundOver = false; // Indicates if the betting round has ended
-    bool playerTurn = playerStarts; // Determines who starts the betting round
-    bool firstAction = true; // Tracks if it's the first action in the round
+    bool roundOver = false;
+    bool playerTurn = playerStarts;
+    bool firstAction = true;
 
-    // Continue until the round is over
     while (!roundOver)
     {
         if (playerTurn)
         {
-            // Player's turn to act
             if (!PlayerAction(isPreflop, currentHand))
             {
-                // Return false if player folds, ending the round
                 return false;
             }
         }
         else
         {
-            // Computer's turn to act
             if (!ComputerAction(currentHand))
             {
-                // Return false if computer folds, ending the round
                 return false;
             }
         }
 
-        // Switch turn to the other player
+        // Switch turns
         playerTurn = !playerTurn;
 
-        // Check if the betting round should end
+        // Check if the round is over
         if (playerBet == computerBet && !playerTurn)
         {
             if (firstAction && !isPreflop)
             {
-                firstAction = false; // Both players must act at least once postflop
-                continue; // Continue to ensure both players have acted
+                firstAction = false;
+                continue; // Ensure both players get a chance to act at least once in postflop
             }
-            roundOver = true; // Bets are equal and both players have acted, round ends
+            roundOver = true;
         }
         else
         {
-            firstAction = false; // After the first action, set firstAction to false
+            firstAction = false;
         }
     }
 
-    return true; // Return true if round completed without folding
+    return true;
 }
 
-static bool PlayerAction(bool isPreflop, HandHistory currentHand)
-{
-    int action; // Variable to store player's chosen action
-    string actions = ""; // String to store the description of actions
 
-    // Loop until a valid action is taken
+    static bool PlayerAction(bool isPreflop, HandHistory currentHand)
+{
+    int action;
+    string actions = "";
     while (true)
     {
-        // Display available actions to the player
         actions += "Enter your action: (1) [bold red]Bet/Raise[/] (2) [bold lightgoldenrod1]Call[/] (3) [bold]Check[/] (4) [bold green]Fold[/]\n";
         RenderGameStatus("Player's Turn", actions);
-        string input = Console.ReadLine(); // Read player's input
-
-        // Validate input and ensure it's a valid action
+        string input = Console.ReadLine();
         if (int.TryParse(input, out action) && action >= 1 && action <= 4)
         {
-            break; // Exit loop if valid action
+            break;
         }
-        // Display error message and prompt again
         actions += "[red]Invalid input. Please enter a number between 1 and 4.[/]\n";
         RenderGameStatus("Player's Turn", actions);
     }
 
-    int callAmount = computerBet - playerBet; // Amount player needs to call
+    int callAmount = computerBet - playerBet;
 
-    // Perform the action based on player's choice
     switch (action)
     {
         case 1: // Bet/Raise
@@ -441,19 +430,16 @@ static bool PlayerAction(bool isPreflop, HandHistory currentHand)
                 actions += "Enter your bet/raise amount:\n";
                 RenderGameStatus("Player's Turn", actions);
                 string input = Console.ReadLine();
-
-                // Validate the bet/raise amount
                 if (int.TryParse(input, out amount) && amount >= callAmount && amount <= playerStack)
                 {
-                    break; // Exit loop if valid amount
+                    break;
                 }
-                // Display error message and prompt again
                 actions += $"[red]Invalid amount. You must at least call {callAmount} and cannot bet more than your stack.[/]\n";
                 RenderGameStatus("Player's Turn", actions);
             }
-            playerStack -= amount; // Deduct amount from player's stack
-            pot += amount; // Add amount to the pot
-            playerBet += amount; // Update player's total bet
+            playerStack -= amount;
+            pot += amount;
+            playerBet += amount;
             actions += $"You bet/raised {amount}\n";
             currentHand.Actions.Add(new ActionRecord { Actor = "Player", Action = "Bet/Raise", Amount = amount });
             break;
@@ -461,11 +447,11 @@ static bool PlayerAction(bool isPreflop, HandHistory currentHand)
         case 2: // Call
             if (callAmount > playerStack)
             {
-                callAmount = playerStack; // Adjust call amount if player's stack is less
+                callAmount = playerStack; // Call only the remaining stack if not enough
             }
-            playerStack -= callAmount; // Deduct call amount from player's stack
-            pot += callAmount; // Add call amount to the pot
-            playerBet = computerBet; // Match computer's bet
+            playerStack -= callAmount;
+            pot += callAmount;
+            playerBet = computerBet;
             actions += $"You call {callAmount}\n";
             currentHand.Actions.Add(new ActionRecord { Actor = "Player", Action = "Call", Amount = callAmount });
             break;
@@ -485,42 +471,41 @@ static bool PlayerAction(bool isPreflop, HandHistory currentHand)
             actions += "You folded. Computer Wins\n";
             computerStack += pot; // Award the pot to the computer
             currentHand.Actions.Add(new ActionRecord { Actor = "Player", Action = "Fold" });
-            return false; // End the round as player folds
+            return false;
 
         default:
-            actions += "[red]Invalid action. Try again.[/]\n";
+            actions += "[red]Invalid action. Try again.[/]\n"; 
             RenderGameStatus("Player's Turn", actions);
-            return PlayerAction(isPreflop, currentHand); // Retry if invalid action
+            return PlayerAction(isPreflop, currentHand); // Retry if the action is invalid
     }
-    RenderGameStatus("Player's Turn", actions); // Update game status after action
-    return true; // Action completed successfully
+    RenderGameStatus("Player's Turn", actions);
+    return true; // Return true if the action was valid
 }
 
 static bool ComputerAction(HandHistory currentHand)
 {
-    Random rand = new Random(); // Random number generator for decision making
+    Random rand = new Random();
     int action = rand.Next(1, 4); // Randomly choose between Bet/Raise, Call, Check
-    int callAmount = playerBet - computerBet; // Amount computer needs to call
-    string potAndStackActions = ""; // String to store the description of actions
+    int callAmount = playerBet - computerBet;
+    string potAndStackActions = "";
 
-    // Perform the action based on the computer's choice
     switch (action)
     {
         case 1: // Bet/Raise
             if (computerStack == 0)
             {
-                action = 3; // If no stack left, change action to Check
+                action = 3; // Change action to Check if the stack is 0
             }
             else
             {
-                int amount = rand.Next(playerBet * 2, pot * 1 / 3); // Random bet/raise amount
+                int amount = rand.Next(playerBet* 2, pot * 2); // Ensure the bet is within the stack limit
                 if (amount > computerStack)
                 {
-                    amount = computerStack; // Adjust if amount exceeds computer's stack
+                    amount = computerStack; // Bet only the remaining stack if not enough
                 }
-                computerStack -= amount; // Deduct amount from computer's stack
-                pot += amount; // Add amount to the pot
-                computerBet += amount; // Update computer's total bet
+                computerStack -= amount;
+                pot += amount;
+                computerBet += amount;
                 potAndStackActions += $"Computer bets/raises {amount}\n";
                 currentHand.Actions.Add(new ActionRecord { Actor = "Computer", Action = "Bet/Raise", Amount = amount });
             }
@@ -529,15 +514,16 @@ static bool ComputerAction(HandHistory currentHand)
         case 2: // Call
             if (callAmount > computerStack)
             {
-                callAmount = computerStack; // Adjust call amount if computer's stack is less
+                callAmount = computerStack; // Call only the remaining stack if not enough
             }
             if (callAmount == 0)
             {
-                return ComputerAction(currentHand); // Retry if check is not valid
+            return ComputerAction(currentHand); // Retry if check is not valid
+
             }
-            computerStack -= callAmount; // Deduct call amount from computer's stack
-            pot += callAmount; // Add call amount to the pot
-            computerBet = playerBet; // Match player's bet
+            computerStack -= callAmount;
+            pot += callAmount;
+            computerBet = playerBet;
             potAndStackActions += $"Computer calls {callAmount}\n";
             currentHand.Actions.Add(new ActionRecord { Actor = "Computer", Action = "Call", Amount = callAmount });
             break;
@@ -555,15 +541,15 @@ static bool ComputerAction(HandHistory currentHand)
             potAndStackActions += "Computer folds. Player Wins\n";
             playerStack += pot; // Award the pot to the player
             currentHand.Actions.Add(new ActionRecord { Actor = "Computer", Action = "Fold" });
-            return false; // End the round as computer folds
+            return false; // Return false to indicate the computer has folded
 
         default:
             potAndStackActions += "[red]Computer takes an invalid action.[/]\n";
-            return ComputerAction(currentHand); // Retry if invalid action
+            return ComputerAction(currentHand); // Retry if action is invalid
     }
-    RenderGameStatus("Computer's Turn", "", potAndStackActions); // Update game status after action
-    Thread.Sleep(2500); // Pause for dramatic effect
-    return true; // Action completed successfully
+    RenderGameStatus("Computer's Turn", "", potAndStackActions);
+    Thread.Sleep(2500);
+    return true; // Return true if the action was valid
 }
 
 
