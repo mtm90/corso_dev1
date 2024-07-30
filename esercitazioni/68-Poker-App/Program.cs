@@ -975,6 +975,7 @@ static bool ComputerAction(HandHistory currentHand)
         else
         {
             AnsiConsole.Write(new Markup("No saved game found.\n"));
+            Thread.Sleep(2500);
             WaitForUserInput();
         }
     }

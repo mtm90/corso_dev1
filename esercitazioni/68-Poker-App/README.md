@@ -116,6 +116,7 @@ flowchart TD
 - [x] Fix when player checks the action should pass to pc
 - [x] Fix Straight A to 5 evaluation missing
 - [x] Fix when both players have two pair, the highest pair wins and not the player with best kicker
+- [ ] Fix when players have same exact hand(straight for example) don't let winner be higher kicker but make it a tie
 - [ ] Fix when both players have best hand with community cards, the result is a tie and the player with higher card doesn't win
 - [ ] Fix high card evaluation when players have same score
 - [ ] Fix game mechanics when players use all their stack, they shouldn't be able to make more bets
