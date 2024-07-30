@@ -833,7 +833,7 @@ static bool ComputerAction(HandHistory currentHand)
     {
         actions += "Press any key to continue...\n";
         RenderGameStatus(actions);
-        Console.ReadKey();
+        Console.ReadKey(true);
     }
 
     static void EraseGame()
@@ -891,7 +891,8 @@ static bool ComputerAction(HandHistory currentHand)
         {
             AnsiConsole.Write(new Markup("No saved game found.\n"));
         }
-        WaitForUserInput();
+        AnsiConsole.WriteLine("Press any key to continue");
+        Console.ReadKey(true);
     }
 
     static void SaveGame()
