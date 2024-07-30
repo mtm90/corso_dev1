@@ -27,7 +27,7 @@ l'applicazione deve includere le seguenti funzionalità chiave:
 
 - __Aggiornamento delle partite__:
 
-    - [ ] Consentire agli utenti di riprendere una partita salvata e continuare a giocare.
+    - [x] Consentire agli utenti di riprendere una partita salvata e continuare a giocare.
     - [x] Salvataggio automatico della partita.
 
 - __Cancellazione delle partite__:
@@ -48,9 +48,9 @@ l'applicazione deve includere le seguenti funzionalità chiave:
     - Utenti tecnologici: Persone che apprezzano i giochi digitali e desiderano un'applicazione ben progettata e funzionante.
 
 - __esigenze degli utenti__:
-    - [ ] Interfaccia intuitiva: Un'interfaccia facile da usare che permetta di avviare e gestire le partite senza difficoltà.
+    - [x] Interfaccia intuitiva: Un'interfaccia facile da usare che permetta di avviare e gestire le partite senza difficoltà.
     - [ ] Esperienza di gioco realistica: Un'IA per il computer che offra una sfida adeguata e che rispecchi il comportamento di un giocatore reale.
-    - [ ] Funzionalità di gestione delle partite: Possibilità di salvare, visualizzare e cancellare le partite per tenere traccia dei propri progressi e delle proprie prestazioni.
+    - [x] Funzionalità di gestione delle partite: Possibilità di salvare, visualizzare e cancellare le partite per tenere traccia dei propri progressi e delle proprie prestazioni.
     
 
 ## _Definizione di strutture e convenzioni_
