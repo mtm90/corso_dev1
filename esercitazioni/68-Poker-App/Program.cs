@@ -278,7 +278,7 @@ class Program
 
     static void InitializeDeck()
     {
-        string[] suits = { "\u2664", "\u2661", "\u2662", "\u2667" };
+        string[] suits = { "♠", "♥", "♦", "♣" };
         string[] values = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
         int index = 0;
         for (int i = 0; i < suits.Length; i++)
@@ -776,25 +776,46 @@ static bool ComputerAction(HandHistory currentHand)
     }
 
     static bool IsTwoPair(string[] cardValues, out int highCard)
+{
+    List<int> pairs = new List<int>();
+    int remainingCard = 0;
+
+    for (int i = 0; i < cardValues.Length - 1; i++)
     {
-        List<int> pairs = new List<int>();
-        for (int i = 0; i < cardValues.Length - 1; i++)
+        if (cardValues[i] == cardValues[i + 1])
         {
-            if (cardValues[i] == cardValues[i + 1])
-            {
-                pairs.Add(GetCardValue(cardValues[i]));
-                i++;
-            }
+            pairs.Add(GetCardValue(cardValues[i]));
+            i++; // Skip the next card as it's part of the pair
         }
-        if (pairs.Count >= 2)
+        else if (pairs.Count < 2) // Track remaining card for kicker
         {
-            pairs.Sort();
-            highCard = pairs.Last();
-            return true;
+            remainingCard = GetCardValue(cardValues[i]);
         }
-        highCard = 0;
-        return false;
     }
+
+    if (pairs.Count >= 2)
+    {
+        pairs.Sort();
+        pairs.Reverse(); // Highest pair first
+        highCard = pairs.First(); // The highest pair's card value
+
+        // If pairs are equal, check the next highest card (kicker)
+        if (pairs.Count > 1 && pairs[0] == pairs[1])
+        {
+            highCard = Math.Max(pairs[0], Math.Max(remainingCard, GetCardValue(cardValues.Last())));
+        }
+        else
+        {
+            highCard = pairs[0]; // Highest pair value
+        }
+
+        return true;
+    }
+
+    highCard = 0;
+    return false;
+}
+
 
     static bool IsOnePair(string[] cardValues, out int highCard)
     {
