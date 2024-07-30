@@ -837,6 +837,8 @@ static bool ComputerAction(HandHistory currentHand)
     }
 
     static void EraseGame()
+{
+    try
     {
         if (File.Exists(gameFilePath))
         {
@@ -847,10 +849,18 @@ static bool ComputerAction(HandHistory currentHand)
         {
             AnsiConsole.Write(new Markup("No game data found to erase.\n"));
         }
-        WaitForUserInput();
     }
+    catch (Exception ex)
+    {
+        AnsiConsole.Write(new Markup($"[red]Error erasing game data: {ex.Message}[/]\n"));
+    }
+    WaitForUserInput();
+}
+
 
     static void ViewGameHistory()
+{
+    try
     {
         if (File.Exists(gameFilePath))
         {
@@ -891,11 +901,19 @@ static bool ComputerAction(HandHistory currentHand)
         {
             AnsiConsole.Write(new Markup("No saved game found.\n"));
         }
-        AnsiConsole.WriteLine("Press any key to continue");
-        Console.ReadKey(true);
     }
+    catch (Exception ex)
+    {
+        AnsiConsole.Write(new Markup($"[red]Error viewing game history: {ex.Message}[/]\n"));
+    }
+    AnsiConsole.WriteLine("Press any key to continue");
+    Console.ReadKey(true);
+}
 
-    static void SaveGame()
+
+   static void SaveGame()
+{
+    try
     {
         GameState gameState = new GameState
         {
@@ -916,8 +934,16 @@ static bool ComputerAction(HandHistory currentHand)
         string json = JsonConvert.SerializeObject(gameState, Formatting.Indented);
         File.WriteAllText(gameFilePath, json);
     }
+    catch (Exception ex)
+    {
+        AnsiConsole.Write(new Markup($"[red]Error saving game: {ex.Message}[/]\n"));
+    }
+}
+
 
     static void LoadGame()
+{
+    try
     {
         if (File.Exists(gameFilePath))
         {
@@ -947,6 +973,12 @@ static bool ComputerAction(HandHistory currentHand)
             WaitForUserInput();
         }
     }
+    catch (Exception ex)
+    {
+        AnsiConsole.Write(new Markup($"[red]Error loading game: {ex.Message}[/]\n"));
+        WaitForUserInput();
+    }
+}
 
     class GameState
     {
