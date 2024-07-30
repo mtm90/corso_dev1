@@ -207,8 +207,17 @@ class Program
 
         isLoadedGame = false; // Reset after the first loop
     }
-
-    AnsiConsole.Write(new Markup($"[bold]Game Over[/]\nFinal Player Stack: [bold]{playerStack}[/]\nFinal Computer Stack: [bold]{computerStack}[/]"));
+    if (playerStack == 0)
+    {
+            RenderGameStatus("Game over: Computer Wins!");
+            Thread.Sleep(5000);
+    }
+    else if (computerStack == 0)
+    {
+            RenderGameStatus("Game over: Player Wins!");
+            Thread.Sleep(5000);
+    }
+    
     WaitForUserInput();
 }
 
@@ -459,7 +468,7 @@ class Program
             break;
 
         case 4: // Fold
-            actions += "You folded.\n";
+            actions += "You folded. Computer Wins\n";
             computerStack += pot; // Award the pot to the computer
             currentHand.Actions.Add(new ActionRecord { Actor = "Player", Action = "Fold" });
             return false; // Return false to indicate the player has folded
@@ -489,7 +498,7 @@ static bool ComputerAction(HandHistory currentHand)
             }
             else
             {
-                int amount = rand.Next(playerBet, pot * 2); // Ensure the bet is within the stack limit
+                int amount = rand.Next(playerBet* 2, pot * 2); // Ensure the bet is within the stack limit
                 if (amount > computerStack)
                 {
                     amount = computerStack; // Bet only the remaining stack if not enough
@@ -506,6 +515,11 @@ static bool ComputerAction(HandHistory currentHand)
             if (callAmount > computerStack)
             {
                 callAmount = computerStack; // Call only the remaining stack if not enough
+            }
+            if (callAmount == 0)
+            {
+            return ComputerAction(currentHand); // Retry if check is not valid
+
             }
             computerStack -= callAmount;
             pot += callAmount;
@@ -524,7 +538,7 @@ static bool ComputerAction(HandHistory currentHand)
             break;
 
         case 4: // Fold
-            potAndStackActions += "Computer folds.\n";
+            potAndStackActions += "Computer folds. Player Wins\n";
             playerStack += pot; // Award the pot to the player
             currentHand.Actions.Add(new ActionRecord { Actor = "Computer", Action = "Fold" });
             return false; // Return false to indicate the computer has folded
@@ -569,7 +583,8 @@ static bool ComputerAction(HandHistory currentHand)
                 actions += "[red bold]Player wins the hand[/]\n";
                 playerStack += pot;
                 currentHand.Winner = "Player";
-                RenderGameStatus("Hand Evaluation", actions);
+                RenderGameStatus($"Computer hand: {computerHand[0]} {computerHand[1]}", actions);
+                Thread.Sleep(5000);
                 WaitForUserInput();
                 return;
             }
@@ -578,7 +593,8 @@ static bool ComputerAction(HandHistory currentHand)
                 actions += "[blue bold]Computer wins the hand[/]\n";
                 computerStack += pot;
                 currentHand.Winner = "Computer";
-                RenderGameStatus("Hand Evaluation", actions);
+                RenderGameStatus($"Computer hand: {computerHand[0]} {computerHand[1]}", actions);
+                Thread.Sleep(5000);
                 WaitForUserInput();
                 return;
             }

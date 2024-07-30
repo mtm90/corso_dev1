@@ -118,4 +118,5 @@ flowchart TD
 - [ ] Fix game mechanics when players use all their stack, they shouldn't be able to make more bets
 - [ ] Integrate all in action and showdown
 - [ ] Include try and catch for errors
+- [ ] Fix Straight A to 5 evaluation missinf
 
