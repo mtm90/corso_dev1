@@ -736,19 +736,27 @@ static bool ComputerAction(HandHistory currentHand)
     }
 
     static bool IsStraight(string[] cardValues)
+{
+    int[] cardRanks = cardValues.Select(GetCardValue).ToArray();
+    Array.Sort(cardRanks);
+    cardRanks = cardRanks.Distinct().ToArray();
+
+    // Check for Ace-low straight (A-2-3-4-5)
+    if (cardRanks.Length >= 5 && cardRanks[0] == 2 && cardRanks[1] == 3 && cardRanks[2] == 4 && cardRanks[3] == 5 && cardRanks.Contains(14))
     {
-        int[] cardRanks = cardValues.Select(GetCardValue).ToArray();
-        Array.Sort(cardRanks);
-        cardRanks = cardRanks.Distinct().ToArray();
-        for (int i = 0; i < cardRanks.Length - 4; i++)
-        {
-            if (cardRanks[i + 4] - cardRanks[i] == 4)
-            {
-                return true;
-            }
-        }
-        return false;
+        return true;
     }
+
+    for (int i = 0; i < cardRanks.Length - 4; i++)
+    {
+        if (cardRanks[i + 4] - cardRanks[i] == 4)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 
     static bool IsThreeOfAKind(string[] cardValues)
     {
