@@ -93,8 +93,6 @@ class Program
 
         currentHand.Preflop = new HandStage
         {
-            PlayerHand = (string[])playerHand.Clone(),
-            ComputerHand = (string[])computerHand.Clone(),
             PlayerBet = playerBet,
             ComputerBet = computerBet,
             Pot = pot
@@ -857,7 +855,7 @@ static bool ComputerAction(HandHistory currentHand)
         if (File.Exists(gameFilePath))
         {
             string json = File.ReadAllText(gameFilePath);
-            GameState gameState = JsonConvert.DeserializeObject<GameState>(json);
+            GameState gameState = JsonConvert.DeserializeObject<GameState>(json)!;
 
             AnsiConsole.Write(new Markup("[bold]Game History:[/]\n"));
             AnsiConsole.Write(new Markup($"Player Stack: [bold]{gameState.PlayerStack}[/]\n"));
@@ -875,7 +873,6 @@ static bool ComputerAction(HandHistory currentHand)
             foreach (var hand in gameState.HandHistories)
             {
                 AnsiConsole.Write(new Markup("[bold]Hand:[/]\n"));
-                AnsiConsole.Write(new Markup($"  Preflop - Player: [bold]{string.Join(" ", hand.Preflop.PlayerHand)}[/], Computer: [bold]{string.Join(" ", hand.Preflop.ComputerHand)}[/], Pot: [bold]{hand.Preflop.Pot}[/]\n"));
                 if (hand.Flop != null)
                     AnsiConsole.Write(new Markup($"  Flop - Community: [bold]{string.Join(" ", hand.Flop.CommunityCards)}[/], Pot: [bold]{hand.Flop.Pot}[/]\n"));
                 if (hand.Turn != null)
@@ -924,7 +921,7 @@ static bool ComputerAction(HandHistory currentHand)
         if (File.Exists(gameFilePath))
         {
             string json = File.ReadAllText(gameFilePath);
-            GameState gameState = JsonConvert.DeserializeObject<GameState>(json);
+            GameState gameState = JsonConvert.DeserializeObject<GameState>(json)!;
 
             deck = gameState.Deck;
             playerHand = gameState.PlayerHand;
@@ -981,8 +978,6 @@ static bool ComputerAction(HandHistory currentHand)
 
     class HandStage
     {
-        public string[] PlayerHand { get; set; }
-        public string[] ComputerHand { get; set; }
         public string[] CommunityCards { get; set; }
         public int PlayerBet { get; set; }
         public int ComputerBet { get; set; }
