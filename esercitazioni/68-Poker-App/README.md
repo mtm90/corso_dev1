@@ -115,7 +115,9 @@ flowchart TD
 - [x] Fix Higher pair wins, regardless of kicker
 - [x] Fix when player checks the action should pass to pc
 - [x] Fix Straight A to 5 evaluation missing
+- [ ] Fix when both players have two pair, the highest pair wins and not the player with best kicker
 - [ ] Fix when both players have best hand with community cards, the result is a tie and the player with higher card doesn't win
+- [ ] Fix high card evaluation when players have same score
 - [ ] Fix game mechanics when players use all their stack, they shouldn't be able to make more bets
 - [ ] Integrate all in action and showdown
 - [ ] Include try and catch for errors
