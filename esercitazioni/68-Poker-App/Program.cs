@@ -462,7 +462,8 @@ class Program
         case 3: // Check
             if (playerBet != computerBet)
             {
-                actions += $"[red]You can only check if the current bet is {computerBet}.[/]\n";
+                actions += $"[red]You can't check and must at least call {computerBet}.[/]\n";
+                Thread.Sleep(1000);
                 RenderGameStatus("Player's Turn", actions);
                 return PlayerAction(isPreflop, currentHand); // Retry if check is not valid
             }
