@@ -696,46 +696,61 @@ static bool ComputerAction(HandHistory currentHand)
 
 
     static int GetCardValue(string card)
+{
+    // This function maps card face values to their corresponding numeric values.
+    // It handles values from "2" to "10" and face cards "J", "Q", "K", "A".
+    // The numeric value for each card is returned, where Ace (A) is the highest with a value of 14.
+    switch (card)
     {
-        switch (card)
-        {
-            case "2": return 2;
-            case "3": return 3;
-            case "4": return 4;
-            case "5": return 5;
-            case "6": return 6;
-            case "7": return 7;
-            case "8": return 8;
-            case "9": return 9;
-            case "10": return 10;
-            case "J": return 11;
-            case "Q": return 12;
-            case "K": return 13;
-            case "A": return 14;
-            default: throw new Exception("Invalid card value");
-        }
+        case "2": return 2;
+        case "3": return 3;
+        case "4": return 4;
+        case "5": return 5;
+        case "6": return 6;
+        case "7": return 7;
+        case "8": return 8;
+        case "9": return 9;
+        case "10": return 10;
+        case "J": return 11;
+        case "Q": return 12;
+        case "K": return 13;
+        case "A": return 14;
+        default: throw new Exception("Invalid card value"); // Throws an exception if the card value is not recognized.
     }
+}
 
     static bool IsStraightFlush(string[] cardValues, char[] cardSuits)
-    {
-        return IsFlush(cardSuits) && IsStraight(cardValues);
-    }
+{
+    // This function checks if the hand is a Straight Flush.
+    // A Straight Flush is a hand where all cards are in sequence and of the same suit.
+    // It returns true if both IsFlush and IsStraight conditions are met, otherwise false.
+    return IsFlush(cardSuits) && IsStraight(cardValues);
+}
+
 
     static bool IsFourOfAKind(string[] cardValues)
+{
+    // This function checks if the hand contains Four of a Kind.
+    // Four of a Kind is a hand where four cards have the same value.
+    // It iterates through the card values and checks for a sequence of four identical values.
+    for (int i = 0; i < cardValues.Length - 3; i++)
     {
-        for (int i = 0; i < cardValues.Length - 3; i++)
+        if (cardValues[i] == cardValues[i + 1] && cardValues[i] == cardValues[i + 2] && cardValues[i] == cardValues[i + 3])
         {
-            if (cardValues[i] == cardValues[i + 1] && cardValues[i] == cardValues[i + 2] && cardValues[i] == cardValues[i + 3])
-            {
-                return true;
-            }
+            return true; // Four of a Kind found.
         }
-        return false;
     }
+    return false; // No Four of a Kind found.
+}
+
 
     static bool IsFullHouse(string[] cardValues)
 {
+    // This function checks if the hand is a Full House.
+    // A Full House is a hand where there is a Three of a Kind and a Pair.
     var valueCounts = new Dictionary<string, int>();
+    
+    // Count occurrences of each card value
     foreach (var value in cardValues)
     {
         if (valueCounts.ContainsKey(value))
@@ -747,6 +762,7 @@ static bool ComputerAction(HandHistory currentHand)
     bool hasThreeOfAKind = false;
     bool hasPair = false;
 
+    // Check the counts for Three of a Kind and Pair
     foreach (var count in valueCounts.Values)
     {
         if (count == 3)
@@ -755,68 +771,83 @@ static bool ComputerAction(HandHistory currentHand)
             hasPair = true;
         else if (count == 4)
         {
-            // If we have four of a kind, we can count it as both a three of a kind and a pair
+            // If we have four of a kind, it counts as both Three of a Kind and a Pair
             hasThreeOfAKind = true;
             hasPair = true;
         }
     }
 
-    return hasThreeOfAKind && hasPair;
+    return hasThreeOfAKind && hasPair; // Return true if both conditions are met.
 }
 
 
+
     static bool IsFlush(char[] cardSuits)
+{
+    // This function checks if the hand is a Flush.
+    // A Flush is a hand where all cards are of the same suit.
+    // It iterates through the suits to see if there are five consecutive cards of the same suit.
+    for (int i = 0; i < cardSuits.Length - 4; i++)
     {
-        for (int i = 0; i < cardSuits.Length - 4; i++)
+        if (cardSuits[i] == cardSuits[i + 1] && cardSuits[i] == cardSuits[i + 2] && cardSuits[i] == cardSuits[i + 3] && cardSuits[i] == cardSuits[i + 4])
         {
-            if (cardSuits[i] == cardSuits[i + 1] && cardSuits[i] == cardSuits[i + 2] && cardSuits[i] == cardSuits[i + 3] && cardSuits[i] == cardSuits[i + 4])
-            {
-                return true;
-            }
+            return true; // Flush found.
         }
-        return false;
     }
+    return false; // No Flush found.
+}
+
 
     static bool IsStraight(string[] cardValues)
 {
+    // This function checks if the hand is a Straight.
+    // A Straight is a hand where all cards are in sequence.
     int[] cardRanks = cardValues.Select(GetCardValue).ToArray();
     Array.Sort(cardRanks);
-    cardRanks = cardRanks.Distinct().ToArray();
+    cardRanks = cardRanks.Distinct().ToArray(); // Remove duplicates to handle cases like 2-2-3-4-5.
 
-    // Check for Ace-low straight (A-2-3-4-5)
+    // Check for Ace-low Straight (A-2-3-4-5)
     if (cardRanks.Length >= 5 && cardRanks[0] == 2 && cardRanks[1] == 3 && cardRanks[2] == 4 && cardRanks[3] == 5 && cardRanks.Contains(14))
     {
         return true;
     }
 
+    // Check for general Straight
     for (int i = 0; i < cardRanks.Length - 4; i++)
     {
         if (cardRanks[i + 4] - cardRanks[i] == 4)
         {
-            return true;
+            return true; // Straight found.
         }
     }
-    return false;
+    return false; // No Straight found.
 }
 
 
+
     static bool IsThreeOfAKind(string[] cardValues)
+{
+    // This function checks if the hand contains Three of a Kind.
+    // Three of a Kind is a hand where three cards have the same value.
+    for (int i = 0; i < cardValues.Length - 2; i++)
     {
-        for (int i = 0; i < cardValues.Length - 2; i++)
+        if (cardValues[i] == cardValues[i + 1] && cardValues[i] == cardValues[i + 2])
         {
-            if (cardValues[i] == cardValues[i + 1] && cardValues[i] == cardValues[i + 2])
-            {
-                return true;
-            }
+            return true; // Three of a Kind found.
         }
-        return false;
     }
+    return false; // No Three of a Kind found.
+}
+
 
     static bool IsTwoPair(string[] cardValues, out int highCard)
 {
+    // This function checks if the hand contains Two Pair.
+    // Two Pair is a hand with two different pairs.
     List<int> pairs = new List<int>();
     int remainingCard = 0;
 
+    // Iterate through card values to find pairs
     for (int i = 0; i < cardValues.Length - 1; i++)
     {
         if (cardValues[i] == cardValues[i + 1])
@@ -836,7 +867,7 @@ static bool ComputerAction(HandHistory currentHand)
         pairs.Reverse(); // Highest pair first
         highCard = pairs.First(); // The highest pair's card value
 
-        // If pairs are equal, check the next highest card (kicker)
+        // If the two highest pairs are equal, check the next highest card (kicker)
         if (pairs.Count > 1 && pairs[0] == pairs[1])
         {
             highCard = Math.Max(pairs[0], Math.Max(remainingCard, GetCardValue(cardValues.Last())));
@@ -846,27 +877,31 @@ static bool ComputerAction(HandHistory currentHand)
             highCard = pairs[0]; // Highest pair value
         }
 
-        return true;
+        return true; // Two Pair found.
     }
 
-    highCard = 0;
+    highCard = 0; // No Two Pair found.
     return false;
 }
 
 
+
     static bool IsOnePair(string[] cardValues, out int highCard)
+{
+    // This function checks if the hand contains One Pair.
+    // One Pair is a hand with exactly one pair.
+    for (int i = 0; i < cardValues.Length - 1; i++)
     {
-        for (int i = 0; i < cardValues.Length - 1; i++)
+        if (cardValues[i] == cardValues[i + 1])
         {
-            if (cardValues[i] == cardValues[i + 1])
-            {
-                highCard = GetCardValue(cardValues[i]);
-                return true;
-            }
+            highCard = GetCardValue(cardValues[i]);
+            return true; // One Pair found.
         }
-        highCard = 0;
-        return false;
     }
+    highCard = 0; // No One Pair found.
+    return false;
+}
+
 
    static void WaitForUserInput(string actions = "")
     {
