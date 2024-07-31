@@ -115,8 +115,9 @@ flowchart TD
 - [x] Fix Higher pair wins, regardless of kicker
 - [x] Fix when player checks the action should pass to pc
 - [x] Fix Straight A to 5 evaluation missing
-- [x] Fix when both players have two pair, the highest pair wins and not the player with best kicker
 - [x] Implement a better showing of the best combination at the end of the hand
+- [ ] Fix Pair evaluation
+- [ ] Fix when both players have two pair, the highest pair wins and not the player with best kicker
 - [ ] Implement realistic computer action
 - [ ] Fix straight flush evaluation when it is actually just straight
 - [ ] Fix when players have same exact hand(straight for example) don't let winner be higher kicker but make it a tie
