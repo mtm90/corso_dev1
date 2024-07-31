@@ -559,11 +559,29 @@ static bool ComputerAction(HandHistory currentHand)
 
     static void DetermineWinner(HandHistory currentHand)
 {
-    int playerScore = EvaluateHand(playerHand, communityCards, out int playerHighCard, out List<int> playerHighCards);
-    int computerScore = EvaluateHand(computerHand, communityCards, out int computerHighCard, out List<int> computerHighCards);
-    string actions = $"Player Hand Evaluation: Score = {playerScore}, High Cards = {string.Join(", ", playerHighCards)}\n";
-    actions += $"Computer Hand Evaluation: Score = {computerScore}, High Cards = {string.Join(", ", computerHighCards)}\n";
+    // Arrays to store high cards
+    List<int> playerHighCards;
+    List<int> computerHighCards;
 
+    // Evaluate hands
+    int playerScore = EvaluateHand(playerHand, communityCards, out int playerHighCard, out playerHighCards);
+    int computerScore = EvaluateHand(computerHand, communityCards, out int computerHighCard, out computerHighCards);
+
+    // Array of hand descriptions
+    string[] stringScores = {
+        "High card", "One pair", "Two Pair", "Three of a kind", 
+        "Straight", "Flush", "Full House", "Four of a kind", 
+        "Straight Flush"
+    };
+
+    // Determine hand evaluations
+    string playerEvaluation = $"Player has {stringScores[playerScore - 1]}";
+    string computerEvaluation = $"Computer has {stringScores[computerScore - 1]}";
+
+    // Construct messages
+    string actions = $"{playerEvaluation}\n{computerEvaluation}\n";
+
+    // Determine the winner
     if (playerScore > computerScore)
     {
         actions += "[red bold]Player wins the hand.[/]\n";
@@ -614,6 +632,7 @@ static bool ComputerAction(HandHistory currentHand)
     Thread.Sleep(5000);
     WaitForUserInput();
 }
+
 
 
     static int EvaluateHand(string[] hand, string[] communityCards, out int highCard, out List<int> highCards)
