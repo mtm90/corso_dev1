@@ -655,6 +655,10 @@ static bool ComputerAction(HandHistory currentHand)
     return 1;
 }
 
+    private static bool IsFourOfAKind(string[] cardValues)
+    {
+        throw new NotImplementedException();
+    }
 
     static int GetCardValue(string card)
     {
@@ -678,20 +682,36 @@ static bool ComputerAction(HandHistory currentHand)
     }
 
     static bool IsStraightFlush(string[] cardValues, char[] cardSuits)
-    {
-        return IsFlush(cardSuits) && IsStraight(cardValues);
-    }
+{
+    var flushCards = new List<(int Value, char Suit)>();
 
-    static bool IsFourOfAKind(string[] cardValues)
+    // Group the cards by suit and then check each group for a straight
+    for (int i = 0; i < cardSuits.Length; i++)
     {
-        for (int i = 0; i < cardValues.Length - 3; i++)
+        if (cardSuits.Count(s => s == cardSuits[i]) >= 5) // There must be at least 5 cards of the same suit
         {
-            if (cardValues[i] == cardValues[i + 1] && cardValues[i] == cardValues[i + 2] && cardValues[i] == cardValues[i + 3])
+            flushCards = cardValues
+                .Where((v, idx) => cardSuits[idx] == cardSuits[i])
+                .Select(v => (Value: GetCardValue(v), Suit: cardSuits[i]))
+                .OrderByDescending(card => card.Value)
+                .ToList();
+
+            // Check for a straight within the flush cards
+            for (int j = 0; j <= flushCards.Count - 5; j++)
             {
-                return true;
+                if (IsStraight(flushCards.Skip(j).Take(5).Select(c => c.Value).ToArray()))
+                {
+                    return true;
+                }
             }
         }
-        return false;
+    }
+    return false;
+}
+
+    private static bool IsStraight(int[] ints)
+    {
+        throw new NotImplementedException();
     }
 
     static bool IsFullHouse(string[] cardValues)
