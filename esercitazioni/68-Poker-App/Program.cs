@@ -889,18 +889,39 @@ static bool ComputerAction(HandHistory currentHand)
     static bool IsOnePair(string[] cardValues, out int highCard)
 {
     // This function checks if the hand contains One Pair.
-    // One Pair is a hand with exactly one pair.
+    // One Pair is a hand where there is exactly one pair of cards with the same value.
+
+    int highestPairValue = 0;
+    bool foundPair = false;
+
+    // Iterate through the card values to find a pair
     for (int i = 0; i < cardValues.Length - 1; i++)
     {
         if (cardValues[i] == cardValues[i + 1])
         {
-            highCard = GetCardValue(cardValues[i]);
-            return true; // One Pair found.
+            // Get the card value for the pair
+            int pairValue = GetCardValue(cardValues[i]);
+            if (pairValue > highestPairValue)
+            {
+                // Update highestPairValue if this pair is higher
+                highestPairValue = pairValue;
+                foundPair = true;
+            }
+            i++; // Skip the next card as it's part of the pair
         }
     }
+
+    // If a pair was found, set highCard to the value of the highest pair
+    if (foundPair)
+    {
+        highCard = highestPairValue;
+        return true; // One Pair found.
+    }
+
     highCard = 0; // No One Pair found.
     return false;
 }
+
 
 
    static void WaitForUserInput(string actions = "")
