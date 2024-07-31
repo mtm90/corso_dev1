@@ -645,30 +645,40 @@ static bool ComputerAction(HandHistory currentHand)
 
     static int EvaluateHand(string[] hand, string[] communityCards, out int highCard, out List<int> highCards)
 {
+    // Combine the player's hand and community cards into a single list of all available cards
     List<string> allCards = new List<string>(hand);
     allCards.AddRange(communityCards);
+
+    // Arrays to hold the values and suits of all cards
     string[] cardValues = new string[allCards.Count];
     char[] cardSuits = new char[allCards.Count];
 
+    // Separate the card values and suits
     for (int i = 0; i < allCards.Count; i++)
     {
         string card = allCards[i];
+        // Extract card value (handling the possibility of a two-character value)
         cardValues[i] = card.Length == 3 ? card.Substring(0, 2) : card[0].ToString();
+        // Extract the suit of the card (last character)
         cardSuits[i] = card.Last();
     }
 
+    // Sort the card values in descending order for hand evaluation
     Array.Sort(cardValues, (a, b) => GetCardValue(b).CompareTo(GetCardValue(a)));
+    // Sort the card suits to evaluate flushes
     Array.Sort(cardSuits);
 
-    // Create a list of cards sorted by their values
+    // Create a list of cards sorted by their values (for evaluation purposes)
     var sortedCards = allCards.Select(card => new { Value = GetCardValue(card.Length == 3 ? card.Substring(0, 2) : card[0].ToString()), Suit = card.Last() })
                               .OrderByDescending(card => card.Value)
                               .ToList();
 
-    // Evaluate the best 5-card hand
+    // Extract the top 5 cards based on their values
     highCards = sortedCards.Take(5).Select(card => card.Value).ToList();
+    // The highest card value in the best hand
     highCard = highCards.First();
 
+    // Determine the hand ranking based on poker hand rules
     if (IsStraightFlush(cardValues, cardSuits)) { highCard = highCards[0]; return 9; }
     if (IsFourOfAKind(cardValues)) { highCard = highCards[0]; return 8; }
     if (IsFullHouse(cardValues)) { highCard = highCards[0]; return 7; }
@@ -678,9 +688,11 @@ static bool ComputerAction(HandHistory currentHand)
     if (IsTwoPair(cardValues, out highCard)) { return 3; }
     if (IsOnePair(cardValues, out highCard)) { return 2; }
 
+    // If none of the above hand rankings are matched, the hand is a high card
     highCard = highCards[0];
     return 1;
 }
+
 
 
     static int GetCardValue(string card)
