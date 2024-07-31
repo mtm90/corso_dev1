@@ -73,6 +73,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "83-Math-Arrotondamento", "e
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "84-Math-Divrem", "esercitazioni\84-Math-Divrem\84-Math-Divrem.csproj", "{1DC4A5DB-90CB-4E22-A1E3-777D99C2EF20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "85-JSON-lettura-file-dentro-cartella", "esercitazioni\85-JSON-lettura-file-dentro-cartella\85-JSON-lettura-file-dentro-cartella.csproj", "{CDFD66EC-5F4A-4735-A78A-5FEC8F8B597B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -214,6 +216,10 @@ Global
 		{1DC4A5DB-90CB-4E22-A1E3-777D99C2EF20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DC4A5DB-90CB-4E22-A1E3-777D99C2EF20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DC4A5DB-90CB-4E22-A1E3-777D99C2EF20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDFD66EC-5F4A-4735-A78A-5FEC8F8B597B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDFD66EC-5F4A-4735-A78A-5FEC8F8B597B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDFD66EC-5F4A-4735-A78A-5FEC8F8B597B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDFD66EC-5F4A-4735-A78A-5FEC8F8B597B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2F92323D-BF9B-4D95-807A-435F40FCB09E} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
@@ -249,5 +255,6 @@ Global
 		{2CFD8DF8-B30F-4410-917D-F24BB8DC3F85} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
 		{5722DBB6-50F4-448A-8CEB-33B6C574DA16} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
 		{1DC4A5DB-90CB-4E22-A1E3-777D99C2EF20} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
+		{CDFD66EC-5F4A-4735-A78A-5FEC8F8B597B} = {8042AABE-FC3F-4210-B34C-ECCDFCDAB99A}
 	EndGlobalSection
 EndGlobal
