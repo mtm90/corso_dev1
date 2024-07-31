@@ -102,12 +102,12 @@ class Program
         if (isPlayerSmallBlind)
         {
             handEnded = !BettingRound(true, true, currentHand);
-            Thread.Sleep(1500);
+            Thread.Sleep(1000);
         }
         else
         {
             handEnded = !BettingRound(false, true, currentHand);
-            Thread.Sleep(1500);
+            Thread.Sleep(1000);
         }
 
         if (handEnded)
@@ -131,12 +131,12 @@ class Program
         if (!isPlayerSmallBlind)
         {
             handEnded = !BettingRound(true, false, currentHand);
-            Thread.Sleep(1500);
+            Thread.Sleep(1000);
         }
         else
         {
             handEnded = !BettingRound(false, false, currentHand);
-            Thread.Sleep(1500);
+            Thread.Sleep(1000);
         }
 
         if (handEnded)
@@ -159,12 +159,12 @@ class Program
         if (!isPlayerSmallBlind)
         {
             handEnded = !BettingRound(true, false, currentHand);
-            Thread.Sleep(1500);
+            Thread.Sleep(1000);
         }
         else
         {
             handEnded = !BettingRound(false, false, currentHand);
-            Thread.Sleep(1500);
+            Thread.Sleep(1000);
         }
 
         if (handEnded)
@@ -186,12 +186,12 @@ class Program
         if (!isPlayerSmallBlind)
         {
             handEnded = !BettingRound(true, false, currentHand);
-            Thread.Sleep(1500);
+            Thread.Sleep(1000);
         }
         else
         {
             handEnded = !BettingRound(false, false, currentHand);
-            Thread.Sleep(1500);
+            Thread.Sleep(1000);
         }
 
         if (handEnded)
@@ -472,6 +472,8 @@ class Program
 
         case 4: // Fold
             actions += "You folded. Computer Wins\n";
+            RenderGameStatus("Player's Turn", actions);
+            Thread.Sleep(1500);
             computerStack += pot; // Award the pot to the computer
             currentHand.Actions.Add(new ActionRecord { Actor = "Player", Action = "Fold" });
             return false;
@@ -482,6 +484,7 @@ class Program
             return PlayerAction(isPreflop, currentHand); // Retry if the action is invalid
     }
     RenderGameStatus("Player's Turn", actions);
+    Thread.Sleep(2000);
     return true; // Return true if the action was valid
 }
 
@@ -490,7 +493,7 @@ static bool ComputerAction(HandHistory currentHand)
     Random rand = new Random();
     int action = rand.Next(1, 4); // Randomly choose between Bet/Raise, Call, Check
     int callAmount = playerBet - computerBet;
-    string potAndStackActions = "";
+    string actions = "";
 
     switch (action)
     {
@@ -509,7 +512,8 @@ static bool ComputerAction(HandHistory currentHand)
                 computerStack -= amount;
                 pot += amount;
                 computerBet += amount;
-                potAndStackActions += $"Computer bets/raises {amount}\n";
+                actions += $"Computer bets/raises {amount}\n";
+                RenderGameStatus("Computer's Turn", actions);
                 currentHand.Actions.Add(new ActionRecord { Actor = "Computer", Action = "Bet/Raise", Amount = amount });
             }
             break;
@@ -527,7 +531,8 @@ static bool ComputerAction(HandHistory currentHand)
             computerStack -= callAmount;
             pot += callAmount;
             computerBet = playerBet;
-            potAndStackActions += $"Computer calls {callAmount}\n";
+            actions += $"Computer calls {callAmount}\n";
+            RenderGameStatus("Computer's Turn", actions);
             currentHand.Actions.Add(new ActionRecord { Actor = "Computer", Action = "Call", Amount = callAmount });
             break;
 
@@ -536,22 +541,25 @@ static bool ComputerAction(HandHistory currentHand)
             {
                 return ComputerAction(currentHand); // Retry if check is not valid
             }
-            potAndStackActions += "Computer checks.\n";
+            actions += "Computer checks.\n";
+            RenderGameStatus("Computer's Turn", actions);
             currentHand.Actions.Add(new ActionRecord { Actor = "Computer", Action = "Check" });
             break;
 
         case 4: // Fold
-            potAndStackActions += "Computer folds. Player Wins\n";
+            actions += "Computer folds. Player Wins\n";
+            RenderGameStatus("Computer's Turn", actions);
             playerStack += pot; // Award the pot to the player
             currentHand.Actions.Add(new ActionRecord { Actor = "Computer", Action = "Fold" });
             return false; // Return false to indicate the computer has folded
 
         default:
-            potAndStackActions += "[red]Computer takes an invalid action.[/]\n";
+            actions += "[red]Computer takes an invalid action.[/]\n";
+            RenderGameStatus("Computer's Turn", actions);
             return ComputerAction(currentHand); // Retry if action is invalid
     }
-    RenderGameStatus("Computer's Turn", "", potAndStackActions);
-    Thread.Sleep(2500);
+    RenderGameStatus("Computer's Turn", actions);
+    Thread.Sleep(2000);
     return true; // Return true if the action was valid
 }
 
