@@ -125,5 +125,6 @@ flowchart TD
 - [ ] Fix high card evaluation when players have same score
 - [ ] Fix game mechanics when players use all their stack, they shouldn't be able to make more bets
 - [ ] Integrate all in action and showdown
+- [ ] Improve JSON File Saving
 - [x] Include try and catch for errors
 

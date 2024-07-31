@@ -1,65 +1,57 @@
 {
   "Deck": [
-    "6♣",
-    "7♠",
-    "A♦",
-    "A♥",
-    "9♠",
-    "7♣",
-    "J♦",
-    "2♣",
-    "A♣",
-    "K♠",
-    "6♠",
-    "Q♦",
-    "8♠",
-    "J♠",
-    "3♦",
-    "10♦",
-    "7♥",
-    "8♥",
-    "9♥",
-    "4♥",
-    "6♥",
-    "3♠",
-    "Q♣",
-    "K♥",
-    "Q♥",
-    "A♠",
-    "9♣",
-    "9♦",
-    "8♦",
     "2♠",
-    "4♦",
-    "3♣",
-    "5♥",
-    "10♠",
-    "J♥",
-    "J♣",
-    "3♥",
     "5♠",
-    "7♦",
-    "10♥",
-    "5♣",
-    "Q♠",
-    "4♣",
-    "5♦",
-    "10♣",
-    "K♦",
-    "2♥",
-    "6♦",
-    "K♣",
-    "4♠",
-    "2♦",
-    "8♣"
-  ],
-  "PlayerHand": [
     "6♣",
-    "7♠"
-  ],
-  "ComputerHand": [
+    "9♥",
+    "5♦",
+    "4♣",
+    "8♥",
+    "K♦",
+    "4♠",
+    "Q♣",
+    "K♠",
+    "Q♦",
+    "J♥",
+    "6♠",
+    "10♥",
+    "7♣",
+    "7♦",
+    "3♥",
+    "4♦",
     "A♦",
-    "A♥"
+    "10♣",
+    "K♣",
+    "J♠",
+    "5♣",
+    "9♠",
+    "2♦",
+    "7♥",
+    "7♠",
+    "A♠",
+    "10♠",
+    "4♥",
+    "K♥",
+    "A♣",
+    "6♦",
+    "2♣",
+    "5♥",
+    "8♠",
+    "J♣",
+    "A♥",
+    "8♣",
+    "9♦",
+    "10♦",
+    "6♥",
+    "3♦",
+    "2♥",
+    "8♦",
+    "9♣",
+    "J♦",
+    "3♠",
+    "Q♥",
+    "Q♠",
+    "3♣"
   ],
   "CommunityCards": [
     null,
@@ -69,12 +61,12 @@
     null
   ],
   "CurrentCardIndex": 9,
-  "PlayerStack": 478,
-  "ComputerStack": 522,
+  "PlayerStack": 497,
+  "ComputerStack": 503,
   "Pot": 0,
   "PlayerBet": 0,
   "ComputerBet": 0,
-  "IsPlayerSmallBlind": false,
+  "IsPlayerSmallBlind": true,
   "HandHistories": [
     {
       "Preflop": {
@@ -85,9 +77,9 @@
       },
       "Flop": {
         "CommunityCards": [
-          "9♥",
-          "10♦",
-          "J♠",
+          "2♥",
+          "5♥",
+          "Q♠",
           null,
           null
         ],
@@ -97,23 +89,317 @@
       },
       "Turn": {
         "CommunityCards": [
-          "9♥",
-          "10♦",
-          "J♠",
-          "5♠",
+          "2♥",
+          "5♥",
+          "Q♠",
+          "10♣",
+          null
+        ],
+        "PlayerBet": 6,
+        "ComputerBet": 6,
+        "Pot": 12
+      },
+      "River": {
+        "CommunityCards": [
+          "2♥",
+          "5♥",
+          "Q♠",
+          "10♣",
+          "A♠"
+        ],
+        "PlayerBet": 27,
+        "ComputerBet": 27,
+        "Pot": 54
+      },
+      "Actions": [
+        {
+          "Actor": "Player",
+          "Action": "Call",
+          "Amount": 1
+        },
+        {
+          "Actor": "Computer",
+          "Action": "Bet/Raise",
+          "Amount": 4
+        },
+        {
+          "Actor": "Player",
+          "Action": "Call",
+          "Amount": 4
+        },
+        {
+          "Actor": "Computer",
+          "Action": "Bet/Raise",
+          "Amount": 21
+        },
+        {
+          "Actor": "Player",
+          "Action": "Call",
+          "Amount": 21
+        },
+        {
+          "Actor": "Computer",
+          "Action": "Bet/Raise",
+          "Amount": 74
+        },
+        {
+          "Actor": "Player",
+          "Action": "Call",
+          "Amount": 74
+        }
+      ],
+      "PlayerHand": [
+        null,
+        null
+      ],
+      "ComputerHand": [
+        null,
+        null
+      ],
+      "Winner": "Player",
+      "EndPot": 202,
+      "PlayerStack": 601,
+      "ComputerStack": 399
+    },
+    {
+      "Preflop": {
+        "CommunityCards": null,
+        "PlayerBet": 2,
+        "ComputerBet": 1,
+        "Pot": 3
+      },
+      "Flop": {
+        "CommunityCards": [
+          "A♥",
+          "4♣",
+          "8♣",
+          null,
+          null
+        ],
+        "PlayerBet": 6,
+        "ComputerBet": 6,
+        "Pot": 12
+      },
+      "Turn": {
+        "CommunityCards": [
+          "A♥",
+          "4♣",
+          "8♣",
+          "10♣",
+          null
+        ],
+        "PlayerBet": 20,
+        "ComputerBet": 20,
+        "Pot": 40
+      },
+      "River": {
+        "CommunityCards": [
+          "A♥",
+          "4♣",
+          "8♣",
+          "10♣",
+          "2♥"
+        ],
+        "PlayerBet": 20,
+        "ComputerBet": 20,
+        "Pot": 40
+      },
+      "Actions": [
+        {
+          "Actor": "Computer",
+          "Action": "Bet/Raise",
+          "Amount": 5
+        },
+        {
+          "Actor": "Player",
+          "Action": "Call",
+          "Amount": 4
+        },
+        {
+          "Actor": "Player",
+          "Action": "Check",
+          "Amount": 0
+        },
+        {
+          "Actor": "Computer",
+          "Action": "Bet/Raise",
+          "Amount": 14
+        },
+        {
+          "Actor": "Player",
+          "Action": "Call",
+          "Amount": 14
+        },
+        {
+          "Actor": "Player",
+          "Action": "Check",
+          "Amount": 0
+        },
+        {
+          "Actor": "Computer",
+          "Action": "Check",
+          "Amount": 0
+        },
+        {
+          "Actor": "Player",
+          "Action": "Check",
+          "Amount": 0
+        },
+        {
+          "Actor": "Computer",
+          "Action": "Bet/Raise",
+          "Amount": 45
+        },
+        {
+          "Actor": "Player",
+          "Action": "Call",
+          "Amount": 45
+        }
+      ],
+      "PlayerHand": [
+        "J♠",
+        "3♥"
+      ],
+      "ComputerHand": [
+        "6♣",
+        "7♥"
+      ],
+      "Winner": "Player",
+      "EndPot": 130,
+      "PlayerStack": 666,
+      "ComputerStack": 334
+    },
+    {
+      "Preflop": {
+        "CommunityCards": null,
+        "PlayerBet": 1,
+        "ComputerBet": 2,
+        "Pot": 3
+      },
+      "Flop": {
+        "CommunityCards": [
+          "3♥",
+          "9♦",
+          "8♠",
+          null,
           null
         ],
         "PlayerBet": 2,
         "ComputerBet": 2,
         "Pot": 4
       },
+      "Turn": {
+        "CommunityCards": [
+          "3♥",
+          "9♦",
+          "8♠",
+          "7♠",
+          null
+        ],
+        "PlayerBet": 9,
+        "ComputerBet": 9,
+        "Pot": 18
+      },
       "River": {
         "CommunityCards": [
-          "9♥",
-          "10♦",
-          "J♠",
-          "5♠",
-          "A♣"
+          "3♥",
+          "9♦",
+          "8♠",
+          "7♠",
+          "2♣"
+        ],
+        "PlayerBet": 44,
+        "ComputerBet": 44,
+        "Pot": 88
+      },
+      "Actions": [
+        {
+          "Actor": "Player",
+          "Action": "Call",
+          "Amount": 1
+        },
+        {
+          "Actor": "Computer",
+          "Action": "Bet/Raise",
+          "Amount": 7
+        },
+        {
+          "Actor": "Player",
+          "Action": "Call",
+          "Amount": 7
+        },
+        {
+          "Actor": "Computer",
+          "Action": "Bet/Raise",
+          "Amount": 35
+        },
+        {
+          "Actor": "Player",
+          "Action": "Call",
+          "Amount": 35
+        },
+        {
+          "Actor": "Computer",
+          "Action": "Bet/Raise",
+          "Amount": 131
+        },
+        {
+          "Actor": "Player",
+          "Action": "Call",
+          "Amount": 131
+        }
+      ],
+      "PlayerHand": [
+        null,
+        null
+      ],
+      "ComputerHand": [
+        null,
+        null
+      ],
+      "Winner": "Computer",
+      "EndPot": 350,
+      "PlayerStack": 491,
+      "ComputerStack": 509
+    },
+    {
+      "Preflop": {
+        "CommunityCards": null,
+        "PlayerBet": 2,
+        "ComputerBet": 1,
+        "Pot": 3
+      },
+      "Flop": {
+        "CommunityCards": [
+          "5♦",
+          "4♣",
+          "8♥",
+          null,
+          null
+        ],
+        "PlayerBet": 6,
+        "ComputerBet": 6,
+        "Pot": 12
+      },
+      "Turn": {
+        "CommunityCards": [
+          "5♦",
+          "4♣",
+          "8♥",
+          "K♦",
+          null
+        ],
+        "PlayerBet": 6,
+        "ComputerBet": 6,
+        "Pot": 12
+      },
+      "River": {
+        "CommunityCards": [
+          "5♦",
+          "4♣",
+          "8♥",
+          "K♦",
+          "4♠"
         ],
         "PlayerBet": 6,
         "ComputerBet": 6,
@@ -121,250 +407,6 @@
       },
       "Actions": [
         {
-          "Actor": "Player",
-          "Action": "Call",
-          "Amount": 1
-        },
-        {
-          "Actor": "Computer",
-          "Action": "Check",
-          "Amount": 0
-        },
-        {
-          "Actor": "Player",
-          "Action": "Check",
-          "Amount": 0
-        },
-        {
-          "Actor": "Computer",
-          "Action": "Bet/Raise",
-          "Amount": 4
-        },
-        {
-          "Actor": "Player",
-          "Action": "Call",
-          "Amount": 4
-        },
-        {
-          "Actor": "Computer",
-          "Action": "Bet/Raise",
-          "Amount": 16
-        },
-        {
-          "Actor": "Player",
-          "Action": "Fold",
-          "Amount": 0
-        }
-      ],
-      "Winner": null,
-      "EndPot": 28,
-      "PlayerStack": 494,
-      "ComputerStack": 506
-    },
-    {
-      "Preflop": {
-        "CommunityCards": null,
-        "PlayerBet": 2,
-        "ComputerBet": 1,
-        "Pot": 3
-      },
-      "Flop": {
-        "CommunityCards": [
-          "4♠",
-          "9♦",
-          "K♥",
-          null,
-          null
-        ],
-        "PlayerBet": 2,
-        "ComputerBet": 2,
-        "Pot": 4
-      },
-      "Turn": null,
-      "River": null,
-      "Actions": [
-        {
-          "Actor": "Computer",
-          "Action": "Call",
-          "Amount": 1
-        },
-        {
-          "Actor": "Player",
-          "Action": "Check",
-          "Amount": 0
-        },
-        {
-          "Actor": "Computer",
-          "Action": "Bet/Raise",
-          "Amount": 5
-        },
-        {
-          "Actor": "Player",
-          "Action": "Fold",
-          "Amount": 0
-        }
-      ],
-      "Winner": null,
-      "EndPot": 9,
-      "PlayerStack": 492,
-      "ComputerStack": 508
-    },
-    {
-      "Preflop": {
-        "CommunityCards": null,
-        "PlayerBet": 1,
-        "ComputerBet": 2,
-        "Pot": 3
-      },
-      "Flop": {
-        "CommunityCards": [
-          "10♥",
-          "8♥",
-          "J♦",
-          null,
-          null
-        ],
-        "PlayerBet": 2,
-        "ComputerBet": 2,
-        "Pot": 4
-      },
-      "Turn": null,
-      "River": null,
-      "Actions": [
-        {
-          "Actor": "Player",
-          "Action": "Call",
-          "Amount": 1
-        },
-        {
-          "Actor": "Computer",
-          "Action": "Bet/Raise",
-          "Amount": 6
-        },
-        {
-          "Actor": "Player",
-          "Action": "Fold",
-          "Amount": 0
-        }
-      ],
-      "Winner": null,
-      "EndPot": 10,
-      "PlayerStack": 490,
-      "ComputerStack": 510
-    },
-    {
-      "Preflop": {
-        "CommunityCards": null,
-        "PlayerBet": 2,
-        "ComputerBet": 1,
-        "Pot": 3
-      },
-      "Flop": {
-        "CommunityCards": [
-          "4♥",
-          "8♣",
-          "9♥",
-          null,
-          null
-        ],
-        "PlayerBet": 5,
-        "ComputerBet": 5,
-        "Pot": 10
-      },
-      "Turn": null,
-      "River": null,
-      "Actions": [
-        {
-          "Actor": "Computer",
-          "Action": "Bet/Raise",
-          "Amount": 4
-        },
-        {
-          "Actor": "Player",
-          "Action": "Call",
-          "Amount": 3
-        },
-        {
-          "Actor": "Player",
-          "Action": "Check",
-          "Amount": 0
-        },
-        {
-          "Actor": "Computer",
-          "Action": "Bet/Raise",
-          "Amount": 11
-        },
-        {
-          "Actor": "Player",
-          "Action": "Fold",
-          "Amount": 0
-        }
-      ],
-      "Winner": null,
-      "EndPot": 21,
-      "PlayerStack": 485,
-      "ComputerStack": 515
-    },
-    {
-      "Preflop": {
-        "CommunityCards": null,
-        "PlayerBet": 1,
-        "ComputerBet": 2,
-        "Pot": 3
-      },
-      "Flop": {
-        "CommunityCards": [
-          "9♠",
-          "7♣",
-          "J♦",
-          null,
-          null
-        ],
-        "PlayerBet": 2,
-        "ComputerBet": 2,
-        "Pot": 4
-      },
-      "Turn": {
-        "CommunityCards": [
-          "9♠",
-          "7♣",
-          "J♦",
-          "2♣",
-          null
-        ],
-        "PlayerBet": 2,
-        "ComputerBet": 2,
-        "Pot": 4
-      },
-      "River": {
-        "CommunityCards": [
-          "9♠",
-          "7♣",
-          "J♦",
-          "2♣",
-          "A♣"
-        ],
-        "PlayerBet": 7,
-        "ComputerBet": 7,
-        "Pot": 14
-      },
-      "Actions": [
-        {
-          "Actor": "Player",
-          "Action": "Call",
-          "Amount": 1
-        },
-        {
-          "Actor": "Computer",
-          "Action": "Check",
-          "Amount": 0
-        },
-        {
-          "Actor": "Player",
-          "Action": "Check",
-          "Amount": 0
-        },
-        {
           "Actor": "Computer",
           "Action": "Bet/Raise",
           "Amount": 5
@@ -372,7 +414,12 @@
         {
           "Actor": "Player",
           "Action": "Call",
-          "Amount": 5
+          "Amount": 4
+        },
+        {
+          "Actor": "Player",
+          "Action": "Call",
+          "Amount": 0
         },
         {
           "Actor": "Computer",
@@ -383,12 +430,35 @@
           "Actor": "Player",
           "Action": "Check",
           "Amount": 0
+        },
+        {
+          "Actor": "Computer",
+          "Action": "Check",
+          "Amount": 0
+        },
+        {
+          "Actor": "Player",
+          "Action": "Check",
+          "Amount": 0
+        },
+        {
+          "Actor": "Computer",
+          "Action": "Check",
+          "Amount": 0
         }
       ],
-      "Winner": "Computer",
-      "EndPot": 14,
-      "PlayerStack": 478,
-      "ComputerStack": 522
+      "PlayerHand": [
+        "Q♣",
+        "2♦"
+      ],
+      "ComputerHand": [
+        "3♠",
+        "3♣"
+      ],
+      "Winner": "Player",
+      "EndPot": 12,
+      "PlayerStack": 497,
+      "ComputerStack": 503
     }
   ]
 }
