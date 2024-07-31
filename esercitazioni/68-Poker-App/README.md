@@ -9,7 +9,7 @@ L'obiettivo principale dell'applicazione "Poker Texas Hold'em" è di fornire agl
 
 - __Divertimento__:  Offrire un'esperienza di gioco appagante e realistica, simile a una partita di poker reale.
 - __Competizione__: Consentire agli utenti di sfidare il computer con un'intelligenza artificiale adeguata.
-- __Gestione delle partite__: Permettere all'utente di salvare, visualizzare e cancellare le partite giocate.
+- __Gestione delle partite__: Permettere all'utente di `salvare`, `visualizzare` e `cancellare` le partite giocate.
 - __Accessibilità__: Creare un'interfaccia utente semplice e intuitiva che renda facile per i giocatori avviare nuove partite e gestire le partite esistenti.
 
 ## _Funzionalità chiave_

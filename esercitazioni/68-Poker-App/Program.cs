@@ -386,7 +386,7 @@ class Program
         playerTurn = !playerTurn;
 
         // Check if the round is over
-        if (playerBet == computerBet && !playerTurn)
+        if ((playerBet == computerBet && !playerTurn) || ( computerBet == playerBet && playerTurn) )
         {
             if (firstAction && !isPreflop)
             {
