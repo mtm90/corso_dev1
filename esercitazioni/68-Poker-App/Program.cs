@@ -386,18 +386,25 @@ class Program
         playerTurn = !playerTurn;
 
         // Check if the round is over
-        if ((playerBet == computerBet && !playerTurn) || ( computerBet == playerBet && playerTurn) )
+        if ((playerBet == computerBet && !playerTurn) || (computerBet == playerBet && playerTurn))
         {
-            if (firstAction && !isPreflop)
+            // For preflop, check if it's the first action
+            if (firstAction)
             {
-                firstAction = false;
-                continue; // Ensure both players act at least once in postflop
+                // For preflop, ensure that both players have acted
+                // After both players have acted once, end the round
+                firstAction = false; // Mark that the first action is done
             }
-            roundOver = true; // Bets are matched, end the round
+            else
+            {
+                // In postflop, just check if bets are matched
+                roundOver = true;
+            }
         }
         else
         {
-            firstAction = false; // After the first action, no need to ensure both have acted
+            // After the first action, no need to ensure both have acted
+            firstAction = false;
         }
     }
 
