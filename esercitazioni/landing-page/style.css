@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    background-color: #A7A2A9;
+    align-items: center;
+    height: 15vh;
+    border: 1px solid #08090a;
+}
+
+main {
+    display: flex;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    background-color: #A7A2A9;
+    height: 10vh;
+    align-items: center;
+    border: 1px solid #08090a;
+
+}
+li:hover {
+    background-color: #575A5E;
+
+}
+.sidebar {
+    background-color: #837d85;
+    width: 30vw;
+    border: 1px solid #08090a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.main {
+    background-color: #575A5E;
+    width: 70vw;
+    border: 1px solid #08090a;
+
+
+}
+
+.pic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #08090a;
+    border-radius: 10px;
+    margin: 1rem;
+}
+
+ul {
+    list-style-type: none;
+    padding: 1rem;
+}
+.social {
+    width: 50px;
+    padding: 0.2rem;
+}
+.social:hover {
+    background-color: #575A5E;
+}
+.links {
+    padding-top: 1rem;
+    text-decoration: none;
+}
+h3 {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1rem;
+}
+span {
+    color: #e0e2e1;
+}
+.profileTitle,
+.skillsTitle {
+    padding-left: 1rem;
+}
+.profile p,
+.skills p {
+    padding: 1rem;
+} 
+u:hover {
+    background-color: #575A5E;
+
+}
+@media (max-width: 576px) {
+
+    .profile,
+    .skills,
+    .sidebar {
+        font-size: small;
+    }
+    .social {
+        width: 2rem;
+    }
+}
+
+@media (min-width:577px) and (max-width: 768px) {
+
+    .profile,
+    .skills,
+    .sidebar {
+        font-size: medium;
+    }
+    .social {
+        width: 2.5rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+
+    .profile,
+    .skills,
+    .sidebar {
+        font-size: large;
+    }
+    .social {
+        width: 4rem;
+    }
+    .pic {
+        width: 10rem;
+    }
+}
+
+@media (min-width: 993px) and (max-width:1200px) {
+    .profile,
+    .skills,
+    .sidebar {
+        font-size: larger;
+    }
+    .social {
+        width: 5rem;
+    }
+    .pic {
+        width: 12rem;
+    }
+
+}
+@media (min-width: 1201px) {
+    .profile,
+    .skills,
+    .sidebar {
+        font-size:x-large;
+    }
+    .social {
+        width: 6rem;
+    }
+    .pic {
+        width: 14rem;
+    }
+}
