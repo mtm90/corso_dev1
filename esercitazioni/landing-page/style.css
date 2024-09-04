@@ -50,7 +50,10 @@ footer {
     background-color: #A7A2A9;
     border: 1px solid #08090a;
 }
+nav a:hover {
+    background-color: #575A5E;
 
+}
 /* Element Styles */
 ul {
     list-style-type: none;
@@ -154,6 +157,9 @@ nav a {
     }
     header h1 {
         font-size: x-large;
+    }
+    footer h2 {
+        font-size: medium;
     }
 }
 
