@@ -152,6 +152,9 @@ nav a {
     .pic {
         width: 11rem;
     }
+    header h1 {
+        font-size: x-large;
+    }
 }
 
 @media (min-width: 577px) and (max-width: 768px) {
