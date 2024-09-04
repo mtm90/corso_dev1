@@ -1,125 +1,138 @@
+/* Global Styles */
 * {
     margin: 0;
     padding: 0;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+/* Header Styles */
 header {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #A7A2A9;
     align-items: center;
     height: 15vh;
+    background-color: #A7A2A9;
     border: 1px solid #08090a;
 }
 
+/* Main Layout Styles */
 main {
     display: flex;
 }
 
-footer {
-    display: flex;
-    justify-content: center;
-    background-color: #A7A2A9;
-    height: 10vh;
-    align-items: center;
-    border: 1px solid #08090a;
-
-}
-li:hover {
-    background-color: #575A5E;
-    cursor: default;
-
-}
 .sidebar {
-    background-color: #837d85;
     width: 30vw;
-    border: 1px solid #08090a;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    background-color: #837d85;
+    border: 1px solid #08090a;
 }
 
 .main {
-    background-color: #575A5E;
     width: 70vw;
-    border: 1px solid #08090a;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    background-color: #575A5E;
+    border: 1px solid #08090a;
+}
 
+/* Footer Styles */
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    background-color: #A7A2A9;
+    border: 1px solid #08090a;
+}
 
+/* Element Styles */
+ul {
+    list-style-type: none;
+    padding: 1rem;
+}
+
+li:hover {
+    background-color: #575A5E;
+    cursor: default;
+}
+
+h3 {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1rem;
+}
+
+span {
+    color: #e0e2e1;
+}
+
+.profileTitle,
+.skillsTitle,
+.contactTitle {
+    padding-left: 1rem;
+}
+
+.profile p,
+.skills p,
+.contactText {
+    padding: 1rem;
+}
+
+u:hover {
+    background-color: #575A5E;
+    cursor: default;
 }
 
 .pic {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 1rem;
     border: 2px solid #08090a;
     border-radius: 10px;
-    margin: 1rem;
 }
 
-ul {
-    list-style-type: none;
-    padding: 1rem;
-}
-.social {
-    width: 50px;
-    padding: 0.2rem;
-}
-.social:hover {
-    background-color: #575A5E;
-}
-.links {
-    padding-top: 1rem;
-    text-decoration: none;
-}
-h3 {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 1rem;
-}
-span {
-    color: #e0e2e1;
-}
-.profileTitle,
-.skillsTitle {
-    padding-left: 1rem;
-}
-.profile p,
-.skills p {
-    padding: 1rem;
-} 
-u:hover {
-    background-color: #575A5E;
-    cursor:default;
-}
-.contactTitle,
-.contactText {
-    padding: 1rem;
-}
 .form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #837d85;
-    border: 2px solid #08090a;
-    border-radius: 20px;
     width: 15rem;
     height: 10rem;
     margin: 1rem;
+    background-color: #837d85;
+    border: 2px solid #08090a;
+    border-radius: 20px;
 }
+
+/* Link Styles */
 nav a {
-    text-decoration:underline;
+    text-decoration: underline;
     color: #08090a;
 }
-@media (max-width: 576px) {
 
+.links {
+    padding-top: 1rem;
+    text-decoration: none;
+}
+
+.social {
+    width: 50px;
+    padding: 0.2rem;
+}
+
+.social:hover {
+    background-color: #575A5E;
+}
+
+/* Media Queries */
+@media (max-width: 576px) {
     .contactText,
     .profile,
     .skills,
@@ -131,8 +144,7 @@ nav a {
     }
 }
 
-@media (min-width:577px) and (max-width: 768px) {
-
+@media (min-width: 577px) and (max-width: 768px) {
     .contactText,
     .profile,
     .skills,
@@ -145,7 +157,6 @@ nav a {
 }
 
 @media (min-width: 769px) and (max-width: 992px) {
-    
     .contactText,
     .profile,
     .skills,
@@ -163,8 +174,7 @@ nav a {
     }
 }
 
-@media (min-width: 993px) and (max-width:1200px) {
-    
+@media (min-width: 993px) and (max-width: 1200px) {
     .contactText,
     .profile,
     .skills,
@@ -180,15 +190,14 @@ nav a {
     .form {
         width: 25rem;
     }
-
 }
+
 @media (min-width: 1201px) {
-    
     .contactText,
     .profile,
     .skills,
     .sidebar {
-        font-size:x-large;
+        font-size: x-large;
     }
     .social {
         width: 6rem;
