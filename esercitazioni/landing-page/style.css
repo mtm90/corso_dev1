@@ -133,14 +133,24 @@ nav a {
 
 /* Media Queries */
 @media (max-width: 576px) {
+    .main,
     .contactText,
     .profile,
     .skills,
     .sidebar {
         font-size: small;
+        width: inherit;
     }
+
     .social {
         width: 2rem;
+    }
+    main {
+        display: flex;
+        flex-direction: column;
+    }
+    .pic {
+        width: 11rem;
     }
 }
 
@@ -192,7 +202,7 @@ nav a {
     }
 }
 
-@media (min-width: 1201px) {
+@media (min-width: 1201px) and (max-width:1399px){
     .contactText,
     .profile,
     .skills,
@@ -207,5 +217,22 @@ nav a {
     }
     .form {
         width: 30rem;
+    }
+}
+@media (min-width: 1400px) {
+    .contactText,
+    .profile,
+    .skills,
+    .sidebar {
+        font-size: xx-large;
+    }
+    .social {
+        width: 7rem;
+    }
+    .pic {
+        width: 17rem;
+    }
+    .form {
+        width: 35rem;
     }
 }
