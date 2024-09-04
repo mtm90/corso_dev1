@@ -6,6 +6,7 @@
 
 header {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     background-color: #A7A2A9;
     align-items: center;
@@ -28,6 +29,7 @@ footer {
 }
 li:hover {
     background-color: #575A5E;
+    cursor: default;
 
 }
 .sidebar {
@@ -44,6 +46,10 @@ li:hover {
     background-color: #575A5E;
     width: 70vw;
     border: 1px solid #08090a;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 
 
 }
@@ -90,10 +96,31 @@ span {
 } 
 u:hover {
     background-color: #575A5E;
-
+    cursor:default;
+}
+.contactTitle,
+.contactText {
+    padding: 1rem;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #837d85;
+    border: 2px solid #08090a;
+    border-radius: 20px;
+    width: 15rem;
+    height: 10rem;
+    margin: 1rem;
+}
+nav a {
+    text-decoration:underline;
+    color: #08090a;
 }
 @media (max-width: 576px) {
 
+    .contactText,
     .profile,
     .skills,
     .sidebar {
@@ -106,6 +133,7 @@ u:hover {
 
 @media (min-width:577px) and (max-width: 768px) {
 
+    .contactText,
     .profile,
     .skills,
     .sidebar {
@@ -117,7 +145,8 @@ u:hover {
 }
 
 @media (min-width: 769px) and (max-width: 992px) {
-
+    
+    .contactText,
     .profile,
     .skills,
     .sidebar {
@@ -129,9 +158,14 @@ u:hover {
     .pic {
         width: 10rem;
     }
+    .form {
+        width: 20rem;
+    }
 }
 
 @media (min-width: 993px) and (max-width:1200px) {
+    
+    .contactText,
     .profile,
     .skills,
     .sidebar {
@@ -143,9 +177,14 @@ u:hover {
     .pic {
         width: 12rem;
     }
+    .form {
+        width: 25rem;
+    }
 
 }
 @media (min-width: 1201px) {
+    
+    .contactText,
     .profile,
     .skills,
     .sidebar {
@@ -156,5 +195,8 @@ u:hover {
     }
     .pic {
         width: 14rem;
+    }
+    .form {
+        width: 30rem;
     }
 }
