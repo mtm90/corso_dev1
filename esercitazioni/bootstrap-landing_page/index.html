@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Landing Page</title>
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Color Palette */
+        :root {
+            --primary-color: #8a817c;
+            --background-light: #bcb8b1;
+            --text-color-dark: #463f3a;
+            --progress-bg: #bcb8b1;
+            --melon: #E0AFA0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin-top: 50px;
+            color: var(--text-color-dark);
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: var(--primary-color);
+        }
+
+        .navbar-brand,
+        .navbar-nav .nav-link {
+            color: #F4F7F5 !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--melon) !important;
+        }
+
+        /* Section styling */
+        section {
+            padding: 60px 0;
+        }
+
+        #about,
+        #contact {
+            background-color: var(--background-light);
+        }
+
+        /* Social links styling */
+        #social-links a {
+            color: var(--primary-color);
+            margin: 0 15px;
+        }
+
+        #social-links a:hover {
+            color: var(--melon);
+        }
+
+        /* Progress bars styling */
+        .progress {
+            background-color: var(--progress-bg);
+        }
+
+        .progress-bar {
+            background-color: var(--primary-color);
+        }
+
+        /* Button styling */
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: var(--melon);
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: var(--primary-color);
+            color: #F4F7F5;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        #softSkills li:hover {
+            background-color: var(--melon);
+        }
+        #skills h5:hover {
+            background-color: var(--melon);
+        }
+        span {
+            color: #F4F7F5;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">My Landing page</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Introduction Section -->
+    <section id="about" class="container my-5 p-lg-5 text-center">
+        <h1 class="mb-4">Hello, I'm Mattia Totonchi Moghaddam</h1>
+        <p class="lead">I am a passionate web developer with a focus on creating clean and efficient code. Check out my
+            projects below or get in touch through my contact form!</p>
+        <br>
+        <p class="lead">With a strong foundation in <span>Economics</span>, I've discovered my passion for coding and technology. My
+            journey through chess and online poker has honed my ability to maintain <span>focus</span> and <span>resilience</span> under
+            pressure.<br>
+            Known for my <span>respectful</span> demeanor, <span>good manners</span>, and empathetic nature, I value the importance of
+            interpersonal skills in professional settings.<br>
+            I am committed to <span>punctuality</span> and meeting deadlines, and I am enthusiastic about embracing new opportunities
+            in the tech industry.<br>
+            Eager to start my first job in this exciting field, I am <span>confident</span> that my diverse background and personal
+            strengths will contribute to my success.
+        </p>
+
+        <!-- Soft Skills List -->
+        <h3 class="mt-5 mb-3">Soft Skills</h3>
+        <ul id="softSkills" class="list-group list-group-flush text-start text-sm-center">
+            <li class="list-group-item">Creativity</li>
+            <li class="list-group-item">Multipotentiality</li>
+            <li class="list-group-item">Rapid Thinking</li>
+            <li class="list-group-item">Adaptability</li>
+            <li class="list-group-item">Problem-solving</li>
+            <li class="list-group-item">Time management</li>
+            <li class="list-group-item">Active listening</li>
+            <li class="list-group-item">Accountability</li>
+            <li class="list-group-item">Punctuality</li>
+            <li class="list-group-item">Coaching and mentoring</li>
+        </ul>
+    </section>
+
+    <!-- Social Links -->
+    <section id="social-links" class="container text-center">
+        <h2 class="mb-4">Find me on</h2>
+        <a style="text-decoration: none" href="https://github.com/mtm90" target="_blank" class="me-3">
+            <i class="fab fa-github fa-2x"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/mtm90" target="_blank" class="me-3">
+            <i class="fab fa-linkedin fa-2x"></i>
+        </a>
+    </section>
+
+    <!-- Skills Section with Progress Bars -->
+    <section id="skills" class="container text-center">
+        <h2 class="mb-4">My Skills</h2>
+        <div class="row">
+            <div id="skills" class="col-lg-8 col-md-10 mx-auto">
+                <h5>HTML</h5>
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 80%;">80%</div>
+                </div>
+                <h5>CSS</h5>
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 80%;">80%</div>
+                </div>
+                <h5>JavaScript</h5>
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 50%;">50%</div>
+                </div>
+                <h5>C#</h5>
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 50%;">50%</div>
+                </div>
+                <h5>Git</h5>
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 50%;">50%</div>
+                </div>
+                <h5>Bootstrap</h5>
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 25%;">25%</div>
+                </div>
+                <h5>React</h5>
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 25%;">25%</div>
+                </div>
+                <h5>Node.js</h5>
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 25%;">25%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section with Form -->
+    <section id="contact" class="container my-5 text-center">
+        <h2 class="mb-4">Contact Me</h2>
+        <form class="mx-auto" style="max-width: 600px;">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" rows="4" placeholder="Your message..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark py-4">
+        <div class="container text-center">
+            <p>&copy; 2024 Mattia Totonchi Moghaddam | All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
