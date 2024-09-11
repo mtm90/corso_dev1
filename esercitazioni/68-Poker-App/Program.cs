@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Spectre.Console;
+using System.Data;
 using System.Data.SQLite;
 
 class Program
@@ -18,6 +19,8 @@ class Program
     static int computerBet = 0;
     static bool isPlayerSmallBlind = true;
     static string gameFilePath = "game_data.json";
+
+    static string playerName; // Declare playerName globally
 
     static string databasePath = "gameDatabase.db"; // Path to your SQLite database
 
@@ -69,13 +72,37 @@ class Program
         if (!isLoadedGame)
         {
         Console.Write("Please enter your name: ");
-        string playerName = Console.ReadLine()!;
+        playerName = Console.ReadLine()!;
         if (string.IsNullOrWhiteSpace(playerName))
         {
             Console.WriteLine("Name cannot be empty. Please enter a valid name.");
         }
         CreateDatabaseAndTable();
         InsertPlayerName(playerName);
+        string connectionString = $"Data Source={databasePath};Version=3;";
+        using (var connection = new SQLiteConnection(connectionString))
+        {
+
+         connection.Open();
+
+// Create table query if not exists
+        string createTableQuery = @"
+            CREATE TABLE IF NOT EXISTS hands (
+                hand_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                player_id INTEGER NOT NULL,
+                player_hand TEXT NOT NULL,
+                date TEXT NOT NULL,
+                FOREIGN KEY (player_id) REFERENCES players(player_id)
+            );
+        ";
+
+            
+            using (var command = new SQLiteCommand(createTableQuery, connection))
+            {
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
         }
 
 
@@ -288,8 +315,9 @@ class Program
         computerBet = 0;
         pot = 0;
         isPlayerSmallBlind = !isPlayerSmallBlind;
-        SaveGame();
+        SaveGame(playerName);
     }
+
 
     static void InitializeDeck()
     {
@@ -1036,7 +1064,7 @@ class Program
     }
 
 
-   static void SaveGame()
+   static void SaveGame(string playerName)
 {
     try
     {
@@ -1055,36 +1083,30 @@ class Program
             IsPlayerSmallBlind = isPlayerSmallBlind,
             HandHistories = handHistories
         };
-        string connectionString = $"Data Source={databasePath};Version=3;";
 
+        string connectionString = $"Data Source={databasePath};Version=3;";
         using (var connection = new SQLiteConnection(connectionString))
         {
             connection.Open();
 
-            // Create table query if not exists
-            string createTableQuery = @"
-                CREATE TABLE IF NOT EXISTS hands (
-                    hand_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    player_hand TEXT NOT NULL
-                );
-            ";
+            // Get the player_id of the current player based on the playerName variable
+            int playerId = GetPlayerId(playerName, connection);
 
-            using (var command = new SQLiteCommand(createTableQuery, connection))
-            {
-                command.ExecuteNonQuery();
-            }
-
-            // Insert the player_hand and community_cards together in one row
+            // Insert the player hand with the player_id as a foreign key
             string insertQuery = @"
-                INSERT INTO hands (player_hand)
-                VALUES (@playerHand);
+                INSERT INTO hands (player_id, player_hand, date)
+                VALUES (@playerId, @playerHand, @date);
             ";
 
             using (var command = new SQLiteCommand(insertQuery, connection))
             {
                 // Store playerHand and communityCards as JSON or separated by commas
                 string playerHandString = $"{playerHand[0]}{playerHand[1]}";
+                string time = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+
+                command.Parameters.AddWithValue("@playerId", playerId);
                 command.Parameters.AddWithValue("@playerHand", playerHandString);
+                command.Parameters.AddWithValue("@date", time);
                 command.ExecuteNonQuery();
             }
         }
@@ -1092,11 +1114,30 @@ class Program
         // Save game state to JSON file
         string json = JsonConvert.SerializeObject(gameState, Formatting.Indented);
         File.WriteAllText(gameFilePath, json);
-
     }
     catch (Exception ex)
     {
         AnsiConsole.Write(new Markup($"[red]Error saving game: {ex.Message}[/]\n"));
+    }
+}
+
+    static int GetPlayerId(string playerName, SQLiteConnection connection)
+{
+    // Query the database to retrieve the player_id for the given player_name
+    string query = "SELECT player_id FROM players WHERE player_name = @playerName";
+    using (var command = new SQLiteCommand(query, connection))
+    {
+        command.Parameters.AddWithValue("@playerName", playerName);
+        object result = command.ExecuteScalar();
+
+        if (result != null && int.TryParse(result.ToString(), out int playerId))
+        {
+            return playerId;
+        }
+        else
+        {
+            throw new Exception("Player not found");
+        }
     }
 }
 
