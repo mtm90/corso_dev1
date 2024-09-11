@@ -902,48 +902,63 @@ class Program
 
 
     static bool IsTwoPair(string[] cardValues, out int highCard)
+{
+    // This function checks if the hand contains Two Pair.
+    // Two Pair is a hand with two different pairs.
+    List<int> pairs = new List<int>();
+    int remainingCard = 0;
+
+    // Iterate through card values to find pairs
+    for (int i = 0; i < cardValues.Length - 1; i++)
     {
-        // This function checks if the hand contains Two Pair.
-        // Two Pair is a hand with two different pairs.
-        List<int> pairs = new List<int>();
-        int remainingCard = 0;
-
-        // Iterate through card values to find pairs
-        for (int i = 0; i < cardValues.Length - 1; i++)
+        if (cardValues[i] == cardValues[i + 1])
         {
-            if (cardValues[i] == cardValues[i + 1])
-            {
-                pairs.Add(GetCardValue(cardValues[i]));
-                i++; // Skip the next card as it's part of the pair
-            }
-            else if (pairs.Count < 2) // Track remaining card for kicker
-            {
-                remainingCard = GetCardValue(cardValues[i]);
-            }
+            pairs.Add(GetCardValue(cardValues[i]));
+            i++; // Skip the next card as it's part of the pair
         }
-
-        if (pairs.Count >= 2)
+        else if (pairs.Count < 2) // Track remaining card for kicker
         {
-            pairs.Sort();
-            pairs.Reverse(); // Highest pair first
-            highCard = pairs.First(); // The highest pair's card value
-
-            // If the two highest pairs are equal, check the next highest card (kicker)
-            if (pairs.Count > 1 && pairs[0] == pairs[1])
-            {
-                highCard = Math.Max(pairs[0], Math.Max(remainingCard, GetCardValue(cardValues.Last())));
-            }
-            else
-            {
-                highCard = pairs[0]; // Highest pair value
-            }
-
-            return true; // Two Pair found.
+            remainingCard = GetCardValue(cardValues[i]);
         }
-
-        highCard = 0; // No Two Pair found.
-        return false;
     }
+
+    if (pairs.Count >= 2)
+    {
+        pairs.Sort();
+        pairs.Reverse(); // Highest pair first
+        int highestPair = pairs[0];
+        int secondHighestPair = pairs[1];
+
+        // Determine the high card (kicker)
+        if (pairs.Count > 1 && pairs[0] == pairs[1])
+        {
+            // If the two highest pairs are equal, check the next highest card (kicker)
+            highCard = Math.Max(pairs[0], Math.Max(remainingCard, GetCardValue(cardValues.Last())));
+        }
+        else
+        {
+            highCard = pairs[0]; // Highest pair value
+        }
+
+        // Compare the pairs to find the correct highest hand
+        int pairComparison = highestPair.CompareTo(secondHighestPair);
+        if (pairComparison != 0)
+        {
+            highCard = highestPair; // Higher pair wins
+        }
+        else
+        {
+            // If pairs are equal, use the kicker value
+            highCard = Math.Max(highestPair, secondHighestPair);
+        }
+
+        return true; // Two Pair found.
+    }
+
+    highCard = 0; // No Two Pair found.
+    return false;
+}
+
 
 
 
