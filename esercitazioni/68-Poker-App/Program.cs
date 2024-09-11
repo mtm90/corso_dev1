@@ -85,16 +85,18 @@ class Program
 
          connection.Open();
 
-// Create table query if not exists
+// Modify hands table creation to add won_hand column (BOOL)
         string createTableQuery = @"
             CREATE TABLE IF NOT EXISTS hands (
                 hand_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 player_id INTEGER NOT NULL,
                 player_hand TEXT NOT NULL,
                 date TEXT NOT NULL,
+                won_hand BOOL NOT NULL,
                 FOREIGN KEY (player_id) REFERENCES players(player_id)
             );
         ";
+
 
             
             using (var command = new SQLiteCommand(createTableQuery, connection))
@@ -306,17 +308,23 @@ class Program
 
 
     static void EndHand(HandHistory currentHand)
-    {
-        currentHand.EndPot = pot;
-        currentHand.PlayerStack = playerStack;
-        currentHand.ComputerStack = computerStack;
-        Array.Clear(communityCards, 0, communityCards.Length);
-        playerBet = 0;
-        computerBet = 0;
-        pot = 0;
-        isPlayerSmallBlind = !isPlayerSmallBlind;
-        SaveGame(playerName);
-    }
+{
+    currentHand.EndPot = pot;
+    currentHand.PlayerStack = playerStack;
+    currentHand.ComputerStack = computerStack;
+    Array.Clear(communityCards, 0, communityCards.Length);
+    playerBet = 0;
+    computerBet = 0;
+    pot = 0;
+    isPlayerSmallBlind = !isPlayerSmallBlind;
+
+    // Determine if the player won
+    bool playerWon = currentHand.Winner == "Player";
+
+    // Save the game and pass the result of whether the player won
+    SaveGame(playerName, playerWon);
+}
+
 
 
     static void InitializeDeck()
@@ -1064,7 +1072,7 @@ class Program
     }
 
 
-   static void SaveGame(string playerName)
+   static void SaveGame(string playerName, bool playerWon)
 {
     try
     {
@@ -1092,10 +1100,10 @@ class Program
             // Get the player_id of the current player based on the playerName variable
             int playerId = GetPlayerId(playerName, connection);
 
-            // Insert the player hand with the player_id as a foreign key
+            // Insert the player hand with the player_id as a foreign key and won_hand status
             string insertQuery = @"
-                INSERT INTO hands (player_id, player_hand, date)
-                VALUES (@playerId, @playerHand, @date);
+                INSERT INTO hands (player_id, player_hand, date, won_hand)
+                VALUES (@playerId, @playerHand, @date, @wonHand);
             ";
 
             using (var command = new SQLiteCommand(insertQuery, connection))
@@ -1107,6 +1115,7 @@ class Program
                 command.Parameters.AddWithValue("@playerId", playerId);
                 command.Parameters.AddWithValue("@playerHand", playerHandString);
                 command.Parameters.AddWithValue("@date", time);
+                command.Parameters.AddWithValue("@wonHand", playerWon ? 1 : 0); // Store 1 for win (yes) and 0 for loss (no)
                 command.ExecuteNonQuery();
             }
         }
@@ -1120,6 +1129,7 @@ class Program
         AnsiConsole.Write(new Markup($"[red]Error saving game: {ex.Message}[/]\n"));
     }
 }
+
 
     static int GetPlayerId(string playerName, SQLiteConnection connection)
 {
