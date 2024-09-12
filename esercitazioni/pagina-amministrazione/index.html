@@ -37,11 +37,26 @@
       }
       #footer-bottom {
         background-color: #990300;
-
+        min-height: 80px; /* Ensure there's height for vertical centering */
+    display: flex; /* This allows the content inside to use flex properties */
+    align-items: center; /* Vertically centers the items */
       }
       #main h1 {
         font-weight:700
       }
+      #icon {
+        width: 2rem;
+      }
+      #search {
+        background-color:white ;
+        border-color: #cc2c29;
+        color: #cc2c29;
+      }
+      #html {
+        border: 2px solid white;
+        font-size: xx-large;
+      }
+
       .navbar .nav-link,
       .navbar-brand,
       .navbar-toggler-icon,
@@ -61,6 +76,13 @@
         background-color: #7f1b19;
         border-color: #7f1b19;
       }
+      a {
+        text-decoration: none;
+        color: white;
+      }
+      footer div ul li {
+        padding-top: 0.5rem;
+      }
     </style>
   </head>
   <body>
@@ -71,7 +93,9 @@
           <i class="bi bi-code-slash"></i> Ente appartenenza/Owner
         </a>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ms-auto d-flex justify-content-center align-items-center">
+            <li class="nav-item ps-3 pe-3 border-start"><a href="#">Link 1</a></li>
+            <li class="nav-item ps-3 pe-5 border-end"><a href="#">Link 2 Active</a></li>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -95,11 +119,15 @@
 
     <!-- Middle Section (Title, Social Links, Search Bar) -->
     <div class="middle-section d-flex justify-content-lg-start d-none d-sm-block">
-      <div class="container">
+      <div class="container pt-4">
         <div class="row">
-          <div class="col-4 justify-content-center align-items-center" id="lorem">
-            <h1>Lorem Ipsum</h1>
-            <p>Inserire qui la tag line</p>
+          <div class="col-4 d-flex justify-content-start align-items-center" id="lorem">
+            <div class="container" id="icon">
+            </div>
+            <div class="container">
+              <h1>Lorem Ipsum</h1>   
+              <p>Inserire qui la tag line</p>
+            </div>
           </div>
           <div
             class="col-4 text-center d-flex justify-content-center align-items-center"
@@ -114,7 +142,9 @@
           >
             <p class="mt-3">Cerca</p>
             <div class="m-3">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <button class="rounded-circle" id="search">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
             </div>
           </div>
         </div>
@@ -191,9 +221,9 @@
     </div>
 
     <!-- Footer -->
-    <footer class="text-light">
+    <footer class="text-light pb-4">
       <div class="container">
-        <div class="container mb-5">
+        <div class="container mb-5 pt-4">
           <h1>Lorem Ipsum</h1>
           <p>Inserire qui la tag line</p>  
         </div>     
@@ -216,6 +246,7 @@
               <li><a href="#">Domande e iscrizioni</a></li>
               <li><a href="#">Segnalazioni</a></li>
               <li><a href="#">Autorizzazioni e concessioni</a></li>
+              <li><a href="#">Certificati e dichiarazioni</a></li>
             </ul>
           </div>
           <div class="col-md-3 footer-column">
@@ -239,32 +270,38 @@
         </div>
         <hr>
         <div class="row mt-4">
-          <div class="col-md-6">
+          <div class="col-md-4">
+            <p> <strong>CONTATTI</strong></p>
             <p>
-              <strong>Comune di Lorem Ipsum</strong><br />Via Roma O - 00000
-              Lorem Ipsum<br />Codice fiscale / P. IVA: 0000000000<br />Posta
+              <strong>Comune di Lorem Ipsum</strong><br>Via Roma O - 00000
+              Lorem Ipsum Codice <br> fiscale / P. IVA: 0000000000 <br><br>Posta
               Elettronica Certificata
+              <br><br>
+              URP - Ufficio Relazioni con il Pubblico
             </p>
           </div>
-          <div class="col-md-6 text-end">
-            <p>Seguici su:</p>
-            <i class="fa-solid fa-heart m-2"></i>
-            <i class="fa-solid fa-m m-2"></i>
-            <i class="fa-brands fa-twitter m-2"></i>
-            <i class="fa-brands fa-behance m-2"></i>
-            <p class="mt-2">Form Newsletter</p>
-            <p><a href="#" class="text-light">Form Newsletter</a></p>
+          <div class="col-md-4">
+            <p><strong>LOREM IPSUM</strong></p>
           </div>
-        <div class="container" id="footer-bottom">
-            <ul class="text-center list-inline mb-0 d-flex flex-column flex-md-row">
-                <li class="list-inline-item"><a href="#">Media Policy</a></li>  
-                <li class="list-inline-item"><a href="#">Note legali</a></li>  
-                <li class="list-inline-item"><a href="#">Privacy policy</a></li>  
-                <li class="list-inline-item"><a href="#">Mappa del sito</a></li>  
-            </ul>
+          <div class="col-md-4">
+            <p><strong>SEGUICI SU</strong></p>
+            <a href="#"><i class="fa-solid fa-heart m-2"></i></a>
+            <a href="#"><i class="fa-solid fa-m m-2"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter m-2"></i></a>
+            <a href="#"><i class="fa-brands fa-behance m-2"></i></a>
+            <p class="mt-2 pt-3"><strong>NEWSLETTER</strong></p>
+            <p><a href="#" class="text-light">Form Newsletter</a></p>
         </div>
       </div>
     </footer>
+    <div class="container-fluid" id="footer-bottom">
+      <ul>
+          <li class="list-inline-item"><a  class="p-2" href="#">Media Policy</a></li>  
+          <li class="list-inline-item"><a class="p-2" href="#">Note legali</a></li>  
+          <li class="list-inline-item"><a class="p-2" href="#">Privacy policy</a></li>  
+          <li class="list-inline-item"><a class="p-2" href="#">Mappa del sito</a></li>  
+      </ul>
+  </div>
     
 
     <script
