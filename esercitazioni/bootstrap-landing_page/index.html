@@ -20,38 +20,84 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
       rel="stylesheet"
     />
+
     <style>
       /* Color Palette */
       :root {
-        --primary-color: #575366;
-        --background-light: #6e7dab;
-        --text-color-dark: #32292f;
-        --progress-bg: #d1e3dd;
-        --melon: #5762d5;
+        --primary-color: #1d3557;
+        --lighter-primary-color: #457b9d;
+        --darker-color: #13293d;
+        --ultra-light: #f1faee;
+        --secondary-color: #e63946;
       }
-
+    
+      /* General body styling */
       body {
         font-family: "Roboto", sans-serif;
-        margin-top: 50px;
-        color: var(--text-color-dark);
-        background-color: var(--progress-bg);
+        color: var(--darker-color);
+        background-color: var(--ultra-light);
       }
-
+    
+      /* Animations */
+      @keyframes slidein {
+        from {
+          translate: 150vw 0;
+          scale: 200% 1;
+        }
+        to {
+          translate: 0 0;
+          scale: 100% 1;
+        }
+      }
+    
+      @keyframes slideinRight {
+        from {
+          translate: -150vw 0;
+          scale: 200% 1;
+        }
+        to {
+          translate: 0 0;
+          scale: 100% 1;
+        }
+      }
+    
+      @keyframes bounceIn {
+        0%, 20%, 50%, 80%, 100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        40% {
+          transform: translateY(-30px);
+        }
+        60% {
+          transform: translateY(-15px);
+        }
+      }
+    
+      h1 {
+        animation-name: slidein;
+        animation-duration: 1s;
+      }
+    
+      h3 {
+        animation-name: slideinRight;
+        animation-duration: 1s;
+      }
+    
       /* Navbar styling */
       .navbar {
         background-color: var(--primary-color);
       }
-
+    
       .navbar-brand,
       .navbar-nav .nav-link {
-        color: #f4f7f5 !important;
+        color: var(--ultra-light) !important;
       }
-
+    
       .navbar-nav .nav-link:hover {
-        color: var(--progress-bg) !important;
+        color: var(--secondary-color) !important;
       }
-
-      /* Section styling with borders, rounded corners, and box shadow */
+      /* Section styling */
       section {
         padding: 60px 0;
         border: 2px solid var(--primary-color);
@@ -60,129 +106,148 @@
         margin-bottom: 30px;
         background-color: white;
       }
-
+    
+      /* Specific sections */
       #about {
-        background-color: var(--background-light);
+        background-color: var(--lighter-primary-color);
       }
+    
       #contact {
         background-color: white;
       }
-
+    
       /* Social links styling */
       #social-links a {
         color: var(--primary-color);
         margin: 0 15px;
       }
-
+    
       #social-links a:hover {
-        color: var(--melon);
+        color: var(--secondary-color);
       }
-
+    
       /* Progress bars styling */
       .progress {
-        background-color: var(--progress-bg);
+        background-color: var(--ultra-light);
+        border: 0.5px solid var(--darker-color);
       }
-
+    
       .progress-bar {
-        background-color: var(--text-color-dark);
+        background-color: var(--secondary-color);
       }
-
+    
       /* Button styling */
       .btn-primary {
-        background-color: var(--background-light);
+        background-color: var(--lighter-primary-color);
         border: none;
         color: white;
         width: 150px;
         height: 75px;
         font-size: x-large;
       }
-
+    
       .btn-primary:hover {
-        background-color: var(--progress-bg);
-        color: var(--text-color-dark);
+        background-color: var(--secondary-color);
+        color: var(--darker-color);
       }
-      #get-in-touch {
+    
+      /* Hero and profile buttons */
+      #get-in-touch,
+      #my-profile {
         background-color: var(--primary-color);
         font-size: xx-large;
-        width: fit-content;
-        border: 2px solid var(--text-color-dark);
+        width: 12rem;
+        height: 4rem;
+        border: 2px solid var(--darker-color);
       }
+    
       #get-in-touch a {
         text-decoration: none;
-        color: var(--progress-bg);
+        color: white;
       }
+    
       #get-in-touch:hover {
-        background-color: var(--progress-bg);
+        background-color: var(--ultra-light);
       }
+    
       #get-in-touch a:hover {
-        color: var(--text-color-dark);
+        color: var(--darker-color);
       }
-
+    
+      #get-in-touch {
+        animation-name: bounceIn;
+        animation-duration: 1s;
+        animation-delay: 1s;
+      }
+    
+      /* Profile section */
+      #profile-section p span {
+        color: var(--secondary-color);
+        font-weight: 500;
+      }
+    
       /* Footer styling */
       footer {
         background-color: var(--primary-color);
         color: #f4f7f5;
       }
-
+    
       footer p {
         margin: 0;
       }
-
-      /* Hover effects */
+    
+      /* Soft Skills hover effect */
       #softSkills li:hover {
-        background-color: var(--melon);
+        background-color: var(--secondary-color);
       }
+    
       #skills {
-        background-color: var(--background-light);
+        background-color: white;
       }
-
-      span {
-        color: #f4f7f5;
-      }
+    
+      /* Tooltip customization */
       .tooltip-inner {
-        background-color: var(
-          --primary-color
-        ) !important; /* Tooltip background */
-        color: var(--progress-bg) !important; /* Tooltip text color */
-        border: 1px dotted var(--melon) !important; /* Tooltip border */
+        background-color: var(--primary-color) !important;
+        color: var(--ultra-light) !important;
+        border: 1px dotted var(--secondary-color) !important;
       }
-
+    
       .tooltip-arrow {
-        border-top-color: var(
-          --primary-color
-        ) !important; /* Tooltip arrow color */
+        border-top-color: var(--primary-color) !important;
       }
     </style>
+    
   </head>
 
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top" style="animation: none;">
       <div class="container">
         <a id="brand" class="navbar-brand" href="#"
           >My Bootstrap Landing page</a
         >
         <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#about">About me</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#soft">Soft Skills</a>
+              <a class="nav-link" href="#profile-section">My Profile</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#skills">Hard Skills</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#soft">Soft Skills</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#social-links">Social</a>
@@ -196,37 +261,126 @@
     </nav>
 
     <!-- Introduction Section -->
-    <section id="about" class="container my-4 p-lg-5 text-center">
-      <h1 class="mb-4">Hi I'm Mattia!</h1>
-      <p class="lead me-4 ms-4">
-        I am a passionate web developer with a focus on creating clean and
-        efficient code. <br />
-        Feel free to explore my skills and get in touch through my contact form!
-      </p>
-      <button id="get-in-touch" type="submit" class="btn mt-2">
-        <a href="#contact">Contact me!</a>
-      </button>
-      <br />
-      <br />
-      <br />
-      <p class="lead me-4 ms-4">
-        With a strong foundation in <span>Economics</span>, I've discovered my
-        passion for coding and technology. My journey through chess and online
-        poker has honed my ability to maintain <span>focus</span> and
-        <span>resilience</span> under pressure.<br />
-        Known for my <span>respectful</span> demeanor,
-        <span>good manners</span>, and empathetic nature, I value the importance
-        of interpersonal skills in professional settings.<br />
-        I am committed to <span>punctuality</span> and meeting deadlines, and I
-        am enthusiastic about embracing new opportunities in the tech
-        industry.<br />
-        Eager to start my first job in this exciting field, I am
-        <span>confident</span> that my diverse background and personal strengths
-        will contribute to my success.
-      </p>
+    <section id="about" class="container my-5 p-sm-5 text-center">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1 class="mb-4" style="font-size: 3rem;">Hi, I'm Mattia!</h1>
+          <h3 class="lead me-4 ms-4" style="font-size: 1.5rem;">
+            Passionate Software Developer crafting clean, efficient code. I believe in building <span>beautiful</span> and <span>functional</span> websites that make an impact.
+          </h3>
+          <button id="get-in-touch" type="submit" class="btn mt-4" style="background-color: var(--secondary-color); color: white; font-size: large;">
+            <a href="#contact" style="text-decoration: none;"><i class="fas fa-envelope"></i> Contact Me!</a>
+          </button>
+        </div>
+        <div class="col-lg-6 d-flex justify-content-evenly align-items-center">
+          <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAL0AyAMBIgACEQEDEQH/xAAbAAABBQEBAAAAAAAAAAAAAAABAAIDBQYEB//EAD4QAAEDAgQEAwUGBAQHAAAAAAEAAgMEEQUSITEGQVFhEyJxFEKBkaEyUrHB0fAjMzRiFXKC4QcWJDVDksL/xAAYAQADAQEAAAAAAAAAAAAAAAAAAQIDBP/EACERAQEAAgICAwADAAAAAAAAAAABAhEDIRJREzFBBCJh/9oADAMBAAIRAxEAPwDegpXTQjYLldRyQQSQDkU0JBAOBRvZAb2WR414mZQN9hpXA1BHncPcH6oC4xXiOhw4FpeJJPutK8+x3i2oq3AOlfGwbMjNvms9PUvqHkueQDub6lQPMUYN2gkqpCySy1NZU2ke0iK+rSb31UbXOjd5XmwuHa7fvRN9vDAABoOSjEwJLeRtfTdWjt2NqZGOd5XNcHEhvVv6q2wrEpoXCamlkZIyxytO4IWe9t8MhuW56ropqsCRxiBs/wC06+pSsE29IoOMpGMaatnjh3/kGhb6rVYfiMFfCHwuGbm268gimic0MbJeR+pZ++yscBxd2H1TJCbsv5tOSnTTb1lNJUdHVQ1lNHUU7g6N4uP0UjlIBApXTSSgDZDRK5SsgEkhdBAEooFJABEIBIFAPsURZNB7o3QBTgmBPCApeLMY/wAJw17myeG932SN3HoF41U1T555JpnkuJvc7lXfHmKz12PTRSjIynPhsYTcAKpw3Daitks2MkWuLjRPqHrf05Rnf7qTqd3h+I6++gW0oeHQ0XkjvpzUs2AZntFhlHJR8sazgrBtpJZbWFgeZXbFhUnO62seDRssXNFwukYfGPdSvN6XP48YUYPe/l3XVFgJc0abbLYChYPdUzKUAWFlPzVfw4sU/BpaBpkYL36LmpajKJmFrtha/wBV6OykZMLFuip8d4U8e8tO21xqAqnKyz4vSH/hzjTziAonX8KYHS+lwvSiV4xwxE7D8fgEl2mKWxuOosvZmkuZcix6LW/4w+iKFkUrqTAoao6JIAWQRQKCNKSRSQCCCV0UAdUQgEUAU8FMCJcGtLjsAg3j/EdGMS4zfSQ/ZL7PPpv+a3tJRw0tO2OGNoAFtli+HZfHx+oqX6ySPcde5K3DSSseWujhnWxc24sFE+MlT5su9lDJVNabED5rB0SIsltwozonOq2HS2qjkdfXSyFTGpGtzcipmwLmZP4e5v6KQV7UxZXfFGRs1djCLWIFlXQVgda2t11F/lBFj1TlY2MpxZQspKxlZGywk3tyK2GA1ZrMJhnc677FrvUKj4iImw2Rrhc7gqXgF7nYW8dJNj6Lo48txz8mOq06aUiULq9oK6F0kkbIboXSKF0AbpJpKSAQRQCdZBCAlZJOQYap2+40QRBQHleAwGPH6thFsj3adPMtTV19PhtMZ6p2VvIcz2HVVjYPZ+LcVGn3/mQfzVZX0U2JVcklS8lgNmi+gCwzkuXbp49zHo2t41pgbMjcfUrg/wCcGPd/LJUsuC4fCMzwz0Juq98NCx3kEe/ukK5MJ+DWftc0eNMlfeQFitG1elwbjss1T08Tz5BqtHSYbPLT/wAO2yjOR0ce/wBQT4gyIanVUVTxP4LtISW36p+KxOhnyTXBB1XAWQn7dviE8MYjlyvtO3jKpYQI2OuOyvsG44Ln+HiEX8N2hc0at7+io4o6AaOsD3aQpmUdPJYwZSQNCOiv+vphrL229VJDV0TjTvEkcjfKR16J/A2mHTO2BfbQqo4dJbC+I3sTeyu+DAG4XMDf+of+KnDq0cn1GhJQum3SBVsTroII2PZMEgkgUyL97pJFJAFpTk0JyCEIpqSDPujoo7ps8scEZkkeGsbuSjZybZrGaYxcQSzAWbLS6nqQbH8lmMYrpYIhFTMcXE+4N1r8RqI6uoD4sxAjtfQ7m/5KnmoyASxo13XNll3t2YY6x0weJ09W+BsjJS6Q3zRt3b013UdDST+zOMzZTJfyh2q2EtC5xv5QOttUqfCw9+o25rSck0n4bve1VgtJP4gztIJ7r0rBYGin21VHSUbIC3K1afDIy1mqyt3W2tRiuOMPL5jJE06dFi2Ukhms5pazsdV67jlJnN9LW5rHVOGtlJygtN9CqxysK4eUYR+FVD6g/cB+PyVnR4fiLH56RugNy1zrFXBwyVjyM7rHtdWNBhs2bN5i1aXkZThkqbA/FMoc9jmXGo6Fafh6PwKB7CALzyE3/wAx/JcMdH7OxrwN9yq/EsbqsOdLT0wsSQbnUC6zxz7O8fn02PMA27i6KrcHrHVuHxTutnN7keq7g4radubLGy6qRLK7qm3Rv3t6ppOsEk26N0wSSF0kEAKcmBOugHBFMRJQZyoONc4wgZTZniDMr1c9dTMrKOSmkGjm6E8lOU3F8d8c9sjgbAKU297b5lWjnNaLFV+HsdTAwO+1G4g39dF3saH7rlruyu6h9n8R2YAlvdPLI4h5tD2XSbRt0suGd5lfbmkvHtPRuH9RMcsd7N791YtxaKFo1GvdY7Ha2rpoxT09gbaEgkWVaaurbCPHsZBvk2VyVGVj0WTE6WqYGyOAJ0VNXNNHWNa/zRSDM0/ksFLitXHK0xANjB3dck+i1uGuqq+kjdOCGg6XVXGybLDKb0vYqWOZt9xZEwvg1YBl6DdccMrqfcruZUhzRfcrOqsNimLhlcD8VnMfa19RMLeYBv4rQvcM1wbFVtRSGprWgW85APUAaoiZdXa5wCH2fC6ZhPmIzKxaVCyzQAALDQJ7SumdRxZ3yu0wKXrqmAp4KaRQ0RQsFWyJJBJAK6KbdFBHIXQuhdBnXQOu50QJQLkqalxanMdX7Qz7Mn2vVQRShitMTZJLSPbEzO7k2+pWee8tdY/RYZ49urjy3HTNPmOUX7psVVAzdw33Krq6YxQPeDusdNiT31YbI4hnNqWPHtplyeMarHMYp4wGNIc487bLOVmLM8SPwg7LzC6c7ZWAx0b3d3NuUx5sLz0RsP7FrJJEayycNNVtfKSG3ynUdVssNx2mfA1hdkeB9hxsstmqH/0lG5jOw/VQVLpxGfGpnWPMWui9pkyxa6TGIH1HhONjfRdMdXYtGbyrziOefx2NINr6F261VNMfBbmOqnLjkVjyXL7aSOfNKdfRWlFGzN4vvHc/RZmilzkO+6tbTNDImAgbaqccey5MukwKkaownArZzJQngqIFOBQSTRJMuEbp6I5JMJST2CujdMuighuhdJC6NmTnFNJKJsmlIzXOKzGKROp6p4JGV3mYQtMVXYvSippX5bNkjBLSosXhdVl5yZIy089lFRYJEHmRzWlx6qaH+I9oOh/Bd7GOtZnRZ26dmMmX245oWU7fKD/pKqqrFGRbsldryWk9nc8WsFwVmCRz/wAy4/yiyJl7VdydKGPGPaHZI2Sf6jdWUFK6obd8YaF00XDMEJve5vfVWZovD5XB2sncvSZMv1nKnC4w7M1ouFEDlIDtLLQ1UQjHmGp0HqqGucwS5Wi99kY237TnqLbAYzUVTGgeVt3FbC91ScP0jaWla7UvkALjyHorYFW5crtOCnBRAp4KpKUJ11GHJwQRyKaCjdVshJQSugkCRum5ksyeyOumkppcgXJGcSmkoFyYXa2Gp6BIxLlDNJEHRxyOAMxyNvuSVxYti1NhkBfO9pf7sQPmcf07rJ4NiE+K8W0EkzrkyEtaPstaATYfJOY7K5aSYix8E73sNiHeYdDzC7MNxBsrd2teNCHFT8bUpo6oVbW3gm1f2csk+UteXMcWnkWqLi6MeT027KyNgu7ouOqxZjTbN8llv8Qny2dqey5/bX38oeD0sp+NfzNdDizQzM5xspH41BlNneayxZqXkWs4BM9pfrZx1T+MvmX1fjGd9mnMfXZc+GM8SUySkddfqqmJrnHf4rScJ0n+IYzBTAXijPiy+gO3xKrx/Gdzv3WqEjYKllIWljjTslAOm+hHwXU1yz3H8slNxRDJG8tIpm2I5eZy68LxqCqiAmfHDMNHNcbAnt2Wlw19MfLf2uQf3ZSAqBp5n7PW6cCLkC+nZQpO2yeLKEFOBTJKEUwORBQDkU26SAZdK646zEaOi0qqhkbvuk6/IaqlqOMKRhIgp5ZCObjlH5pyWpaY37fNMJbc67LFT8YVlrRwwRt7gk/iqjEuI6+ri8KSchh3DQBdPwo8o1mLcVUVFdkH/USjfKfKPistV8R4lXEk1BiYPdhGX67/AFWec90ruqnJs0tbzWkx0i0ZpHSvzPe53cm6seE5xDxRh73EAeJk/wDZpaPqVU3sLJjZvBmhnaSHRyNfpyIVFt7jjmGtxXDJaZ9gXDS5XjRbJTzvpqgZZYnFpB7fqvbKitgw+jmrKp4ZBE3MT8L2+Oy81xl9NxXNLWYZB4FTGNpHAGZvTsVncdxeGWqo2RseAHa3Skoxs0G3qoSJoJTFKx7Xs0c1zbFq7YZg4ebdZXbfHTkdTWFzc/FFrGjouid4tZREZuQCXZ6gucGNLQNV6T/w1wk02HPrZ2fxKk3HXL7o/H5rB4bQ+1TOdN5KSBviTu6DkB3dy/2XfhfG2KU/EDcsh9gkfb2U2Ia3oOhWuGO+2PJlro/j2pE3Fc7L6RRsZ8xm/wDpUZNxfdScRVAqeIcQladHzuAJ6A2H0ChhfdtjutZ9MpUtJjFbQutBO5rfunUfIq+ouMpMobVU4IHvRm30Ky1Q2+trLnBKVxlPyr1KhxnD60NENQA8+7J5T+/S6sR9Oq8iiqMpsfrzVrRYtV0v9PUPaPu3uPkdFF4/SvN6V8LW3F7o3WTouK32y1UQf/czQ/JXdJjFDVtb4c7WOPuyaH9+l1Nx0rcWV0ky+g536JKQ8ldK529yoy82IBIB6JEnqmkBdGmGzXdTuoXk9VK4qFxRoGt38u6fe3+6jINiARfkoGsrb6PaR1cEaPbpecu6iICktdoLtyg5pRobbXj7FHVWD4NTsccs0TZXNGx0FvqqbhuQRTmNxFn7Dko8YkM+H8POvtDLFp/af0spKeLI5pAFxz+KOtD9anFMOpq2NrHOvK1topufLQ9QsnJTSU1Q6GZuSRjsrm/v96q/jeRYkG4HVSV9LFiDIyXCKZnkD8tw4d+ayuLWZaZ/K0C+/qmhrnGwGcna3M8k6qDqeQwytIeD8+6ssAhLXS1z2XZC3RxOzzsPxWcje2a2OKN9goIsOY8ZgfFnynQv5fJUGHwuOLU+g1fz9DqraqDpCTrvdxtuuYM9ndJKdxC4tPfb8SujHqOTO7rglcJ5pnnZ7yfmbp0V2HzbqINPJPL7aO0vsU9EjmkqmyOZKyN0XKRtwkG6a7rqF83ltk77FRVDAzK4XylGg5ZN7qSGQjdNktyTWph2tkN731XQx4P73VeHBSNeQgbXFNiVZQkGnqHsaPdvcfI6ILiZIHNsUktDdcV01zrJHRMcntJpKYXFJxSAug0jLGNmg7oO1N+aEOkb+zkiUA4627KJw7qRB4sgO54c/CcIPJla+P4kA2/FaY0OUNsG66tBP2uaw8c8jamnjzExsqGSBnLNfdetmFj2eIAQCBoTf98/mpvRxUQQENu25PIOTKaO4dlvdr9Bzt6q0nAhpHPYNtADy1UFFE1hLDcgn5JKV9Zh7K+JrnSiPwnDNM7kzW9+/Trsp5/A8BlJRMcKaEE3cPM8/e9VJXs/iCMGwBubDc/slS0UALRY2sLt7aI1Nlu/qvp6EzyZjsHEXHYqn4waKSopoG+XOwkj0K2GFxASzbXEh5d1lOP/APvEQFxljNtepKcK1Rscn2D99R0ULVJGbKiPY3IDZ12jYHkhU2LGjoboj7R0Gqjl/mBB7QOFk1m9ipZAove+CAlvbkEQmjVK+qCdMZ7JJsZSQH//2Q==" class="img-fluid rounded-circle animate__animated animate__zoomIn mt-5" alt="Mattia's Profile" style="width: 200px; height: 200px; object-fit: cover; box-shadow: 0px 0px 20px rgba(0,0,0,0.3);">
+        </div>
 
+      <section id="profile-section" class="container my-5 p-sm-5 text-center" >
+        <p class="lead me-4 ms-4">
+          With a strong foundation in <span>Economics</span>, I've discovered my passion for coding and technology. My journey through chess and online poker has honed my ability to maintain <span>focus</span> and <span>resilience</span> under pressure.<br />
+          Known for my <span>respectful</span> demeanor, <span>good manners</span>, and empathetic nature, I value the importance of interpersonal skills in professional settings.<br />
+          I am committed to <span>punctuality</span> and meeting deadlines, and I am enthusiastic about embracing new opportunities in the tech industry.<br />
+          Eager to start my first job in this exciting field, I am <span>confident</span> that my diverse background and personal strengths will contribute to my success.
+        </p>
+        <!-- Add a link to your profile -->
+        <a href="https://mattiatotonchi1990curriculumvitae.my.canva.site/" target="_blank" style="font-size: large; text-decoration: underline; color: var(--primary-color);"> 
+          <i class="fa-solid fa-file"></i>  My CV
+        </a>
+      </section>
+      
+      
+
+      <section id="skills" class="container my-5 p-sm-5 text-center">
+        <h2 class="mb-4">Hard Skills</h2>
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <h5>HTML</h5>
+            <div class="progress mb-3">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                style="width: 80%"
+              >
+                80%
+              </div>
+            </div>
+            <h5>CSS</h5>
+            <div class="progress mb-3">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                style="width: 80%"
+              >
+                80%
+              </div>
+            </div>
+            <h5>JavaScript</h5>
+            <div class="progress mb-3">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                style="width: 50%"
+              >
+                50%
+              </div>
+            </div>
+            <h5>C#</h5>
+            <div class="progress mb-3">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                style="width: 50%"
+              >
+                50%
+              </div>
+            </div>
+            <h5>Git</h5>
+            <div class="progress mb-3">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                style="width: 50%"
+              >
+                50%
+              </div>
+            </div>
+            <h5>Bootstrap</h5>
+            <div class="progress mb-3">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                style="width: 25%"
+              >
+                25%
+              </div>
+            </div>
+            <h5>React</h5>
+            <div class="progress mb-3">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                style="width: 25%"
+              >
+                25%
+              </div>
+            </div>
+            <h5>Node.js</h5>
+            <div class="progress mb-3">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                style="width: 25%"
+              >
+                25%
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+  
       <!-- Soft Skills Section with Bootstrap Cards -->
-      <section id="soft" class="container my-5 p-lg-5 text-center">
+      <section id="soft" class="container my-5 p-sm-5 text-center">
         <h2 class="mt-2 mb-5">Soft Skills</h2>
         <div class="row">
           <div class="col-md-4 mb-4">
@@ -348,10 +502,10 @@
           </div>
         </div>
       </section>
-    </section>
 
+      
     <!-- Social Links -->
-    <section id="social-links" class="container text-center">
+    <section id="social-links" class="container my-5 p-sm-5 text-center">
       <h2 class="mb-4">Find me on</h2>
       <a
         style="text-decoration: none"
@@ -366,122 +520,36 @@
       </a>
     </section>
 
-    <!-- Skills Section with Progress Bars -->
-    <section id="skills" class="container text-center">
-      <h2 class="mb-4">Hard Skills</h2>
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <h5>HTML</h5>
-          <div class="progress mb-3">
-            <div
-              class="progress-bar progress-bar-striped progress-bar-animated"
-              role="progressbar"
-              style="width: 80%"
-            >
-              80%
-            </div>
-          </div>
-          <h5>CSS</h5>
-          <div class="progress mb-3">
-            <div
-              class="progress-bar progress-bar-striped progress-bar-animated"
-              role="progressbar"
-              style="width: 80%"
-            >
-              80%
-            </div>
-          </div>
-          <h5>JavaScript</h5>
-          <div class="progress mb-3">
-            <div
-              class="progress-bar progress-bar-striped progress-bar-animated"
-              role="progressbar"
-              style="width: 50%"
-            >
-              50%
-            </div>
-          </div>
-          <h5>C#</h5>
-          <div class="progress mb-3">
-            <div
-              class="progress-bar progress-bar-striped progress-bar-animated"
-              role="progressbar"
-              style="width: 50%"
-            >
-              50%
-            </div>
-          </div>
-          <h5>Git</h5>
-          <div class="progress mb-3">
-            <div
-              class="progress-bar progress-bar-striped progress-bar-animated"
-              role="progressbar"
-              style="width: 50%"
-            >
-              50%
-            </div>
-          </div>
-          <h5>Bootstrap</h5>
-          <div class="progress mb-3">
-            <div
-              class="progress-bar progress-bar-striped progress-bar-animated"
-              role="progressbar"
-              style="width: 25%"
-            >
-              25%
-            </div>
-          </div>
-          <h5>React</h5>
-          <div class="progress mb-3">
-            <div
-              class="progress-bar progress-bar-striped progress-bar-animated"
-              role="progressbar"
-              style="width: 25%"
-            >
-              25%
-            </div>
-          </div>
-          <h5>Node.js</h5>
-          <div class="progress mb-3">
-            <div
-              class="progress-bar progress-bar-striped progress-bar-animated"
-              role="progressbar"
-              style="width: 25%"
-            >
-              25%
-            </div>
-          </div>
-        </div>
-      </div>
+          <!-- Contact Section with Form -->
+          <section id="contact" class="container my-5 text-center">
+            <h2 class="mb-4">Contact Me</h2>
+            <form class="mx-auto" style="max-width: 600px">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="name@example.com"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea
+                  class="form-control"
+                  id="message"
+                  rows="4"
+                  placeholder="Your message..."
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </section>
     </section>
 
-    <!-- Contact Section with Form -->
-    <section id="contact" class="container my-5 text-center">
-      <h2 class="mb-4">Contact Me</h2>
-      <form class="mx-auto" style="max-width: 600px">
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            placeholder="name@example.com"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="message" class="form-label">Message</label>
-          <textarea
-            class="form-control"
-            id="message"
-            rows="4"
-            placeholder="Your message..."
-            required
-          ></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </section>
+
 
     <!-- Footer -->
     <footer class="py-4">
@@ -518,8 +586,6 @@
         });
       });
     </script>
-    <script>
-        
-    </script>
+
   </body>
 </html>
