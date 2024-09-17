@@ -1,89 +1,89 @@
 # Poker Texas Holdem App
 
-Un'applicazione per giocare a poker contro il computer
+An application to play poker against the computer.
 
-## _Obiettivi applicazione_:
+## _Application Objectives_:
 
-L'obiettivo principale dell'applicazione "Poker Texas Hold'em" è di fornire agli utenti un'esperienza di gioco coinvolgente e divertente, dove possono giocare a poker contro il computer in un formato 1v1.
- Gli obiettivi specifici includono:
+The main goal of the "Poker Texas Hold'em" application is to provide users with an engaging and enjoyable gaming experience, where they can play poker against the computer in a 1v1 format. Specific objectives include:
 
-- __Divertimento__:  Offrire un'esperienza di gioco appagante e realistica, simile a una partita di poker reale.
-- __Competizione__: Consentire agli utenti di sfidare il computer con un'intelligenza artificiale adeguata.
-- __Gestione delle partite__: Permettere all'utente di `salvare`, `visualizzare` e `cancellare` le partite giocate.
-- __Accessibilità__: Creare un'interfaccia utente semplice e intuitiva che renda facile per i giocatori avviare nuove partite e gestire le partite esistenti.
+- __Fun__:  Provide a satisfying and realistic gaming experience, similar to a real poker match.
+- __Competition__: Allow users to challenge the computer with adequate artificial intelligence.
+- __Game Management__: Allow users to `save`, `view`, and `delete` the games they have played.
+- __Accessibility__:  Create a simple and intuitive user interface that makes it easy for players to start new games and manage existing games.
 
-## _Funzionalità chiave_
+## _Key Features_
 
-l'applicazione deve includere le seguenti funzionalità chiave:
+The application includes the following key features:
 
-- __Aggiunta di nuove partite__:
+- __Add New Games__:
 
-    - [x] Creare una nuova partita di poker
+    - [x] Create a new poker game
 
-- __Visualizzazione dei dettagli delle partite__:
+- __View Game Details__:
 
    
-    - [x] Visualizzare i dettagli di una partita specifica, incluse le puntate dei giocatori e lo stato delle carte.
+    - [x] View the details of a specific game, including player bets and card statuses.
 
-- __Aggiornamento delle partite__:
+- __Update Games__:
 
-    - [x] Consentire agli utenti di riprendere una partita salvata e continuare a giocare.
-    - [x] Salvataggio automatico della partita.
+    - [x] Allow users to resume a saved game and continue playing.
+    - [x] Automatic saving of the game state.
 
-- __Cancellazione delle partite__:
+- __Delete games__:
 
-    - [x] Permettere agli utenti di eliminare una partita salvata.
+    - [x] Allow users to delete a saved game.
 
-- __Gioco contro il computer__:
+- __Play against the computer__:
 
-    - [ ] Implementare una logica di gioco per il computer che simuli un avversario realistico.
-    - [x] Gestire le varie fasi del gioco (pre-flop, flop, turn, river) con decisioni automatiche del computer.
+    - [ ] Implement game logic for the computer that simulates a realistic opponent.
+    - [x] Manage the various phases of the game (pre-flop, flop, turn, river) with automatic decisions by the computer.
 
-## _Analisi target e esigenze utenti_
+## _Target Audience and User Needs Analysis_
 
-- __pubblico target__:
-    - appassionati di poker: Persone che amano giocare a poker e vogliono migliorare le loro abilità sfidando il computer.
-    - nuovi giocatori: Individui che desiderano imparare a giocare a poker Texas Hold'em in un ambiente non competitivo.
-    - giocatori casual: Persone che cercano un passatempo divertente e stimolante.
-    - Utenti tecnologici: Persone che apprezzano i giochi digitali e desiderano un'applicazione ben progettata e funzionante.
+- __Target Audience__:
+    - Poker enthusiasts: People who love to play poker and want to improve their skills by challenging the computer.
+    - New players: Individuals who want to learn how to play Texas Hold'em poker in a non-competitive environment.
+    - Casual players: People looking for a fun and challenging pastime.
+    - Tech-savvy users: People who appreciate digital games and desire a well-designed and functional application.
 
-- __esigenze degli utenti__:
-    - [x] Interfaccia intuitiva: Un'interfaccia facile da usare che permetta di avviare e gestire le partite senza difficoltà.
-    - [ ] Esperienza di gioco realistica: Un'IA per il computer che offra una sfida adeguata e che rispecchi il comportamento di un giocatore reale.
-    - [x] Funzionalità di gestione delle partite: Possibilità di salvare, visualizzare e cancellare le partite per tenere traccia dei propri progressi e delle proprie prestazioni.
+- __User Needs__:
+    - [x] Intuitive Interface: An easy-to-use interface that allows starting and managing games without difficulty.
+    - [ ] Realistic Gameplay: An AI for the computer that offers an adequate challenge and mimics the behavior of a real player.
+    - [x] Game Management Features: The ability to save, view, and delete games to track progress and performance.
     
 
-## _Definizione di strutture e convenzioni_
+## _Definition of Structures and Conventions_
 
-- inizialmente tutte le variabili sono in camelCase tranne le funzioni in PascalCase
+- Initially, all variables are in camelCase except for functions, which are in PascalCase.
 
 ## GANTT TIMELINE
 
 ```mermaid
 gantt
-    title Poker App timeline
+    title Poker App Timeline
     dateFormat  DDD DDDD
     axisFormat %a
     section Day 1
-    Definire campo e requisiti progetto : 1.1, 1d
-    Pianificare e strutturare funzionalità : 1.1, 1d
-    Creare progetto C# : 1.1, 1d
+    Define project scope and requirements : 1.1, 1d
+    Plan and structure features : 1.1, 1d
+    Create C# project : 1.1, 1d
     section Day 2
-    Definire strutture dati : 1.2,  1d
-    implementare input/output di base : 1.2, 1d
-    Creare menu principale : 1.2, 1d
+    Define data structures : 1.2,  1d
+    Implement basic input/output : 1.2, 1d
+    Create main menu : 1.2, 1d
     section Day 3
-    Aggiungere nuove partite : 1.3, 1d
-    Salvare stato iniziale in JSON : 1.3, 1d
-    Visualizzare partite : 1.3, 1d
+    Add new games : 1.3, 1d
+    Save initial state to JSON : 1.3, 1d
+    Display games : 1.3, 1d
     section Day 4
-    Visualizzare dettagli partita : 1.4, 1d
-    Salvare partita in JSON : 1.4, 1d
+    Display game details : 1.4, 1d
+    Save game to JSON : 1.4, 1d
     section Day 5
-    Implementare gioco computer : 1.5, 1d
-    Cancellare partite e prompt di conferma : 1.5, 1d
-    Test e debug : 1.5, 1d
-    Finalizzare applicazione : 1.5, 1d
+    Implement computer gameplay : 1.5, 1d
+    Delete games and confirmation prompt : 1.5, 1d
+    Test and debug : 1.5, 1d
+    Finalize application : 1.5, 1d
+
 ```
 
 # How it Works
