@@ -86,23 +86,104 @@ gantt
     Finalizzare applicazione : 1.5, 1d
 ```
 
-## FlowChart
+# How it Works
+
+## Game flow
+
+The player begins by selecting from the main menu:
+
+Poker App
+-------------------
+1. Start new game
+2. Load game
+3. Erase game
+4. View game history
+5. Quit
+
+Upon starting a new game, the player and the computer are dealt cards, and a series of betting rounds are conducted through the Preflop, Flop, Turn, and River stages.
+
+At the end of each hand:
+
+- The winner is determined based on standard poker rules.
+- If the player or computer runs out of chips, the game ends.
+
+## Database Structure
+
+The game utilizes SQLite to store player information and hand history. The following tables are used:
 
 ```mermaid
-flowchart TD
-    A[Poker App] --> B{1. Start new game
-    2. Load game
-    3. Erase game
-    4. View Game history
-    5. Quit
+erDiagram
+    PLAYERS {
+        INTEGER player_id PK
+        TEXT player_name
     }
-    B --> |1|C(New Game has started! first cards are dealt)
-    B --> |2|D(Load saved game and continue playing)
-    B --> |3|E(Erase game)
-    B --> |4|F(View game history)
-    B --> |5| A
+    HANDS {
+        INTEGER hand_id PK
+        INTEGER player_id FK
+        TEXT player_hand
+        DATE date
+        INTEGER final_pot_size
+        TEXT winner
+    }
 ```
 
+## Game Process
+
+The poker game progresses through different stages, including:
+
+- Preflop: Both the player and the computer receive their initial two cards.
+- Flop: Three community cards are dealt.
+- Turn: One additional community card is dealt.
+- River: The final community card is dealt.
+
+During each stage, a round of betting occurs. At the end of the River stage, the winner is determined.
+
+```mermaid
+graph TD
+    A[Start Game] -->|Player enters name| B{Main Menu}
+    B --> C[Start New Game]
+    B --> D[Load Game]
+    B --> E[Erase Game]
+    B --> F[View Game History]
+    B --> G[Quit]
+
+    C --> H{Preflop}
+    H --> I[Player and Computer receive cards]
+    I --> J[Betting round]
+    
+    J --> K{Flop}
+    K --> L[Deal 3 community cards]
+    L --> M[Betting round]
+    
+    M --> N{Turn}
+    N --> O[Deal 1 community card]
+    O --> P[Betting round]
+    
+    P --> Q{River}
+    Q --> R[Deal 1 community card]
+    R --> S[Betting round]
+    
+    S --> T{Determine Winner}
+    T --> U[Save Game]
+    T --> V[End Game or Next Hand]
+```
+
+## Saving and Loading
+
+- Saving: The current game state (including player stack, computer stack, community cards, and hand history) is saved both to a JSON file and an SQLite database after each hand.
+- Loading: The game state can be restored by reading from the JSON file and database.
+
+
+## Hand Evaluation
+
+At the end of the hand, the winner is determined based on the player's and computer's card combination, following standard poker rules (e.g., Straight, Flush, Full House, etc.).
+
+
+# How to Run
+
+Ensure you have SQLite and Newtonsoft.Json installed.
+Build and run the C# project in Visual Studio or using dotnet.
+Follow the prompts in the console to start a game, load a previous game, or view hand history.
 
 # To do list
 
