@@ -122,7 +122,6 @@ erDiagram
         INTEGER player_id FK
         TEXT player_hand
         DATE date
-        INTEGER final_pot_size
         TEXT winner
     }
 ```
