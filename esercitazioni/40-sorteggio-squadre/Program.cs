@@ -1,113 +1,70 @@
 ﻿using Spectre.Console;
 
 List<string> devclass = new List<string>
-        {
-            "Francesco",
-            "Mattia",
-            "Allison",
-            "Ginevra",
-            "Daniele",
-            "Serghej",
-            "Matteo",
-            "Silvano"
-        };
-        List<string> team1 = [];
-        List<string> team2 = [];
-        Random random = new();
-        bool addToteam1 = true;
-        while (devclass.Count > 0)
-        {
-            int randomIndex = random.Next(0, devclass.Count);
-            if (addToteam1)
-            {
-                team1.Add(devclass[randomIndex]);
-                addToteam1 = false;
-            }
-            else
-            {
-                team2.Add(devclass[randomIndex]);
-                addToteam1 = true;
-            }
-            devclass.RemoveAt(randomIndex);
-        }
-
-        var table1 = new Table();
-        table1.AddColumn("[bold red]team 1[/]");
-        foreach (string member in team1)
-        {
-            table1.AddRow(member);
-            
-
-        }
-        table1.Width(15);
-        AnsiConsole.Write(table1);
-
-        var table2 = new Table();
-        table2.AddColumn("[bold blue]team 2[/]");
-
-        foreach (string member in team2)
-        {
-            table2.AddRow(member);
-
-        }
-        table2.Width(15);
-        AnsiConsole.Write(table2);
-
-
-/*
-var table5 = new Table();
-table5.AddColumn("Nome");
-table5.AddColumn("Cognome");
-
-var partecipanti = new Dictionary<string, string> {
-    {"Mario", "Rossi"},
-    {"Luca", "Verdi"},
-    {"Andrea", "Bianchi"}
+{
+    "Francesco",
+    "Mattia",
+    "Ginevra",
+    "Christian",
+    "Serghej",
+    "Matteo",
 };
 
-foreach (var member in partecipanti)
+List<string> team1 = new();
+List<string> team2 = new();
+List<string> team3 = new();
+Random random = new();
+int teamSelector = 1; // Variable to alternate between teams
+
+while (devclass.Count > 0)
 {
-    table5.AddRow(member.Key, member.Value);
-}
-AnsiConsole.Write(table5);
+    int randomIndex = random.Next(0, devclass.Count);
 
-var table6 = new Table();  
-table6.AddColumn("Nome");
-table6.AddColumn("Cognome");
-table6.AddColumn("Anno di nascita");
+    if (teamSelector == 1)
+    {
+        team1.Add(devclass[randomIndex]);
+        teamSelector = 2; // Switch to team 2
+    }
+    else if (teamSelector == 2)
+    {
+        team2.Add(devclass[randomIndex]);
+        teamSelector = 3; // Switch to team 3
+    }
+    else
+    {
+        team3.Add(devclass[randomIndex]);
+        teamSelector = 1; // Switch back to team 1
+    }
 
-var partecipanti2 = new Dictionary<string, (string, int)>
-{
-    {"Mario", ("Rossi", 1990)},
-    {"Luca", ("Bianchi", 1980)},
-    {"Paolo", ("Verdi", 1970)}
-};
-
-foreach(var member in partecipanti2)
-{
-    table6.AddRow(member.Key, member.Value.Item1, member.Value.Item2.ToString());
-}
-
-AnsiConsole.Write(table6);
-
-var table7 = new Table();
-table7.AddColumn("Nome");
-table7.AddColumn("Soprannome");
-table7.AddColumn("Cognome");
-table7.AddColumn("Anno di nascita");
-
-
-var partecipanti3 = new Dictionary<(string, string), (string, int)>
-{
-    {("Mario","Ciccio"), ("Rossi", 1990)},
-    {("Luca", "gigetto"), ("Bianchi", 1980)},
-    {("Paolo", "nan"), ("Verdi", 1970)}
-};
-
-foreach (var member in partecipanti3)
-{
-    table7.AddRow(member.Key.Item1, member.Key.Item2, member.Value.Item1, member.Value.Item2.ToString());
+    devclass.RemoveAt(randomIndex);
 }
 
-AnsiConsole.Write(table7);
-*/
+// Team 1 Table
+var table1 = new Table();
+table1.AddColumn("[bold red]team 1[/]");
+foreach (string member in team1)
+{
+    table1.AddRow(member);
+}
+table1.Width(15);
+AnsiConsole.Write(table1);
+
+// Team 2 Table
+var table2 = new Table();
+table2.AddColumn("[bold blue]team 2[/]");
+foreach (string member in team2)
+{
+    table2.AddRow(member);
+}
+table2.Width(15);
+AnsiConsole.Write(table2);
+
+// Team 3 Table
+var table3 = new Table();
+table3.AddColumn("[bold green]team 3[/]");
+foreach (string member in team3)
+{
+    table3.AddRow(member);
+}
+table3.Width(15);
+AnsiConsole.Write(table3);
