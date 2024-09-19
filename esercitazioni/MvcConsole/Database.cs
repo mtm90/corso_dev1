@@ -44,7 +44,7 @@ class Database
     }
     public User SearchUserByName(string name)
 {
-    var command = new SQLiteCommand($"SELECT id, name FROM users WHERE name LIKE '%{name}%'", _connection);
+    var command = new SQLiteCommand($"SELECT id, name FROM users WHERE name = '{name}'", _connection);
     var reader = command.ExecuteReader();
     
     if (reader.Read())  // If at least one result is found
