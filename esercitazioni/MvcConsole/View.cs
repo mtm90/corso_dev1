@@ -18,12 +18,13 @@ class View
     }
 
     public void ShowUsers(List<User> users)
+{
+    foreach (var user in users)
     {
-        foreach (var user in users)
-        {
-            Console.WriteLine($"ID: {user.Id}, name: {user.Name}"); // Display both ID and name
-        }
+        Console.WriteLine($"ID: {user.Id}, Name: {user.Name}, Active: {user.Active}");  // Display ID, Name, and Active status
     }
+}
+
 
     public string GetInput()
     {

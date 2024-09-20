@@ -1,12 +1,13 @@
 class Book 
 {
-    private int Id {get; set;};
-    private string Title {get; set;};
-    private string Author {get; set;};
-    private int YearPublished {get; set;};
-    private string Genre {get; set;};
+    public int Id {get; set;}
+    public string Title {get; set;}
+    public string Author {get; set;}
+    public int YearPublished {get; set;}
+    public string Genre {get; set;}
+    
 
-    public Book(int Id, string Title, string Author, int YearPublished, string Genre)
+    public Book(int id, string title, string author, int yearPublished, string genre)
     {
         Id = id;
         Title = title;

@@ -2,9 +2,10 @@
 {
     static void Main(string[] args)
     {
-        var db = new Database(); // Model
-        var view = new View(db); // View
-        var controller = new Controller(db, view); // Controller
-        controller.MainMenu();
+        var db = new Database(); // Initialize the database
+        var view = new View();   // Initialize the view (UI)
+        var controller = new Controller(db, view); // Initialize the controller (logic)
+
+        controller.MainMenu(); // Start the application
     }
 }
