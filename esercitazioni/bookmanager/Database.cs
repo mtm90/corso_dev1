@@ -29,20 +29,27 @@ class Database
 
     public List<Book> GetBooks()
     {
-        var command = new SQLiteCommand("SELECT id, title, author, yearPublished, genre FROM books", _connection);
-        var reader = command.ExecuteReader();
-        var books = new List<Book>();
-        while (reader.Read())
+        try
         {
-            var id = reader.GetInt32(0); // Retrieve the id
-            var title = reader.GetString(1); // Retrieve the name
-            var author = reader.GetString(2);
-            var yearPublished = reader.GetInt32(3);
-            var genre = reader.GetString(4);
-            books.Add(new Book(id, title, author, yearPublished, genre)); // Create a new User object
+            var command = new SQLiteCommand("SELECT * FROM books", _connection);
+            var reader = command.ExecuteReader();
+            var books = new List<Book>();
+
+            while (reader.Read())
+            {
+                books.Add(new Book(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4)));
+            }
+
+            return books;
         }
-        return books;
+        catch (SQLiteException ex)
+        {
+            // Log the error, or display a user-friendly message
+            Console.WriteLine($"Database error: {ex.Message}");
+            return new List<Book>();
+        }
     }
+
 
     public void DeleteBook(int id)
     {
@@ -80,7 +87,7 @@ class Database
             var author = reader.GetString(2);
             var yearPublished = reader.GetInt32(3);
             var genre = reader.GetString(4);
-            return new Book (id, foundTitle, author, yearPublished, genre);
+            return new Book(id, foundTitle, author, yearPublished, genre);
         }
         else
         {

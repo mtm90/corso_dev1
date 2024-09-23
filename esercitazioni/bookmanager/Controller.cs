@@ -44,17 +44,67 @@ class Controller
         }
     }
 
+
+public static string SanitizeInput(string input)
+{
+    // Simple sanitization (you can use more advanced libraries for this)
+    return input.Replace("<", "").Replace(">", "").Trim();
+}
     // Add a book by getting user input and passing it to the database
     private void AddBook()
-    {
-        string title = _view.GetInput("Enter the book title:");
-        string author = _view.GetInput("Enter the author:");
-        int year = int.Parse(_view.GetInput("Enter the year of publication:"));
-        string genre = _view.GetInput("Enter the genre:");
+{
+    string title = "";
+    string author = "";
+    int year = -1;
+    string genre = "";
 
-        _db.AddBook(title, author, year, genre); // Call the database method to add the book
-        Console.WriteLine("Book added successfully!");
+    // Loop until valid title is entered
+    while (string.IsNullOrWhiteSpace(title))
+    {
+        title = SanitizeInput(_view.GetInput("Enter the book title:"));
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            Console.WriteLine("Please insert a valid title.");
+        }
     }
+
+    // Loop until valid author is entered
+    while (string.IsNullOrWhiteSpace(author))
+    {
+        author = SanitizeInput(_view.GetInput("Enter the author:"));
+        if (string.IsNullOrWhiteSpace(author))
+        {
+            Console.WriteLine("Please insert a valid author.");
+        }
+    }
+
+    // Loop until valid year is entered
+    while (year < 0)
+    {
+        string yearInput = SanitizeInput(_view.GetInput("Enter the year of publication:"));
+        if (!int.TryParse(yearInput, out year) || year < 0)
+        {
+            Console.WriteLine("Please insert a valid year.");
+            year = -1; // Reset year if invalid
+        }
+    }
+
+    // Loop until valid genre is entered
+    while (string.IsNullOrWhiteSpace(genre))
+    {
+        genre = SanitizeInput(_view.GetInput("Enter the genre:"));
+        if (string.IsNullOrWhiteSpace(genre))
+        {
+            Console.WriteLine("Please insert a valid genre.");
+        }
+    }
+
+    // Call the database method to add the book
+    _db.AddBook(title, author, year, genre);
+    Console.WriteLine("Book added successfully!");
+}
+
+
 
     private void ShowBook()
     {
