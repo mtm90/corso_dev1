@@ -29,6 +29,10 @@ class Controller
             }
             else if (input == "4")
             {
+                UpdateMovieTitle();
+            }
+            else if (input == "5")
+            {
                 _db.CloseConnection();
                 break;
             }
@@ -67,5 +71,17 @@ class Controller
 
     _db.DeleteMovie(title);
 
+    }
+    private void UpdateMovieTitle()
+    {
+        Console.WriteLine("Enter the title of the movie u want to update");
+        string oldTitle = _view.GetInput();
+        Console.WriteLine("Enter the new Title");
+        string newTitle = _view.GetInput();
+        _db.UpdateMovieTitle(oldTitle, newTitle);
+
+
+
+         
     }
 }

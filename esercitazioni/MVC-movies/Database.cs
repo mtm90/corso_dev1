@@ -50,9 +50,18 @@ class Database
 
     public void DeleteMovie(string title)
     {
-        var command = new SQLiteCommand("DELETE FROM movies where title = @title", _connection);
+        var command = new SQLiteCommand("DELETE FROM movies WHERE title = @title", _connection);
         command.Parameters.AddWithValue("@title", title);
         command.ExecuteNonQuery();
+    }
+
+    public void UpdateMovieTitle( string oldTitle, string newTitle)
+    {
+        var command = new SQLiteCommand("UPDATE movies SET title = @newTitle WHERE title = @oldTitle", _connection);
+        command.Parameters.AddWithValue("@newTitle", newTitle);
+        command.Parameters.AddWithValue("@oldTitle", oldTitle);
+        command.ExecuteNonQuery();
+
     }
 
     public void CloseConnection()

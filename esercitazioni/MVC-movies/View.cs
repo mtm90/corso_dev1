@@ -13,7 +13,8 @@ class View
         Console.WriteLine("1. Add movie");
         Console.WriteLine("2. View movies");
         Console.WriteLine("3. Delete movie");
-        Console.WriteLine("4. Exit");
+        Console.WriteLine("4. Update movie title");
+        Console.WriteLine("5. Exit");
     }
 
     public string GetInput()
