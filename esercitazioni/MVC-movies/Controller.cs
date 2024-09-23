@@ -25,6 +25,7 @@ class Controller
             }
             else if (input == "3")
             {
+                _db.CloseConnection();
                 break;
             }
         }

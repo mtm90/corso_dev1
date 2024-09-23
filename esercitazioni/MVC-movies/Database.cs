@@ -47,4 +47,12 @@ class Database
         }
         return movies;
     }
+
+    public void CloseConnection()
+    {
+        if (_connection.State != System.Data.ConnectionState.Closed)
+        {
+            _connection.Close();
+        }
+    }
 }
