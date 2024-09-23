@@ -25,6 +25,10 @@ class Controller
             }
             else if (input == "3")
             {
+                DeleteMovie();
+            }
+            else if (input == "4")
+            {
                 _db.CloseConnection();
                 break;
             }
@@ -54,5 +58,14 @@ class Controller
     {
         var movies = _db.GetMovies();
         _view.ShowMovies(movies);
+    }
+
+    private void DeleteMovie()
+    {
+        Console.WriteLine("Enter the title of the movie u want to delete");
+        string title = _view.GetInput();
+
+    _db.DeleteMovie(title);
+
     }
 }

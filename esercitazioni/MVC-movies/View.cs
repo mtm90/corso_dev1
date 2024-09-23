@@ -12,7 +12,8 @@ class View
     {
         Console.WriteLine("1. Add movie");
         Console.WriteLine("2. View movies");
-        Console.WriteLine("3. Exit");
+        Console.WriteLine("3. Delete movie");
+        Console.WriteLine("4. Exit");
     }
 
     public string GetInput()

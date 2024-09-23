@@ -48,6 +48,13 @@ class Database
         return movies;
     }
 
+    public void DeleteMovie(string title)
+    {
+        var command = new SQLiteCommand("DELETE FROM movies where title = @title", _connection);
+        command.Parameters.AddWithValue("@title", title);
+        command.ExecuteNonQuery();
+    }
+
     public void CloseConnection()
     {
         if (_connection.State != System.Data.ConnectionState.Closed)
