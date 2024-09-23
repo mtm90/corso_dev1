@@ -30,6 +30,15 @@ class Controller
             }
             else if (choice == "4")
             {
+                UpdateBook();
+            }
+            else if (choice == "5")
+            {
+                SearchBookByTitle();
+            }
+            else if (choice == "6")
+            {
+                _db.CloseConnection();
                 break; // Exit the program
             }
         }
@@ -54,16 +63,38 @@ class Controller
     }
 
     private void DeleteBook()
-{
-    _view.ShowDeleteBookMenu();
-    int id;
-    while (!int.TryParse(_view.GetInput("ID:"), out id))
     {
-        Console.WriteLine("Invalid ID. Please enter a valid number.");
+        Console.WriteLine("Enter the ID of the book to delete:");
+        int id;
+        while (!int.TryParse(_view.GetInput("ID:"), out id))
+        {
+            Console.WriteLine("Invalid ID. Please enter a valid number.");
+        }
+
+        _db.DeleteBook(id); // Call the database method to delete the book
+        Console.WriteLine("Book deleted successfully!");
     }
 
-    _db.DeleteBook(id); // Call the database method to delete the book
-    Console.WriteLine("Book deleted successfully!");
-}
+    private void UpdateBook()
+    {
+        string oldTitle = _view.GetInput("Enter the title of the book u want to update");
+        string newTitle = _view.GetInput("Enter the new title of the book");
+        _db.UpdateBook(oldTitle, newTitle);
+
+    }
+
+    private void SearchBookByTitle()
+    {
+        string title = _view.GetInput("Enter the title of the book u want to search");
+        var book = _db.SearchBookByTitle(title);
+        if (book != null)
+        {
+            _view.ShowBooks(new List<Book> { book });
+        }
+        else
+        {
+            Console.WriteLine("Book not found");
+        }
+    }
 
 }

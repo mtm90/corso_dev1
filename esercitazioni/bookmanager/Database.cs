@@ -41,15 +41,51 @@ class Database
             var genre = reader.GetString(4);
             books.Add(new Book(id, title, author, yearPublished, genre)); // Create a new User object
         }
-        return books;  
+        return books;
     }
 
     public void DeleteBook(int id)
-{
-    var command = new SQLiteCommand("DELETE FROM books WHERE id = @Id", _connection);
-    command.Parameters.AddWithValue("@Id", id);
-    command.ExecuteNonQuery(); // Execute the SQL command to delete the book
-}
+    {
+        var command = new SQLiteCommand("DELETE FROM books WHERE id = @Id", _connection);
+        command.Parameters.AddWithValue("@Id", id);
+        command.ExecuteNonQuery(); // Execute the SQL command to delete the book
+    }
 
+    public void UpdateBook(string oldTitle, string newTitle)
+    {
+        var command = new SQLiteCommand("UPDATE books SET title = @newTitle WHERE title = @oldTitle ", _connection);
+        command.Parameters.AddWithValue("@oldTitle", oldTitle);
+        command.Parameters.AddWithValue("@newTitle", newTitle);
+        command.ExecuteNonQuery();
+    }
+
+    public void CloseConnection()
+    {
+        if (_connection.State != System.Data.ConnectionState.Closed)
+        {
+            _connection.Close();
+        }
+    }
+
+    public Book SearchBookByTitle(string title)
+    {
+        var command = new SQLiteCommand("SELECT * FROM books WHERE title = @title", _connection);
+        command.Parameters.AddWithValue("@title", title);
+        var reader = command.ExecuteReader();
+
+        if (reader.Read())
+        {
+            var id = reader.GetInt32(0);
+            var foundTitle = reader.GetString(1);
+            var author = reader.GetString(2);
+            var yearPublished = reader.GetInt32(3);
+            var genre = reader.GetString(4);
+            return new Book (id, foundTitle, author, yearPublished, genre);
+        }
+        else
+        {
+            return null;
+        }
+    }
 
 }
