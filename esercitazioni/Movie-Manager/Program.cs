@@ -1,4 +1,5 @@
 ﻿using System;
+using Spectre.Console;
 
 class Program
 {
@@ -22,7 +23,8 @@ class Program
             Console.WriteLine("4. List all users");
             Console.WriteLine("5. Create a booking");
             Console.WriteLine("6. List all bookings");
-            Console.WriteLine("7. Exit");
+            Console.WriteLine("7. List all bookings with user details");
+            Console.WriteLine("8. Exit");
             Console.Write("Choose an option: ");
 
             string choice = Console.ReadLine();
@@ -48,6 +50,9 @@ class Program
                     bookingController.ListAllBookings();
                     break;
                 case "7":
+                    bookingController.ListBookingsWithUserDetails();
+                    break;
+                case "8":
                     return;  // Exit the program
                 default:
                     Console.WriteLine("Invalid choice. Please try again.");

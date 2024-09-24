@@ -71,6 +71,34 @@ public class BookingController
         _view.DisplayBookings(bookings);
     }
 
+
+    public void ListBookingsWithUserDetails()
+{
+    using var connection = _dbContext.GetConnection();
+    connection.Open();
+
+    string query = @"
+        SELECT 
+            u.UserId, 
+            u.Username, 
+            b.BookingId, 
+            b.MovieId, 
+            b.BookingDate 
+        FROM 
+            Users u
+        INNER JOIN 
+            Bookings b ON u.UserId = b.UserId;";
+
+    using var command = new System.Data.SQLite.SQLiteCommand(query, connection);
+    using var reader = command.ExecuteReader();
+
+    Console.WriteLine("Bookings with User Details:");
+    while (reader.Read())
+    {
+        Console.WriteLine($"User ID: {reader["UserId"]}, Username: {reader["Username"]}, Booking ID: {reader["BookingId"]}, Movie ID: {reader["MovieId"]}, Date: {reader["BookingDate"]}");
+    }
+}
+
     private bool UserExists(int userId)
     {
         using var connection = _dbContext.GetConnection();
