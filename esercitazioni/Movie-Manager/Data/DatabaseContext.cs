@@ -1,4 +1,3 @@
-// Data/DatabaseContext.cs
 using System.Data.SQLite;
 
 public class DatabaseContext

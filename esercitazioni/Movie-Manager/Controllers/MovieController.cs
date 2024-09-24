@@ -54,4 +54,86 @@ public class MovieController
         // Display all movies using the view
         _view.DisplayMovies(movies);
     }
+
+    public void SearchMovies()
+    {
+        Console.WriteLine("Search Movies");
+        Console.WriteLine("1. Search by Title");
+        Console.WriteLine("2. Search by Genre");
+        Console.WriteLine("Choose an option (1 or 2):");
+
+        string option = Console.ReadLine();
+
+        switch (option)
+        {
+            case "1":
+                SearchByTitle();
+                break;
+            case "2":
+                SearchByGenre();
+                break;
+            default:
+                Console.WriteLine("Invalid option. Please try again.");
+                break;
+        }
+    }
+
+    public void SearchByTitle()
+    {
+        Console.Write("Enter movie title (or part of it): ");
+        string title = Console.ReadLine();
+
+        using var connection = _dbContext.GetConnection();
+        connection.Open();
+
+        string query = "SELECT * FROM Movies WHERE Title LIKE @Title";
+        using var command = new System.Data.SQLite.SQLiteCommand(query, connection);
+        command.Parameters.AddWithValue("@Title", "%" + title + "%");
+
+        using var reader = command.ExecuteReader();
+
+        if (reader.HasRows)
+        {
+            Console.WriteLine("Movies Found:");
+            while (reader.Read())
+            {
+                Console.WriteLine($"ID: {reader["MovieId"]}, Title: {reader["Title"]}, Genre: {reader["Genre"]}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("No movies found with that title.");
+        }
+    }
+
+    public void SearchByGenre()
+    {
+        Console.Write("Enter movie genre: ");
+        string genre = Console.ReadLine();
+
+        using var connection = _dbContext.GetConnection();
+        connection.Open();
+
+        string query = "SELECT * FROM Movies WHERE Genre LIKE @Genre";
+        using var command = new System.Data.SQLite.SQLiteCommand(query, connection);
+        command.Parameters.AddWithValue("@Genre", "%" + genre + "%");
+
+        using var reader = command.ExecuteReader();
+
+        if (reader.HasRows)
+        {
+            Console.WriteLine("Movies Found:");
+            while (reader.Read())
+            {
+                Console.WriteLine($"ID: {reader["MovieId"]}, Title: {reader["Title"]}, Genre: {reader["Genre"]}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("No movies found with that genre.");
+        }
+    }
+
+
+
 }

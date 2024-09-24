@@ -1,5 +1,4 @@
-﻿using System;
-using Spectre.Console;
+using System;
 
 class Program
 {
@@ -19,13 +18,15 @@ class Program
             Console.WriteLine("\nMain Menu:");
             Console.WriteLine("1. Add a new movie");
             Console.WriteLine("2. List all movies");
-            Console.WriteLine("3. Add a new user");
-            Console.WriteLine("4. List all users");
-            Console.WriteLine("5. Create a booking");
-            Console.WriteLine("6. List all bookings");
-            Console.WriteLine("7. List all bookings with user details");
-            Console.WriteLine("8. Delete Booking");
-            Console.WriteLine("9. Exit");
+            Console.WriteLine("3. Search movies");
+            Console.WriteLine("4. Add a new user");
+            Console.WriteLine("5. List all users");
+            Console.WriteLine("6. Create a booking");
+            Console.WriteLine("7. List all bookings");
+            Console.WriteLine("8. List all bookings with user details");
+            Console.WriteLine("9. Delete Booking");
+            Console.WriteLine("10. Update Booking");
+            Console.WriteLine("11. Exit");
             Console.Write("Choose an option: ");
 
             string choice = Console.ReadLine();
@@ -39,24 +40,30 @@ class Program
                     movieController.ListAllMovies();
                     break;
                 case "3":
-                    userController.AddUser();
+                    movieController.SearchMovies();
                     break;
                 case "4":
-                    userController.ListAllUsers();
+                    userController.AddUser();
                     break;
                 case "5":
-                    bookingController.AddBooking();
+                    userController.ListAllUsers();
                     break;
                 case "6":
-                    bookingController.ListAllBookings();
+                    bookingController.AddBooking();
                     break;
                 case "7":
-                    bookingController.ListBookingsWithUserDetails();
+                    bookingController.ListAllBookings();
                     break;
                 case "8":
-                    bookingController.DeleteBooking();
+                    bookingController.ListBookingsWithUserDetails();
                     break;
                 case "9":
+                    bookingController.DeleteBooking();
+                    break;
+                case "10":
+                    bookingController.UpdateBooking();
+                    break;
+                case "11":
                     return;  // Exit the program
                 default:
                     Console.WriteLine("Invalid choice. Please try again.");

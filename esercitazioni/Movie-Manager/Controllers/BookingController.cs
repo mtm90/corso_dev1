@@ -1,4 +1,4 @@
-using Spectre.Console;
+using System.Data.SQLite;
 
 public class BookingController
 {
@@ -35,7 +35,7 @@ public class BookingController
         };
 
         string query = "INSERT INTO Bookings (UserId, MovieId, BookingDate) VALUES (@UserId, @MovieId, @BookingDate)";
-        using var command = new System.Data.SQLite.SQLiteCommand(query, connection);
+        using var command = new SQLiteCommand(query, connection);
         command.Parameters.AddWithValue("@UserId", newBooking.UserId);
         command.Parameters.AddWithValue("@MovieId", newBooking.MovieId);
         command.Parameters.AddWithValue("@BookingDate", newBooking.BookingDate);
@@ -55,7 +55,7 @@ public class BookingController
         connection.Open();
 
         string query = "SELECT BookingId, UserId, MovieId, BookingDate FROM Bookings";
-        using var command = new System.Data.SQLite.SQLiteCommand(query, connection);
+        using var command = new SQLiteCommand(query, connection);
         using var reader = command.ExecuteReader();
 
         while (reader.Read())
@@ -91,7 +91,7 @@ public class BookingController
         INNER JOIN 
             Bookings b ON u.UserId = b.UserId;";
 
-    using var command = new System.Data.SQLite.SQLiteCommand(query, connection);
+    using var command = new SQLiteCommand(query, connection);
     using var reader = command.ExecuteReader();
 
     Console.WriteLine("Bookings with User Details:");
@@ -103,12 +103,128 @@ public class BookingController
 
 
     public void DeleteBooking()
+{
+    Console.Write("Enter Booking ID to delete: ");
+    if (int.TryParse(Console.ReadLine(), out int bookingId))
     {
-        Console.WriteLine("Enter the ID of the Booking you want to delete:");
-        int prompt = Convert.ToInt32(Console.ReadLine());
-        _dbContext.DeleteBooking(prompt);
+        if (!BookingExists(bookingId))
+        {
+            Console.WriteLine("Booking ID not found.");
+            return;
+        }
 
+        try
+        {
+            using var connection = _dbContext.GetConnection();
+            connection.Open();
+
+            // Delete the booking from the database
+            string deleteQuery = "DELETE FROM Bookings WHERE BookingId = @BookingId";
+            using var deleteCommand = new SQLiteCommand(deleteQuery, connection);
+            deleteCommand.Parameters.AddWithValue("@BookingId", bookingId);
+            int affectedRows = deleteCommand.ExecuteNonQuery();
+
+            if (affectedRows > 0)
+            {
+                Console.WriteLine("Booking deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Failed to delete the booking.");
+            }
+        }
+        catch (SQLiteException ex)
+        {
+            Console.WriteLine($"Database error: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+        }
     }
+    else
+    {
+        Console.WriteLine("Invalid Booking ID. Please enter a valid numeric value.");
+    }
+}
+
+public void UpdateBooking()
+{
+    Console.Write("Enter Booking ID to update: ");
+    if (int.TryParse(Console.ReadLine(), out int bookingId))
+    {
+        if (!BookingExists(bookingId))
+        {
+            Console.WriteLine("Booking ID not found.");
+            return;
+        }
+
+        Console.Write("Enter new Movie ID: ");
+        if (!int.TryParse(Console.ReadLine(), out int newMovieId))
+        {
+            Console.WriteLine("Invalid Movie ID.");
+            return;
+        }
+
+        Console.Write("Enter new Booking Date (yyyy-mm-dd): ");
+        if (!DateTime.TryParse(Console.ReadLine(), out DateTime newBookingDate))
+        {
+            Console.WriteLine("Invalid Date format.");
+            return;
+        }
+
+        try
+        {
+            using var connection = _dbContext.GetConnection();
+            connection.Open();
+
+            // Update the booking in the database
+            string updateQuery = "UPDATE Bookings SET MovieId = @MovieId, BookingDate = @BookingDate WHERE BookingId = @BookingId";
+            using var updateCommand = new System.Data.SQLite.SQLiteCommand(updateQuery, connection);
+            updateCommand.Parameters.AddWithValue("@MovieId", newMovieId);
+            updateCommand.Parameters.AddWithValue("@BookingDate", newBookingDate);
+            updateCommand.Parameters.AddWithValue("@BookingId", bookingId);
+
+            int affectedRows = updateCommand.ExecuteNonQuery();
+
+            if (affectedRows > 0)
+            {
+                Console.WriteLine("Booking updated successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Failed to update the booking.");
+            }
+        }
+        catch (SQLiteException ex)
+        {
+            Console.WriteLine($"Database error: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+        }
+    }
+    else
+    {
+        Console.WriteLine("Invalid Booking ID. Please enter a valid numeric value.");
+    }
+}
+
+
+    private bool BookingExists(int bookingId)
+{
+    using var connection = _dbContext.GetConnection();
+    connection.Open();
+
+    string query = "SELECT COUNT(*) FROM Bookings WHERE BookingId = @BookingId";
+    using var command = new SQLiteCommand(query, connection);
+    command.Parameters.AddWithValue("@BookingId", bookingId);
+
+    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+}
+
+
 
     private bool UserExists(int userId)
     {
