@@ -1,3 +1,5 @@
+using Spectre.Console;
+
 public class BookingController
 {
     private readonly DatabaseContext _dbContext;
@@ -98,6 +100,15 @@ public class BookingController
         Console.WriteLine($"User ID: {reader["UserId"]}, Username: {reader["Username"]}, Booking ID: {reader["BookingId"]}, Movie ID: {reader["MovieId"]}, Date: {reader["BookingDate"]}");
     }
 }
+
+
+    public void DeleteBooking()
+    {
+        Console.WriteLine("Enter the ID of the Booking you want to delete:");
+        int prompt = Convert.ToInt32(Console.ReadLine());
+        _dbContext.DeleteBooking(prompt);
+
+    }
 
     private bool UserExists(int userId)
     {

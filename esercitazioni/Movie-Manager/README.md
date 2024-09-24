@@ -27,7 +27,7 @@ In the future, the application will handle functionalities like:
 ## Technologies
 
 - C#
-- SQLite (or SQL Server)
+- SQLite 
 
 ## Design Overview
 

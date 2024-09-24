@@ -24,7 +24,8 @@ class Program
             Console.WriteLine("5. Create a booking");
             Console.WriteLine("6. List all bookings");
             Console.WriteLine("7. List all bookings with user details");
-            Console.WriteLine("8. Exit");
+            Console.WriteLine("8. Delete Booking");
+            Console.WriteLine("9. Exit");
             Console.Write("Choose an option: ");
 
             string choice = Console.ReadLine();
@@ -53,6 +54,9 @@ class Program
                     bookingController.ListBookingsWithUserDetails();
                     break;
                 case "8":
+                    bookingController.DeleteBooking();
+                    break;
+                case "9":
                     return;  // Exit the program
                 default:
                     Console.WriteLine("Invalid choice. Please try again.");

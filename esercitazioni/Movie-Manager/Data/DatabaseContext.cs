@@ -53,4 +53,16 @@ public class DatabaseContext
     {
         return new SQLiteConnection(_connectionString);
     }
+
+    public void DeleteBooking( int BookingId)
+    {
+        using var connection = new SQLiteConnection(_connectionString);
+        connection.Open();
+
+        string delete = @"DELETE FROM Bookings WHERE BookingId = @BookingId;";
+        using var command = new SQLiteCommand(delete, connection);
+        command.Parameters.AddWithValue("@BookingId", BookingId);
+        command.ExecuteNonQuery();
+
+    }
 }
