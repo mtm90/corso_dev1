@@ -1,4 +1,6 @@
 using System.Data.SQLite;
+using Spectre.Console;
+
 
 public class BookingController
 {
@@ -94,11 +96,28 @@ public class BookingController
     using var command = new SQLiteCommand(query, connection);
     using var reader = command.ExecuteReader();
 
-    Console.WriteLine("Bookings with User Details:");
+    // Create a table for displaying booking information
+    var table = new Table();
+    table.AddColumn("User ID");
+    table.AddColumn("Username");
+    table.AddColumn("Booking ID");
+    table.AddColumn("Movie ID");
+    table.AddColumn("Booking Date");
+
+    // Populate the table with data
     while (reader.Read())
     {
-        Console.WriteLine($"User ID: {reader["UserId"]}, Username: {reader["Username"]}, Booking ID: {reader["BookingId"]}, Movie ID: {reader["MovieId"]}, Date: {reader["BookingDate"]}");
+        table.AddRow(
+            reader["UserId"].ToString(),
+            reader["Username"].ToString(),
+            reader["BookingId"].ToString(),
+            reader["MovieId"].ToString(),
+            reader["BookingDate"].ToString()
+        );
     }
+
+    // Display the table using Spectre.Console
+    AnsiConsole.Write(table);
 }
 
 

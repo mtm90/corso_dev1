@@ -1,18 +1,16 @@
+using Spectre.Console;
+
 public class UserView
 {
     public User GetUserDetailsFromUser()
     {
-        // Console input prompts for user details
-        Console.Write("Enter username: ");
-        string username = Console.ReadLine();
+        string username = AnsiConsole.Ask<string>("Enter [green]username[/]:");
+        string email = AnsiConsole.Ask<string>("Enter [green]email[/]:");
+        string password = AnsiConsole.Prompt(
+            new TextPrompt<string>("Enter [green]password[/]:")
+                .PromptStyle("red")
+                .Secret());
 
-        Console.Write("Enter email: ");
-        string email = Console.ReadLine();
-
-        Console.Write("Enter password: ");
-        string password = Console.ReadLine();
-
-        // Return a new user object with user input
         return new User
         {
             Username = username,
@@ -23,15 +21,25 @@ public class UserView
 
     public void ShowUserAddedSuccess(User user)
     {
-        Console.WriteLine($"User '{user.Username}' added successfully!");
+        AnsiConsole.Markup($"[green]User '{user.Username}'[/] added successfully!");
     }
 
     public void DisplayUsers(List<User> users)
     {
-        Console.WriteLine("\nUsers in the database:");
+        var table = new Table();
+        table.AddColumn("User ID");
+        table.AddColumn("Username");
+        table.AddColumn("Email");
+
         foreach (var user in users)
         {
-            Console.WriteLine($"{user.UserId}: {user.Username} ({user.Email})");
+            table.AddRow(
+                user.UserId.ToString(),
+                user.Username,
+                user.Email
+            );
         }
+
+        AnsiConsole.Write(table);
     }
 }

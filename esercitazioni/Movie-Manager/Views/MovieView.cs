@@ -1,22 +1,13 @@
+using Spectre.Console;
+
 public class MovieView
 {
     public Movie GetMovieDetailsFromUser()
     {
-        // Console input prompts acting as the View for user interaction
-        Console.Write("Enter movie title: ");
-        string title = Console.ReadLine();
+        string title = AnsiConsole.Ask<string>("Enter [green]movie title[/]:");
+        string genre = AnsiConsole.Ask<string>("Enter [green]movie genre[/]:");
+        int duration = AnsiConsole.Ask<int>("Enter [green]movie duration[/] (in minutes):");
 
-        Console.Write("Enter movie genre: ");
-        string genre = Console.ReadLine();
-
-        Console.Write("Enter movie duration (in minutes): ");
-        int duration;
-        while (!int.TryParse(Console.ReadLine(), out duration) || duration <= 0)
-        {
-            Console.WriteLine("Please enter a valid duration in minutes.");
-        }
-
-        // Return a new movie object with user input
         return new Movie
         {
             Title = title,
@@ -27,15 +18,27 @@ public class MovieView
 
     public void ShowMovieAddedSuccess(Movie movie)
     {
-        Console.WriteLine($"Movie '{movie.Title}' added successfully!");
+        AnsiConsole.Markup($"[green]Movie '{movie.Title}'[/] added successfully!");
     }
 
     public void DisplayMovies(List<Movie> movies)
     {
-        Console.WriteLine("\nMovies in the database:");
+        var table = new Table();
+        table.AddColumn("Movie ID");
+        table.AddColumn("Title");
+        table.AddColumn("Genre");
+        table.AddColumn("Duration (mins)");
+
         foreach (var movie in movies)
         {
-            Console.WriteLine($"{movie.MovieId}: {movie.Title} ({movie.Genre}) - {movie.Duration} mins");
+            table.AddRow(
+                movie.MovieId.ToString(),
+                movie.Title,
+                movie.Genre,
+                movie.Duration.ToString()
+            );
         }
+
+        AnsiConsole.Write(table);
     }
 }

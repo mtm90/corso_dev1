@@ -1,3 +1,4 @@
+using Spectre.Console;
 using System;
 
 class Program
@@ -15,58 +16,63 @@ class Program
 
         while (true)
         {
-            Console.WriteLine("\nMain Menu:");
-            Console.WriteLine("1. Add a new movie");
-            Console.WriteLine("2. List all movies");
-            Console.WriteLine("3. Search movies");
-            Console.WriteLine("4. Add a new user");
-            Console.WriteLine("5. List all users");
-            Console.WriteLine("6. Create a booking");
-            Console.WriteLine("7. List all bookings");
-            Console.WriteLine("8. List all bookings with user details");
-            Console.WriteLine("9. Delete Booking");
-            Console.WriteLine("10. Update Booking");
-            Console.WriteLine("11. Exit");
-            Console.Write("Choose an option: ");
+            // Create a Spectre.Console selection prompt
+            var choice = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("[green]Main Menu[/]")
+                    .PageSize(10)  // Show up to 10 items at a time
+                    .AddChoices(new[]
+                    {
+                        "Add a new movie",
+                        "List all movies",
+                        "Search movies",
+                        "Add a new user",
+                        "List all users",
+                        "Create a booking",
+                        "List all bookings",
+                        "List all bookings with user details",
+                        "Delete Booking",
+                        "Update Booking",
+                        "Exit"
+                    }));
 
-            string choice = Console.ReadLine();
-
+            // Use a switch statement to handle the user's choice
             switch (choice)
             {
-                case "1":
+                case "Add a new movie":
                     movieController.AddMovie();
                     break;
-                case "2":
+                case "List all movies":
                     movieController.ListAllMovies();
                     break;
-                case "3":
+                case "Search movies":
                     movieController.SearchMovies();
                     break;
-                case "4":
+                case "Add a new user":
                     userController.AddUser();
                     break;
-                case "5":
+                case "List all users":
                     userController.ListAllUsers();
                     break;
-                case "6":
+                case "Create a booking":
                     bookingController.AddBooking();
                     break;
-                case "7":
+                case "List all bookings":
                     bookingController.ListAllBookings();
                     break;
-                case "8":
+                case "List all bookings with user details":
                     bookingController.ListBookingsWithUserDetails();
                     break;
-                case "9":
+                case "Delete Booking":
                     bookingController.DeleteBooking();
                     break;
-                case "10":
+                case "Update Booking":
                     bookingController.UpdateBooking();
                     break;
-                case "11":
+                case "Exit":
                     return;  // Exit the program
                 default:
-                    Console.WriteLine("Invalid choice. Please try again.");
+                    AnsiConsole.Markup("[red]Invalid choice. Please try again.[/]");
                     break;
             }
         }
