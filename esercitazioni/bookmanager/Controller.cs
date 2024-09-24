@@ -16,135 +16,68 @@ class Controller
             _view.ShowMainMenu();
             var choice = _view.GetInput("Choose an option:");
 
-            if (choice == "1")
+            switch (choice)
             {
-                AddBook(); // Call AddBook method
-            }
-            else if (choice == "2")
-            {
-                ShowBook();
-            }
-            else if (choice == "3")
-            {
-                DeleteBook();
-            }
-            else if (choice == "4")
-            {
-                UpdateBook();
-            }
-            else if (choice == "5")
-            {
-                SearchBookByTitle();
-            }
-            else if (choice == "6")
-            {
-                _db.CloseConnection();
-                break; // Exit the program
+                case "1":
+                    AddLibrary();
+                    break;
+                case "2":
+                    AddBookToLibrary();
+                    break;
+                case "3":
+                    ViewBooksInLibrary();
+                    break;
+                case "4":
+                    _db.CloseConnection();
+                    return;
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
             }
         }
     }
 
-
-public static string SanitizeInput(string input)
-{
-    // Simple sanitization (you can use more advanced libraries for this)
-    return input.Replace("<", "").Replace(">", "").Trim();
-}
-    // Add a book by getting user input and passing it to the database
-    private void AddBook()
-{
-    string title = "";
-    string author = "";
-    int year = -1;
-    string genre = "";
-
-    // Loop until valid title is entered
-    while (string.IsNullOrWhiteSpace(title))
+    private void AddLibrary()
     {
-        title = SanitizeInput(_view.GetInput("Enter the book title:"));
-        if (string.IsNullOrWhiteSpace(title))
+        var name = _view.GetInput("Enter the library name:");
+        _db.AddLibrary(name);
+        Console.WriteLine("Library added successfully!");
+    }
+
+    private void AddBookToLibrary()
+    {
+        var libraries = _db.GetLibraries();
+        if (libraries.Count == 0)
         {
-            Console.WriteLine("Please insert a valid title.");
+            Console.WriteLine("No libraries available. Please add a library first.");
+            return;
         }
+
+        _view.ShowLibraries(libraries);
+        var libraryId = int.Parse(_view.GetInput("Enter the library ID to add the book to:"));
+
+        var title = _view.GetInput("Enter the book title:");
+        var author = _view.GetInput("Enter the author:");
+        var year = int.Parse(_view.GetInput("Enter the year of publication:"));
+        var genre = _view.GetInput("Enter the genre:");
+
+        _db.AddBook(title, author, year, genre, libraryId);
+        Console.WriteLine("Book added successfully to the library!");
     }
 
-    // Loop until valid author is entered
-    while (string.IsNullOrWhiteSpace(author))
+    private void ViewBooksInLibrary()
     {
-        author = SanitizeInput(_view.GetInput("Enter the author:"));
-        if (string.IsNullOrWhiteSpace(author))
+        var libraries = _db.GetLibraries();
+        if (libraries.Count == 0)
         {
-            Console.WriteLine("Please insert a valid author.");
+            Console.WriteLine("No libraries available.");
+            return;
         }
-    }
 
-    // Loop until valid year is entered
-    while (year < 0)
-    {
-        string yearInput = SanitizeInput(_view.GetInput("Enter the year of publication:"));
-        if (!int.TryParse(yearInput, out year) || year < 0)
-        {
-            Console.WriteLine("Please insert a valid year.");
-            year = -1; // Reset year if invalid
-        }
-    }
+        _view.ShowLibraries(libraries);
+        var libraryId = int.Parse(_view.GetInput("Enter the library ID to view books:"));
 
-    // Loop until valid genre is entered
-    while (string.IsNullOrWhiteSpace(genre))
-    {
-        genre = SanitizeInput(_view.GetInput("Enter the genre:"));
-        if (string.IsNullOrWhiteSpace(genre))
-        {
-            Console.WriteLine("Please insert a valid genre.");
-        }
-    }
-
-    // Call the database method to add the book
-    _db.AddBook(title, author, year, genre);
-    Console.WriteLine("Book added successfully!");
-}
-
-
-
-    private void ShowBook()
-    {
-        var books = _db.GetBooks();
+        var books = _db.GetBooksByLibrary(libraryId);
         _view.ShowBooks(books);
     }
-
-    private void DeleteBook()
-    {
-        Console.WriteLine("Enter the ID of the book to delete:");
-        int id;
-        while (!int.TryParse(_view.GetInput("ID:"), out id))
-        {
-            Console.WriteLine("Invalid ID. Please enter a valid number.");
-        }
-
-        _db.DeleteBook(id); // Call the database method to delete the book
-        Console.WriteLine("Book deleted successfully!");
-    }
-
-    private void UpdateBook()
-    {
-        string oldTitle = _view.GetInput("Enter the title of the book u want to update");
-        string newTitle = _view.GetInput("Enter the new title of the book");
-        _db.UpdateBook(oldTitle, newTitle);
-
-    }
-
-    private void SearchBookByTitle()
-    {
-        string title = _view.GetInput("Enter the title of the book u want to search");
-        var book = _db.SearchBookByTitle(title);
-        if (book != null)
-        {
-            _view.ShowBooks(new List<Book> { book });
-        }
-        else
-        {
-            Console.WriteLine("Book not found");
-        }
-    }
-
 }
