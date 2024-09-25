@@ -1,61 +1,69 @@
-using System.Data.SQLite;
+using System.Data.SQLite; // Namespace for SQLite database functionality
+
+// Controller class responsible for managing movie-related operations
 public class MovieController
 {
-    private readonly DatabaseContext _dbContext;
-    private readonly MovieView _view;
+    private readonly DatabaseContext _dbContext; // Instance of DatabaseContext for database interactions
+    private readonly MovieView _view;             // Instance of MovieView for user interface interactions
 
+    // Constructor to initialize MovieController with the database context and view
     public MovieController(DatabaseContext dbContext, MovieView view)
     {
-        _dbContext = dbContext;
-        _view = view;
+        _dbContext = dbContext; // Assign the provided DatabaseContext to the private field
+        _view = view;           // Assign the provided MovieView to the private field
     }
 
     // Adds a new movie to the database
     public void AddMovie()
     {
+        // Get movie details from user input through the view
         Movie newMovie = _view.GetMovieDetailsFromUser();
 
-        using var connection = _dbContext.GetConnection();
-        connection.Open();
+        using var connection = _dbContext.GetConnection(); // Get a connection to the database
+        connection.Open(); // Open the database connection
 
+        // SQL query to insert a new movie into the Movies table
         string query = "INSERT INTO Movies (Title, Genre, Duration) VALUES (@Title, @Genre, @Duration)";
-        using var command = new SQLiteCommand(query, connection);
+        using var command = new SQLiteCommand(query, connection); // Prepare the SQL command
+        // Bind parameters to prevent SQL injection
         command.Parameters.AddWithValue("@Title", newMovie.Title);
         command.Parameters.AddWithValue("@Genre", newMovie.Genre);
         command.Parameters.AddWithValue("@Duration", newMovie.Duration);
-        command.ExecuteNonQuery();
+        command.ExecuteNonQuery(); // Execute the insert command
 
-        _view.ShowMovieAddedSuccess(newMovie);
+        _view.ShowMovieAddedSuccess(newMovie); // Display a success message to the user through the view
     }
 
-    // Lists all movies
+    // Lists all movies from the database
     public void ListAllMovies()
     {
-        var movies = new List<Movie>();
+        var movies = new List<Movie>(); // Initialize a list to store movies
 
-        using var connection = _dbContext.GetConnection();
-        connection.Open();
+        using var connection = _dbContext.GetConnection(); // Get a connection to the database
+        connection.Open(); // Open the database connection
 
-        string query = "SELECT MovieId, Title, Genre, Duration, IsBooked FROM Movies";  // Fetch IsBooked column
-        using var command = new SQLiteCommand(query, connection);
-        using var reader = command.ExecuteReader();
+        // SQL query to select all movies from the Movies table, including the IsBooked column
+        string query = "SELECT MovieId, Title, Genre, Duration, IsBooked FROM Movies";
+        using var command = new SQLiteCommand(query, connection); // Prepare the SQL command
+        using var reader = command.ExecuteReader(); // Execute the command and get a data reader
 
+        // Read each movie record and add it to the movies list
         while (reader.Read())
         {
             movies.Add(new Movie
             {
-                MovieId = Convert.ToInt32(reader["MovieId"]),
-                Title = reader["Title"].ToString(),
-                Genre = reader["Genre"].ToString(),
-                Duration = Convert.ToInt32(reader["Duration"]),
-                IsBooked = Convert.ToBoolean(reader["IsBooked"])  // Read the IsBooked status
+                MovieId = Convert.ToInt32(reader["MovieId"]), // Convert the movie ID to int and store
+                Title = reader["Title"].ToString(),           // Store the movie title
+                Genre = reader["Genre"].ToString(),           // Store the movie genre
+                Duration = Convert.ToInt32(reader["Duration"]), // Convert the duration to int and store
+                IsBooked = Convert.ToBoolean(reader["IsBooked"]) // Read and store the IsBooked status
             });
         }
 
-        _view.DisplayMovies(movies);
+        _view.DisplayMovies(movies); // Call the view method to show the movies
     }
 
-    // Search movies by title or genre
+    // Initiates the search for movies based on user input
     public void SearchMovies()
     {
         Console.WriteLine("Search Movies");
@@ -63,110 +71,117 @@ public class MovieController
         Console.WriteLine("2. Search by Genre");
         Console.WriteLine("Choose an option (1 or 2):");
 
-        string option = Console.ReadLine();
+        string option = Console.ReadLine(); // Read user input for search option
 
+        // Execute the appropriate search method based on user input
         switch (option)
         {
             case "1":
-                SearchByTitle();
+                SearchByTitle(); // Call the method to search by title
                 break;
             case "2":
-                SearchByGenre();
+                SearchByGenre(); // Call the method to search by genre
                 break;
             default:
-                Console.WriteLine("Invalid option. Please try again.");
+                Console.WriteLine("Invalid option. Please try again."); // Inform user of invalid input
                 break;
         }
     }
 
-    // Search for movies by title and display the results in a table
+    // Searches for movies by title and displays the results
     public void SearchByTitle()
     {
-        Console.Write("Enter movie title (or part of it): ");
-        string title = Console.ReadLine();
+        Console.Write("Enter movie title (or part of it): "); // Prompt user for movie title
+        string title = Console.ReadLine(); // Read user input for title
 
-        var movies = new List<Movie>();
+        var movies = new List<Movie>(); // Initialize a list to store search results
 
-        using var connection = _dbContext.GetConnection();
-        connection.Open();
+        using var connection = _dbContext.GetConnection(); // Get a connection to the database
+        connection.Open(); // Open the database connection
 
+        // SQL query to select movies matching the title from the Movies table
         string query = "SELECT * FROM Movies WHERE Title LIKE @Title";
-        using var command = new SQLiteCommand(query, connection);
-        command.Parameters.AddWithValue("@Title", "%" + title + "%");
+        using var command = new SQLiteCommand(query, connection); // Prepare the SQL command
+        command.Parameters.AddWithValue("@Title", "%" + title + "%"); // Bind the title parameter with wildcard
 
-        using var reader = command.ExecuteReader();
+        using var reader = command.ExecuteReader(); // Execute the command and get a data reader
 
+        // Read each movie record that matches the title and add it to the list
         while (reader.Read())
         {
             movies.Add(new Movie
             {
-                MovieId = Convert.ToInt32(reader["MovieId"]),
-                Title = reader["Title"].ToString(),
-                Genre = reader["Genre"].ToString(),
-                Duration = Convert.ToInt32(reader["Duration"]),
-                IsBooked = Convert.ToBoolean(reader["IsBooked"])  // Read the IsBooked status
+                MovieId = Convert.ToInt32(reader["MovieId"]), // Convert the movie ID to int and store
+                Title = reader["Title"].ToString(),           // Store the movie title
+                Genre = reader["Genre"].ToString(),           // Store the movie genre
+                Duration = Convert.ToInt32(reader["Duration"]), // Convert the duration to int and store
+                IsBooked = Convert.ToBoolean(reader["IsBooked"]) // Read and store the IsBooked status
             });
         }
 
-        _view.DisplaySearchResults(movies);
+        _view.DisplaySearchResults(movies); // Call the view method to display search results
     }
 
-    // Search for movies by genre and display the results in a table
+    // Searches for movies by genre and displays the results
     public void SearchByGenre()
     {
-        Console.Write("Enter movie genre: ");
-        string genre = Console.ReadLine();
+        Console.Write("Enter movie genre: "); // Prompt user for movie genre
+        string genre = Console.ReadLine(); // Read user input for genre
 
-        var movies = new List<Movie>();
+        var movies = new List<Movie>(); // Initialize a list to store search results
 
-        using var connection = _dbContext.GetConnection();
-        connection.Open();
+        using var connection = _dbContext.GetConnection(); // Get a connection to the database
+        connection.Open(); // Open the database connection
 
+        // SQL query to select movies matching the genre from the Movies table
         string query = "SELECT * FROM Movies WHERE Genre LIKE @Genre";
-        using var command = new SQLiteCommand(query, connection);
-        command.Parameters.AddWithValue("@Genre", "%" + genre + "%");
+        using var command = new SQLiteCommand(query, connection); // Prepare the SQL command
+        command.Parameters.AddWithValue("@Genre", "%" + genre + "%"); // Bind the genre parameter with wildcard
 
-        using var reader = command.ExecuteReader();
+        using var reader = command.ExecuteReader(); // Execute the command and get a data reader
 
+        // Read each movie record that matches the genre and add it to the list
         while (reader.Read())
         {
             movies.Add(new Movie
             {
-                MovieId = Convert.ToInt32(reader["MovieId"]),
-                Title = reader["Title"].ToString(),
-                Genre = reader["Genre"].ToString(),
-                Duration = Convert.ToInt32(reader["Duration"])
+                MovieId = Convert.ToInt32(reader["MovieId"]), // Convert the movie ID to int and store
+                Title = reader["Title"].ToString(),           // Store the movie title
+                Genre = reader["Genre"].ToString(),           // Store the movie genre
+                Duration = Convert.ToInt32(reader["Duration"]) // Convert the duration to int and store
             });
         }
 
-        // Pass the search results to the view to display in a table
-        _view.DisplaySearchResults(movies);
+        _view.DisplaySearchResults(movies); // Call the view method to display search results
     }
 
+    // Orders movies by duration in descending order and displays the results
     public void OrderMoviesByDuration()
     {
-        var movies = new List<Movie>();
+        var movies = new List<Movie>(); // Initialize a list to store movies
 
-        using var connection = _dbContext.GetConnection();
-        connection.Open();
+        using var connection = _dbContext.GetConnection(); // Get a connection to the database
+        connection.Open(); // Open the database connection
 
+        // SQL query to select all movies ordered by duration in descending order
         string query = "SELECT * FROM Movies ORDER BY Duration DESC";
-        using var command = new SQLiteCommand(query, connection);
+        using var command = new SQLiteCommand(query, connection); // Prepare the SQL command
 
-        using var reader = command.ExecuteReader();
+        using var reader = command.ExecuteReader(); // Execute the command and get a data reader
 
+        // Read each movie record and add it to the list
         while (reader.Read())
         {
             movies.Add(new Movie
             {
-                MovieId = Convert.ToInt32(reader["MovieId"]),
-                Title = reader["Title"].ToString(),
-                Genre = reader["Genre"].ToString(),
-                Duration = Convert.ToInt32(reader["Duration"]),
-                IsBooked = Convert.ToBoolean(reader["IsBooked"])  // Read the IsBooked status
+                MovieId = Convert.ToInt32(reader["MovieId"]), // Convert the movie ID to int and store
+                Title = reader["Title"].ToString(),           // Store the movie title
+                Genre = reader["Genre"].ToString(),           // Store the movie genre
+                Duration = Convert.ToInt32(reader["Duration"]), // Convert the duration to int and store
+                IsBooked = Convert.ToBoolean(reader["IsBooked"]) // Read and store the IsBooked status
             });
         }
 
-        _view.DisplaySearchResults(movies);
+        _view.DisplaySearchResults(movies); // Call the view method to display ordered movie results
     }
 }
