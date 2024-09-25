@@ -19,8 +19,14 @@ public class MovieView
 
     // Displays a success message for a newly added movie
     public void ShowMovieAddedSuccess(Movie movie)
-    {
+    {   
+        Console.Clear();
         AnsiConsole.Markup($"[green]Movie '{movie.Title}'[/] added successfully!");
+        Console.WriteLine("");
+        Console.WriteLine("");
+        AnsiConsole.Markup($"Press [green]Enter[/] to continue");
+        Console.ReadLine();
+        
     }
 
     // Displays all movies in a table format
