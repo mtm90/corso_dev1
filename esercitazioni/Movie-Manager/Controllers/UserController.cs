@@ -1,3 +1,5 @@
+// Handles operations related to users such as adding and listing users
+using System.Data.SQLite;
 public class UserController
 {
     private readonly DatabaseContext _dbContext;
@@ -9,26 +11,27 @@ public class UserController
         _view = view;
     }
 
+    // Adds a new user to the database
     public void AddUser()
     {
-        // Call the view to get user details from the user
+        // Get user details from the view
         User newUser = _view.GetUserDetailsFromUser();
 
         using var connection = _dbContext.GetConnection();
         connection.Open();
 
         string query = "INSERT INTO Users (Username, Email, Password) VALUES (@Username, @Email, @Password)";
-        using var command = new System.Data.SQLite.SQLiteCommand(query, connection);
+        using var command = new SQLiteCommand(query, connection);
         command.Parameters.AddWithValue("@Username", newUser.Username);
         command.Parameters.AddWithValue("@Email", newUser.Email);
-        command.Parameters.AddWithValue("@Password", newUser.Password); // Hashing recommended
-
+        command.Parameters.AddWithValue("@Password", newUser.Password);  // Password hashing recommended
         command.ExecuteNonQuery();
 
-        // Notify the view that the user was added successfully
+        // Notify view of successful user addition
         _view.ShowUserAddedSuccess(newUser);
     }
 
+    // Lists all users from the database
     public void ListAllUsers()
     {
         var users = new List<User>();
@@ -37,7 +40,7 @@ public class UserController
         connection.Open();
 
         string query = "SELECT UserId, Username, Email FROM Users";
-        using var command = new System.Data.SQLite.SQLiteCommand(query, connection);
+        using var command = new SQLiteCommand(query, connection);
         using var reader = command.ExecuteReader();
 
         while (reader.Read())
@@ -50,7 +53,7 @@ public class UserController
             });
         }
 
-        // Display all users using the view
+        // Display users via the view
         _view.DisplayUsers(users);
     }
 }

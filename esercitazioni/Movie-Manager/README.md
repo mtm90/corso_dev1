@@ -1,35 +1,37 @@
-# Movie Manager MVC Application
+# Movie Manager Console ApPlication
 
 This project is a Movie Manager application built using the MVC (Model-View-Controller) design pattern in C#. The goal is to simulate a realistic scenario for managing movie bookings, handling user accounts, and creating relationships between movies, users, and bookings. 
 
 ## Table of Contents
 
-- [Project Overview](#project-overview)
+- [Features](#Features)
 - [Technologies](#technologies)
-- [Design Overview](#design-overview)
-  - [Classes](#classes)
-  - [Database Structure](#database-structure)
-- [Setup Instructions](#setup-instructions)
-- [Next Steps](#next-steps)
+- [Classes](#Classes)
+- [Database Structure](#database-structure)
 
-## Project Overview
 
-The Movie Manager is designed to:
-- Manage users who book movies.
-- Maintain a collection of movies available for booking.
-- Create a database that manages relationships between users, movies, and bookings.
+## Features
 
-In the future, the application will handle functionalities like:
-- Movie search
-- Booking creation, modification, and cancellation
-- Authentication and user account management
+- Manage movies:
+   - Add new movies.
+   - List all available movies.
+   - Search movies by title or genre.
+- Manage Users:
+   - Add new users.
+   - List all registered users.
+- Manage bookings:
+   - Create new Bookings for users.
+   - List all bookings.
+   - List all bookings along with user details.
+   - Update existing bookings (change the movie or booking date).
+   - Delete a booking.
+
 
 ## Technologies
 
-- C#
-- SQLite 
-
-## Design Overview
+- `C#` : The programming language used for building the application.
+- `SQLite` : Used as the database to store movies, users, and booking information.
+- `Spectre.Console` : A library for building a rich, user-friendly CLI interface in .NET.
 
 ### Classes
 

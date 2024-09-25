@@ -1,20 +1,24 @@
+// Manages the SQLite database connection and initializes the database tables if they don't exist
 using System.Data.SQLite;
 
 public class DatabaseContext
 {
     private readonly string _connectionString;
 
+    // Constructor that accepts the path to the SQLite database
     public DatabaseContext(string dbPath)
     {
-        _connectionString = $"Data Source={dbPath};Version=3;";
-        InitializeDatabase();
+        _connectionString = $"Data Source={dbPath};Version=3;";  // Set up the connection string
+        InitializeDatabase();  // Ensures the database and tables are set up
     }
 
+    // Initializes database by creating tables for users, movies, and bookings
     private void InitializeDatabase()
     {
         using var connection = new SQLiteConnection(_connectionString);
         connection.Open();
 
+        // SQL statements for creating tables if they don't exist
         string userTable = @"CREATE TABLE IF NOT EXISTS Users (
                                 UserId INTEGER PRIMARY KEY AUTOINCREMENT,
                                 Username TEXT NOT NULL,
@@ -38,6 +42,7 @@ public class DatabaseContext
                                 FOREIGN KEY(MovieId) REFERENCES Movies(MovieId)
                             );";
 
+        // Execute the commands to create the tables
         using var command = new SQLiteCommand(userTable, connection);
         command.ExecuteNonQuery();
 
@@ -48,20 +53,21 @@ public class DatabaseContext
         command.ExecuteNonQuery();
     }
 
+    // Returns an active SQLite connection to be used by controllers
     public SQLiteConnection GetConnection()
     {
         return new SQLiteConnection(_connectionString);
     }
 
-    public void DeleteBooking( int BookingId)
+    // Deletes a booking by its ID
+    public void DeleteBooking(int bookingId)
     {
         using var connection = new SQLiteConnection(_connectionString);
         connection.Open();
 
         string delete = @"DELETE FROM Bookings WHERE BookingId = @BookingId;";
         using var command = new SQLiteCommand(delete, connection);
-        command.Parameters.AddWithValue("@BookingId", BookingId);
+        command.Parameters.AddWithValue("@BookingId", bookingId);
         command.ExecuteNonQuery();
-
     }
 }

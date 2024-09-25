@@ -1,6 +1,6 @@
+// Handles all booking-related operations (add, list, update, delete bookings)
 using System.Data.SQLite;
 using Spectre.Console;
-
 
 public class BookingController
 {
@@ -13,12 +13,12 @@ public class BookingController
         _view = view;
     }
 
+    // Adds a new booking, ensuring the movie and user exist before creating the booking
     public void AddBooking()
     {
-        // Get booking details from the view
-        var (userId, movieId) = _view.GetBookingDetailsFromUser();
+        var (userId, movieId) = _view.GetBookingDetailsFromUser();  // Get booking details from user input
 
-        // Ensure user and movie exist before proceeding
+        // Check if user and movie exist before proceeding
         if (!UserExists(userId) || !MovieExists(movieId))
         {
             Console.WriteLine("Invalid User ID or Movie ID. Booking could not be created.");
@@ -28,7 +28,6 @@ public class BookingController
         using var connection = _dbContext.GetConnection();
         connection.Open();
 
-        // Create a new booking
         var newBooking = new Booking
         {
             UserId = userId,
@@ -41,14 +40,13 @@ public class BookingController
         command.Parameters.AddWithValue("@UserId", newBooking.UserId);
         command.Parameters.AddWithValue("@MovieId", newBooking.MovieId);
         command.Parameters.AddWithValue("@BookingDate", newBooking.BookingDate);
-
         command.ExecuteNonQuery();
-        newBooking.BookingId = (int)connection.LastInsertRowId;
 
-        // Notify the view that the booking was added successfully
-        _view.ShowBookingSuccess(newBooking);
+        newBooking.BookingId = (int)connection.LastInsertRowId;  // Retrieve the new booking ID
+        _view.ShowBookingSuccess(newBooking);  // Notify the view of the successful booking creation
     }
 
+    // Lists all bookings from the database
     public void ListAllBookings()
     {
         var bookings = new List<Booking>();
@@ -71,78 +69,68 @@ public class BookingController
             });
         }
 
-        // Display all bookings using the view
+        // Display bookings using the view
         _view.DisplayBookings(bookings);
     }
 
-
+    // Displays bookings along with the user details
     public void ListBookingsWithUserDetails()
-{
-    using var connection = _dbContext.GetConnection();
-    connection.Open();
-
-    string query = @"
-        SELECT 
-            u.UserId, 
-            u.Username, 
-            b.BookingId, 
-            b.MovieId, 
-            b.BookingDate 
-        FROM 
-            Users u
-        INNER JOIN 
-            Bookings b ON u.UserId = b.UserId;";
-
-    using var command = new SQLiteCommand(query, connection);
-    using var reader = command.ExecuteReader();
-
-    // Create a table for displaying booking information
-    var table = new Table();
-    table.AddColumn("User ID");
-    table.AddColumn("Username");
-    table.AddColumn("Booking ID");
-    table.AddColumn("Movie ID");
-    table.AddColumn("Booking Date");
-
-    // Populate the table with data
-    while (reader.Read())
     {
-        table.AddRow(
-            reader["UserId"].ToString(),
-            reader["Username"].ToString(),
-            reader["BookingId"].ToString(),
-            reader["MovieId"].ToString(),
-            reader["BookingDate"].ToString()
-        );
-    }
+        using var connection = _dbContext.GetConnection();
+        connection.Open();
 
-    // Display the table using Spectre.Console
-    AnsiConsole.Write(table);
-}
+        string query = @"
+            SELECT 
+                u.UserId, u.Username, b.BookingId, b.MovieId, b.BookingDate 
+            FROM Users u
+            INNER JOIN Bookings b ON u.UserId = b.UserId;";
 
+        using var command = new SQLiteCommand(query, connection);
+        using var reader = command.ExecuteReader();
 
-    public void DeleteBooking()
-{
-    Console.Write("Enter Booking ID to delete: ");
-    if (int.TryParse(Console.ReadLine(), out int bookingId))
-    {
-        if (!BookingExists(bookingId))
+        var table = new Table();
+        table.AddColumn("User ID");
+        table.AddColumn("Username");
+        table.AddColumn("Booking ID");
+        table.AddColumn("Movie ID");
+        table.AddColumn("Booking Date");
+
+        // Populate table with booking data and display it
+        while (reader.Read())
         {
-            Console.WriteLine("Booking ID not found.");
-            return;
+            table.AddRow(
+                reader["UserId"].ToString(),
+                reader["Username"].ToString(),
+                reader["BookingId"].ToString(),
+                reader["MovieId"].ToString(),
+                reader["BookingDate"].ToString()
+            );
         }
 
-        try
+        AnsiConsole.Write(table);
+    }
+
+    // Deletes a booking based on its ID
+    public void DeleteBooking()
+    {
+        Console.Write("Enter Booking ID to delete: ");
+        if (int.TryParse(Console.ReadLine(), out int bookingId))
         {
+            if (!BookingExists(bookingId))
+            {
+                AnsiConsole.WriteLine("Booking ID not found.");
+                return;
+            }
+
             using var connection = _dbContext.GetConnection();
             connection.Open();
 
-            // Delete the booking from the database
             string deleteQuery = "DELETE FROM Bookings WHERE BookingId = @BookingId";
             using var deleteCommand = new SQLiteCommand(deleteQuery, connection);
             deleteCommand.Parameters.AddWithValue("@BookingId", bookingId);
             int affectedRows = deleteCommand.ExecuteNonQuery();
 
+            // Notify user if deletion was successful
             if (affectedRows > 0)
             {
                 Console.WriteLine("Booking deleted successfully.");
@@ -152,60 +140,51 @@ public class BookingController
                 Console.WriteLine("Failed to delete the booking.");
             }
         }
-        catch (SQLiteException ex)
+        else
         {
-            Console.WriteLine($"Database error: {ex.Message}");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+            Console.WriteLine("Invalid Booking ID. Please enter a valid numeric value.");
         }
     }
-    else
+
+    // Updates a booking by allowing the user to change movie and booking date
+    public void UpdateBooking()
     {
-        Console.WriteLine("Invalid Booking ID. Please enter a valid numeric value.");
-    }
-}
-
-public void UpdateBooking()
-{
-    Console.Write("Enter Booking ID to update: ");
-    if (int.TryParse(Console.ReadLine(), out int bookingId))
-    {
-        if (!BookingExists(bookingId))
+        Console.Write("Enter Booking ID to update: ");
+        if (int.TryParse(Console.ReadLine(), out int bookingId))
         {
-            Console.WriteLine("Booking ID not found.");
-            return;
-        }
+            if (!BookingExists(bookingId))
+            {
+                Console.WriteLine("Booking ID not found.");
+                return;
+            }
 
-        Console.Write("Enter new Movie ID: ");
-        if (!int.TryParse(Console.ReadLine(), out int newMovieId))
-        {
-            Console.WriteLine("Invalid Movie ID.");
-            return;
-        }
+            // Collect new details for the booking
+            Console.Write("Enter new Movie ID: ");
+            if (!int.TryParse(Console.ReadLine(), out int newMovieId))
+            {
+                Console.WriteLine("Invalid Movie ID.");
+                return;
+            }
 
-        Console.Write("Enter new Booking Date (yyyy-mm-dd): ");
-        if (!DateTime.TryParse(Console.ReadLine(), out DateTime newBookingDate))
-        {
-            Console.WriteLine("Invalid Date format.");
-            return;
-        }
+            Console.Write("Enter new Booking Date (yyyy-mm-dd): ");
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime newBookingDate))
+            {
+                Console.WriteLine("Invalid Date format.");
+                return;
+            }
 
-        try
-        {
             using var connection = _dbContext.GetConnection();
             connection.Open();
 
-            // Update the booking in the database
             string updateQuery = "UPDATE Bookings SET MovieId = @MovieId, BookingDate = @BookingDate WHERE BookingId = @BookingId";
-            using var updateCommand = new System.Data.SQLite.SQLiteCommand(updateQuery, connection);
+            using var updateCommand = new SQLiteCommand(updateQuery, connection);
             updateCommand.Parameters.AddWithValue("@MovieId", newMovieId);
             updateCommand.Parameters.AddWithValue("@BookingDate", newBookingDate);
             updateCommand.Parameters.AddWithValue("@BookingId", bookingId);
 
             int affectedRows = updateCommand.ExecuteNonQuery();
 
+            // Notify user if the update was successful
             if (affectedRows > 0)
             {
                 Console.WriteLine("Booking updated successfully.");
@@ -215,55 +194,46 @@ public void UpdateBooking()
                 Console.WriteLine("Failed to update the booking.");
             }
         }
-        catch (SQLiteException ex)
+        else
         {
-            Console.WriteLine($"Database error: {ex.Message}");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+            Console.WriteLine("Invalid Booking ID. Please enter a valid numeric value.");
         }
     }
-    else
-    {
-        Console.WriteLine("Invalid Booking ID. Please enter a valid numeric value.");
-    }
-}
 
-
+    // Helper method to check if a booking exists in the database
     private bool BookingExists(int bookingId)
-{
-    using var connection = _dbContext.GetConnection();
-    connection.Open();
+    {
+        using var connection = _dbContext.GetConnection();
+        connection.Open();
 
-    string query = "SELECT COUNT(*) FROM Bookings WHERE BookingId = @BookingId";
-    using var command = new SQLiteCommand(query, connection);
-    command.Parameters.AddWithValue("@BookingId", bookingId);
+        string query = "SELECT COUNT(*) FROM Bookings WHERE BookingId = @BookingId";
+        using var command = new SQLiteCommand(query, connection);
+        command.Parameters.AddWithValue("@BookingId", bookingId);
 
-    return Convert.ToInt32(command.ExecuteScalar()) > 0;
-}
+        return Convert.ToInt32(command.ExecuteScalar()) > 0;
+    }
 
-
-
+    // Helper method to check if a user exists in the database
     private bool UserExists(int userId)
     {
         using var connection = _dbContext.GetConnection();
         connection.Open();
 
         string query = "SELECT COUNT(*) FROM Users WHERE UserId = @UserId";
-        using var command = new System.Data.SQLite.SQLiteCommand(query, connection);
+        using var command = new SQLiteCommand(query, connection);
         command.Parameters.AddWithValue("@UserId", userId);
 
         return Convert.ToInt32(command.ExecuteScalar()) > 0;
     }
 
+    // Helper method to check if a movie exists in the database
     private bool MovieExists(int movieId)
     {
         using var connection = _dbContext.GetConnection();
         connection.Open();
 
         string query = "SELECT COUNT(*) FROM Movies WHERE MovieId = @MovieId";
-        using var command = new System.Data.SQLite.SQLiteCommand(query, connection);
+        using var command = new SQLiteCommand(query, connection);
         command.Parameters.AddWithValue("@MovieId", movieId);
 
         return Convert.ToInt32(command.ExecuteScalar()) > 0;

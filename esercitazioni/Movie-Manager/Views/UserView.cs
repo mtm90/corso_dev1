@@ -2,6 +2,7 @@ using Spectre.Console;
 
 public class UserView
 {
+    // Collects user details (username, email, password) from the user
     public User GetUserDetailsFromUser()
     {
         string username = AnsiConsole.Ask<string>("Enter [green]username[/]:");
@@ -19,11 +20,13 @@ public class UserView
         };
     }
 
+    // Displays a success message for a newly added user
     public void ShowUserAddedSuccess(User user)
     {
         AnsiConsole.Markup($"[green]User '{user.Username}'[/] added successfully!");
     }
 
+    // Displays all users in a table format
     public void DisplayUsers(List<User> users)
     {
         var table = new Table();
@@ -31,6 +34,7 @@ public class UserView
         table.AddColumn("Username");
         table.AddColumn("Email");
 
+        // Add each user's data to the table
         foreach (var user in users)
         {
             table.AddRow(
