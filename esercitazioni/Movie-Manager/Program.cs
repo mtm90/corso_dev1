@@ -141,7 +141,7 @@ class Program
                     {
                         "Create a booking",
                         "List all bookings",
-                        "List all bookings with user details",
+                        "List all bookings with user name booking id booking date and movie title",
                         "Delete Booking",
                         "Update Booking",
                         "Back to Main Menu"
@@ -156,8 +156,8 @@ class Program
                 case "List all bookings":
                     bookingController.ListAllBookings();  // Call method to list all bookings
                     break;
-                case "List all bookings with user details":
-                    bookingController.ListBookingsWithUserDetails();  // Call method to list bookings with user details
+                case "List all bookings with user name booking id booking date and movie title":
+                    bookingController.ListBookingsWithUserAndMovieDetails();  // Call method to list bookings with user details
                     break;
                 case "Delete Booking":
                     bookingController.DeleteBooking();  // Call method to delete a booking

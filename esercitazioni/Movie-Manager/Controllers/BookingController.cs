@@ -15,41 +15,41 @@ public class BookingController
 
     // Adds a new booking, ensuring the movie and user exist before creating the booking
     public void AddBooking()
-{
-    var (userId, movieId) = _view.GetBookingDetailsFromUser();
-
-    if (!UserExists(userId) || !MovieExists(movieId))
     {
-        Console.WriteLine("Invalid User ID or Movie ID. Booking could not be created.");
-        return;
+        var (userId, movieId) = _view.GetBookingDetailsFromUser();
+
+        if (!UserExists(userId) || !MovieExists(movieId))
+        {
+            Console.WriteLine("Invalid User ID or Movie ID. Booking could not be created.");
+            return;
+        }
+
+        using var connection = _dbContext.GetConnection();
+        connection.Open();
+
+        var newBooking = new Booking
+        {
+            UserId = userId,
+            MovieId = movieId,
+            BookingDate = DateTime.Now
+        };
+
+        // Insert the new booking
+        string insertBookingQuery = "INSERT INTO Bookings (UserId, MovieId, BookingDate) VALUES (@UserId, @MovieId, @BookingDate)";
+        using var insertCommand = new SQLiteCommand(insertBookingQuery, connection);
+        insertCommand.Parameters.AddWithValue("@UserId", newBooking.UserId);
+        insertCommand.Parameters.AddWithValue("@MovieId", newBooking.MovieId);
+        insertCommand.Parameters.AddWithValue("@BookingDate", newBooking.BookingDate);
+        insertCommand.ExecuteNonQuery();
+
+        // Update the movie's IsBooked status
+        string updateMovieQuery = "UPDATE Movies SET IsBooked = 1 WHERE MovieId = @MovieId";
+        using var updateCommand = new SQLiteCommand(updateMovieQuery, connection);
+        updateCommand.Parameters.AddWithValue("@MovieId", movieId);
+        updateCommand.ExecuteNonQuery();
+
+        _view.ShowBookingSuccess(newBooking);
     }
-
-    using var connection = _dbContext.GetConnection();
-    connection.Open();
-
-    var newBooking = new Booking
-    {
-        UserId = userId,
-        MovieId = movieId,
-        BookingDate = DateTime.Now
-    };
-
-    // Insert the new booking
-    string insertBookingQuery = "INSERT INTO Bookings (UserId, MovieId, BookingDate) VALUES (@UserId, @MovieId, @BookingDate)";
-    using var insertCommand = new SQLiteCommand(insertBookingQuery, connection);
-    insertCommand.Parameters.AddWithValue("@UserId", newBooking.UserId);
-    insertCommand.Parameters.AddWithValue("@MovieId", newBooking.MovieId);
-    insertCommand.Parameters.AddWithValue("@BookingDate", newBooking.BookingDate);
-    insertCommand.ExecuteNonQuery();
-
-    // Update the movie's IsBooked status
-    string updateMovieQuery = "UPDATE Movies SET IsBooked = 1 WHERE MovieId = @MovieId";
-    using var updateCommand = new SQLiteCommand(updateMovieQuery, connection);
-    updateCommand.Parameters.AddWithValue("@MovieId", movieId);
-    updateCommand.ExecuteNonQuery();
-
-    _view.ShowBookingSuccess(newBooking);
-}
 
 
     // Lists all bookings from the database
@@ -80,35 +80,34 @@ public class BookingController
     }
 
     // Displays bookings along with the user details
-    public void ListBookingsWithUserDetails()
+    public void ListBookingsWithUserAndMovieDetails()
     {
         using var connection = _dbContext.GetConnection();
         connection.Open();
 
         string query = @"
-            SELECT 
-                u.UserId, u.Username, b.BookingId, b.MovieId, b.BookingDate 
-            FROM Users u
-            INNER JOIN Bookings b ON u.UserId = b.UserId;";
+        SELECT 
+            u.Username, b.BookingId, m.Title, b.BookingDate 
+        FROM Users u
+        INNER JOIN Bookings b ON u.UserId = b.UserId
+        INNER JOIN Movies m ON b.MovieId = m.MovieId;";
 
         using var command = new SQLiteCommand(query, connection);
         using var reader = command.ExecuteReader();
 
         var table = new Table();
-        table.AddColumn("User ID");
         table.AddColumn("Username");
         table.AddColumn("Booking ID");
-        table.AddColumn("Movie ID");
+        table.AddColumn("Movie Title");
         table.AddColumn("Booking Date");
 
         // Populate table with booking data and display it
         while (reader.Read())
         {
             table.AddRow(
-                reader["UserId"].ToString(),
                 reader["Username"].ToString(),
                 reader["BookingId"].ToString(),
-                reader["MovieId"].ToString(),
+                reader["Title"].ToString(),
                 reader["BookingDate"].ToString()
             );
         }
