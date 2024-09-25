@@ -20,7 +20,7 @@ class Program
         {
             var mainChoice = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
-                    .Title("[green]Main Menu[/]")
+                    .Title("[blue]Main Menu[/]")
                     .PageSize(4)
                     .AddChoices(new[] { "Manage Movies", "Manage Users", "Manage Bookings", "Exit" }));
 
@@ -28,12 +28,15 @@ class Program
             {
                 case "Manage Movies":
                     ManageMovies(movieController);
+                    Console.Clear();
                     break;
                 case "Manage Users":
                     ManageUsers(userController);
+                    Console.Clear();
                     break;
                 case "Manage Bookings":
                     ManageBookings(bookingController);
+                    Console.Clear();
                     break;
                 case "Exit":
                     return;  
@@ -51,7 +54,8 @@ class Program
         {
             var choice = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
-                    .Title("[green]Manage Movies[/]")
+                    .Title("[gold3]Manage Movies[/]")
+                    .HighlightStyle(Color.Gold3)
                     .PageSize(5)
                     .AddChoices(new[]
                     {
@@ -92,7 +96,8 @@ class Program
         {
             var choice = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
-                    .Title("[green]Manage Users[/]")
+                    .Title("[red]Manage Users[/]")
+                    .HighlightStyle(Color.Red)
                     .PageSize(3)
                     .AddChoices(new[]
                     {
@@ -125,7 +130,8 @@ class Program
         {
             var choice = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
-                    .Title("[green]Manage Bookings[/]")
+                    .Title("[violet]Manage Bookings[/]")
+                    .HighlightStyle(Color.Violet)
                     .PageSize(5)
                     .AddChoices(new[]
                     {
