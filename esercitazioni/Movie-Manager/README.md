@@ -48,7 +48,7 @@ The application will start with the following classes:
    | Password   | string  | User's password     |
 
 2. **Movie**  
-   Represents a movie that users can book. Each movie will have a unique ID and related attributes such as title, genre, and duration.
+   Represents a movie that users can book. Each movie will have a unique ID and related attributes such as title, genre, and duration, as well as a an attribute that says if a movie was booked or not.
 
    | Attribute  | Type    | Description        |
    |------------|---------|--------------------|
@@ -56,6 +56,8 @@ The application will start with the following classes:
    | Title      | string  | Movie title         |
    | Genre      | string  | Movie genre         |
    | Duration   | int     | Movie duration (min)|
+   | IsBooked   | bool    | Booking status      |
+
 
 3. **Booking**  
    Represents a booking of a movie by a user. The booking will store the relationship between users and movies along with booking-specific data.

@@ -1,6 +1,6 @@
-// Manages the SQLite database connection and initializes the database tables if they don't exist
 using System.Data.SQLite;
 
+// Manages the SQLite database connection and initializes the database tables if they don't exist
 public class DatabaseContext
 {
     private readonly string _connectionString;
@@ -72,4 +72,5 @@ public class DatabaseContext
         command.Parameters.AddWithValue("@BookingId", bookingId);
         command.ExecuteNonQuery();
     }
+
 }
