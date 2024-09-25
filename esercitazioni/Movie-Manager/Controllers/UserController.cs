@@ -51,7 +51,6 @@ public void AddUser()
 
 
     // Lists all users from the database
-    // Lists all users from the database
 public void ListAllUsers()
 {
     // Initialize a list to store users retrieved from the database.
