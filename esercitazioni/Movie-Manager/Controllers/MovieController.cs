@@ -30,30 +30,30 @@ public class MovieController
 
     // Lists all movies
     public void ListAllMovies()
-{
-    var movies = new List<Movie>();
-
-    using var connection = _dbContext.GetConnection();
-    connection.Open();
-
-    string query = "SELECT MovieId, Title, Genre, Duration, IsBooked FROM Movies";  // Fetch IsBooked column
-    using var command = new SQLiteCommand(query, connection);
-    using var reader = command.ExecuteReader();
-
-    while (reader.Read())
     {
-        movies.Add(new Movie
-        {
-            MovieId = Convert.ToInt32(reader["MovieId"]),
-            Title = reader["Title"].ToString(),
-            Genre = reader["Genre"].ToString(),
-            Duration = Convert.ToInt32(reader["Duration"]),
-            IsBooked = Convert.ToBoolean(reader["IsBooked"])  // Read the IsBooked status
-        });
-    }
+        var movies = new List<Movie>();
 
-    _view.DisplayMovies(movies);
-}
+        using var connection = _dbContext.GetConnection();
+        connection.Open();
+
+        string query = "SELECT MovieId, Title, Genre, Duration, IsBooked FROM Movies";  // Fetch IsBooked column
+        using var command = new SQLiteCommand(query, connection);
+        using var reader = command.ExecuteReader();
+
+        while (reader.Read())
+        {
+            movies.Add(new Movie
+            {
+                MovieId = Convert.ToInt32(reader["MovieId"]),
+                Title = reader["Title"].ToString(),
+                Genre = reader["Genre"].ToString(),
+                Duration = Convert.ToInt32(reader["Duration"]),
+                IsBooked = Convert.ToBoolean(reader["IsBooked"])  // Read the IsBooked status
+            });
+        }
+
+        _view.DisplayMovies(movies);
+    }
 
     // Search movies by title or genre
     public void SearchMovies()
@@ -81,35 +81,35 @@ public class MovieController
 
     // Search for movies by title and display the results in a table
     public void SearchByTitle()
-{
-    Console.Write("Enter movie title (or part of it): ");
-    string title = Console.ReadLine();
-
-    var movies = new List<Movie>();
-
-    using var connection = _dbContext.GetConnection();
-    connection.Open();
-
-    string query = "SELECT * FROM Movies WHERE Title LIKE @Title";
-    using var command = new SQLiteCommand(query, connection);
-    command.Parameters.AddWithValue("@Title", "%" + title + "%");
-
-    using var reader = command.ExecuteReader();
-
-    while (reader.Read())
     {
-        movies.Add(new Movie
-        {
-            MovieId = Convert.ToInt32(reader["MovieId"]),
-            Title = reader["Title"].ToString(),
-            Genre = reader["Genre"].ToString(),
-            Duration = Convert.ToInt32(reader["Duration"]),
-            IsBooked = Convert.ToBoolean(reader["IsBooked"])  // Read the IsBooked status
-        });
-    }
+        Console.Write("Enter movie title (or part of it): ");
+        string title = Console.ReadLine();
 
-    _view.DisplaySearchResults(movies);
-}
+        var movies = new List<Movie>();
+
+        using var connection = _dbContext.GetConnection();
+        connection.Open();
+
+        string query = "SELECT * FROM Movies WHERE Title LIKE @Title";
+        using var command = new SQLiteCommand(query, connection);
+        command.Parameters.AddWithValue("@Title", "%" + title + "%");
+
+        using var reader = command.ExecuteReader();
+
+        while (reader.Read())
+        {
+            movies.Add(new Movie
+            {
+                MovieId = Convert.ToInt32(reader["MovieId"]),
+                Title = reader["Title"].ToString(),
+                Genre = reader["Genre"].ToString(),
+                Duration = Convert.ToInt32(reader["Duration"]),
+                IsBooked = Convert.ToBoolean(reader["IsBooked"])  // Read the IsBooked status
+            });
+        }
+
+        _view.DisplaySearchResults(movies);
+    }
 
     // Search for movies by genre and display the results in a table
     public void SearchByGenre()
@@ -140,6 +140,33 @@ public class MovieController
         }
 
         // Pass the search results to the view to display in a table
+        _view.DisplaySearchResults(movies);
+    }
+
+    public void OrderMoviesByDuration()
+    {
+        var movies = new List<Movie>();
+
+        using var connection = _dbContext.GetConnection();
+        connection.Open();
+
+        string query = "SELECT * FROM Movies ORDER BY Duration DESC";
+        using var command = new SQLiteCommand(query, connection);
+
+        using var reader = command.ExecuteReader();
+
+        while (reader.Read())
+        {
+            movies.Add(new Movie
+            {
+                MovieId = Convert.ToInt32(reader["MovieId"]),
+                Title = reader["Title"].ToString(),
+                Genre = reader["Genre"].ToString(),
+                Duration = Convert.ToInt32(reader["Duration"]),
+                IsBooked = Convert.ToBoolean(reader["IsBooked"])  // Read the IsBooked status
+            });
+        }
+
         _view.DisplaySearchResults(movies);
     }
 }
