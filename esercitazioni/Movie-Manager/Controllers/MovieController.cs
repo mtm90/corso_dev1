@@ -13,7 +13,9 @@ public class MovieController
         _view = view;           // Assign the provided MovieView to the private field
     }
 
-    // Adds a new movie to the database
+    // Adds a new movie to the database.
+    // Retrieves movie details from user input through the view and executes an insert query.
+    // Displays a success message upon successful addition.    
     public void AddMovie()
     {
         // Get movie details from user input through the view
@@ -34,7 +36,8 @@ public class MovieController
         _view.ShowMovieAddedSuccess(newMovie); // Display a success message to the user through the view
     }
 
-    // Lists all movies from the database
+    // Lists all movies from the database.
+    // Retrieves all movie records and displays them through the view.
     public void ListAllMovies()
     {
         var movies = new List<Movie>(); // Initialize a list to store movies
@@ -63,7 +66,8 @@ public class MovieController
         _view.DisplayMovies(movies); // Call the view method to show the movies
     }
 
-    // Initiates the search for movies based on user input
+    // Initiates the search for movies based on user input.
+    // Prompts the user for search criteria and calls the appropriate search method.
     public void SearchMovies()
     {
         Console.WriteLine("Search Movies");
@@ -88,7 +92,8 @@ public class MovieController
         }
     }
 
-    // Searches for movies by title and displays the results
+    // Searches for movies by title and displays the results.
+    // Prompts the user for a title and retrieves matching movies from the database.
     public void SearchByTitle()
     {
         Console.Write("Enter movie title (or part of it): "); // Prompt user for movie title
@@ -122,7 +127,9 @@ public class MovieController
         _view.DisplaySearchResults(movies); // Call the view method to display search results
     }
 
-    // Searches for movies by genre and displays the results
+    // Searches for movies by genre and displays the results.
+    // Prompts the user for a genre and retrieves matching movies from the database.
+
     public void SearchByGenre()
     {
         Console.Write("Enter movie genre: "); // Prompt user for movie genre
@@ -155,7 +162,8 @@ public class MovieController
         _view.DisplaySearchResults(movies); // Call the view method to display search results
     }
 
-    // Orders movies by duration in descending order and displays the results
+    // Orders movies by duration in descending order and displays the results.
+    // Retrieves all movies sorted by duration and displays them through the view.
     public void OrderMoviesByDuration()
     {
         var movies = new List<Movie>(); // Initialize a list to store movies
@@ -185,3 +193,4 @@ public class MovieController
         _view.DisplaySearchResults(movies); // Call the view method to display ordered movie results
     }
 }
+

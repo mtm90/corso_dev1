@@ -14,7 +14,12 @@ public class BookingController
         _view = view;           // Assign the provided BookingView to the private field
     }
 
-    // Adds a new booking, ensuring the movie and user exist before creating the booking
+    // Adds a new booking for a specified user and movie.
+    // It first retrieves the user ID and movie ID from the user input via the BookingView.
+    // Then it validates the existence of the user and movie in the database.
+    // If both exist, it creates a new Booking object with the current date and time.
+    // The method constructs and executes an SQL INSERT command to add the booking to the database.
+    // Finally, it updates the movie's status to booked and displays a success message.
     public void AddBooking()
     {
         // Get booking details (user ID and movie ID) from the user input through the view
@@ -57,7 +62,11 @@ public class BookingController
         _view.ShowBookingSuccess(newBooking); // Display a success message to the user through the view
     }
 
-    // Lists all bookings from the database
+    // Lists all bookings currently stored in the database.
+    // It establishes a connection to the database, executes an SQL SELECT command
+    // to retrieve all booking records, and iterates through the results.
+    // Each booking record is added to a list, which is then passed to the BookingView
+    // to display the details of all bookings to the user.   
     public void ListAllBookings()
     {
         var bookings = new List<Booking>(); // Initialize a list to store bookings
@@ -86,7 +95,11 @@ public class BookingController
         _view.DisplayBookings(bookings); // Call the view method to show the bookings
     }
 
-    // Displays bookings along with the user and movie details
+    // Displays bookings along with the associated user and movie details.
+    // It establishes a connection to the database and executes an SQL JOIN query
+    // to retrieve booking information along with usernames and movie titles.
+    // A table is created to format the output, and each result row is added
+    // to the table for display. Finally, the formatted table is presented to the user.    
     public void ListBookingsWithUserAndMovieDetails()
     {
         using var connection = _dbContext.GetConnection(); // Get a connection to the database
@@ -124,7 +137,10 @@ public class BookingController
         AnsiConsole.Write(table); // Display the populated table in the console
     }
 
-    // Deletes a booking based on its ID
+    // Updates an existing booking in the database, allowing the user to change the movie and booking date.
+    // The method prompts the user for a booking ID, retrieves the current booking details,
+    // and allows the user to select a new movie. It then updates the booking in the database.
+    // A confirmation message is displayed upon successful update.
     public void DeleteBooking()
     {
         Console.Write("Enter Booking ID to delete: "); // Prompt the user for the booking ID
