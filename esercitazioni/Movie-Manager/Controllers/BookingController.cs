@@ -15,36 +15,42 @@ public class BookingController
 
     // Adds a new booking, ensuring the movie and user exist before creating the booking
     public void AddBooking()
+{
+    var (userId, movieId) = _view.GetBookingDetailsFromUser();
+
+    if (!UserExists(userId) || !MovieExists(movieId))
     {
-        var (userId, movieId) = _view.GetBookingDetailsFromUser();  // Get booking details from user input
-
-        // Check if user and movie exist before proceeding
-        if (!UserExists(userId) || !MovieExists(movieId))
-        {
-            Console.WriteLine("Invalid User ID or Movie ID. Booking could not be created.");
-            return;
-        }
-
-        using var connection = _dbContext.GetConnection();
-        connection.Open();
-
-        var newBooking = new Booking
-        {
-            UserId = userId,
-            MovieId = movieId,
-            BookingDate = DateTime.Now
-        };
-
-        string query = "INSERT INTO Bookings (UserId, MovieId, BookingDate) VALUES (@UserId, @MovieId, @BookingDate)";
-        using var command = new SQLiteCommand(query, connection);
-        command.Parameters.AddWithValue("@UserId", newBooking.UserId);
-        command.Parameters.AddWithValue("@MovieId", newBooking.MovieId);
-        command.Parameters.AddWithValue("@BookingDate", newBooking.BookingDate);
-        command.ExecuteNonQuery();
-
-        newBooking.BookingId = (int)connection.LastInsertRowId;  // Retrieve the new booking ID
-        _view.ShowBookingSuccess(newBooking);  // Notify the view of the successful booking creation
+        Console.WriteLine("Invalid User ID or Movie ID. Booking could not be created.");
+        return;
     }
+
+    using var connection = _dbContext.GetConnection();
+    connection.Open();
+
+    var newBooking = new Booking
+    {
+        UserId = userId,
+        MovieId = movieId,
+        BookingDate = DateTime.Now
+    };
+
+    // Insert the new booking
+    string insertBookingQuery = "INSERT INTO Bookings (UserId, MovieId, BookingDate) VALUES (@UserId, @MovieId, @BookingDate)";
+    using var insertCommand = new SQLiteCommand(insertBookingQuery, connection);
+    insertCommand.Parameters.AddWithValue("@UserId", newBooking.UserId);
+    insertCommand.Parameters.AddWithValue("@MovieId", newBooking.MovieId);
+    insertCommand.Parameters.AddWithValue("@BookingDate", newBooking.BookingDate);
+    insertCommand.ExecuteNonQuery();
+
+    // Update the movie's IsBooked status
+    string updateMovieQuery = "UPDATE Movies SET IsBooked = 1 WHERE MovieId = @MovieId";
+    using var updateCommand = new SQLiteCommand(updateMovieQuery, connection);
+    updateCommand.Parameters.AddWithValue("@MovieId", movieId);
+    updateCommand.ExecuteNonQuery();
+
+    _view.ShowBookingSuccess(newBooking);
+}
+
 
     // Lists all bookings from the database
     public void ListAllBookings()

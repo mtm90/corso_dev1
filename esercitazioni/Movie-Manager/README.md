@@ -1,4 +1,4 @@
-# Movie Manager Console ApPlication
+# Movie Manager Console Application
 
 This project is a Movie Manager application built using the MVC (Model-View-Controller) design pattern in C#. The goal is to simulate a realistic scenario for managing movie bookings, handling user accounts, and creating relationships between movies, users, and bookings. 
 

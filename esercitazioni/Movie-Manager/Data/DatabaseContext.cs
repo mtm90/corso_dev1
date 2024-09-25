@@ -18,31 +18,32 @@ public class DatabaseContext
         using var connection = new SQLiteConnection(_connectionString);
         connection.Open();
 
-        // SQL statements for creating tables if they don't exist
-        string userTable = @"CREATE TABLE IF NOT EXISTS Users (
-                                UserId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                Username TEXT NOT NULL,
-                                Email TEXT NOT NULL,
-                                Password TEXT NOT NULL
-                            );";
-
+        // Updated movie table schema to include the IsBooked column
         string movieTable = @"CREATE TABLE IF NOT EXISTS Movies (
-                                MovieId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                Title TEXT NOT NULL,
-                                Genre TEXT NOT NULL,
-                                Duration INTEGER NOT NULL
-                            );";
+                            MovieId INTEGER PRIMARY KEY AUTOINCREMENT,
+                            Title TEXT NOT NULL,
+                            Genre TEXT NOT NULL,
+                            Duration INTEGER NOT NULL,
+                            IsBooked BOOLEAN NOT NULL DEFAULT 0  -- New column for booking status
+                        );";
+
+        string userTable = @"CREATE TABLE IF NOT EXISTS Users (
+                            UserId INTEGER PRIMARY KEY AUTOINCREMENT,
+                            Username TEXT NOT NULL,
+                            Email TEXT NOT NULL,
+                            Password TEXT NOT NULL
+                        );";
 
         string bookingTable = @"CREATE TABLE IF NOT EXISTS Bookings (
-                                BookingId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                UserId INTEGER NOT NULL,
-                                MovieId INTEGER NOT NULL,
-                                BookingDate DATETIME NOT NULL,
-                                FOREIGN KEY(UserId) REFERENCES Users(UserId),
-                                FOREIGN KEY(MovieId) REFERENCES Movies(MovieId)
-                            );";
+                            BookingId INTEGER PRIMARY KEY AUTOINCREMENT,
+                            UserId INTEGER NOT NULL,
+                            MovieId INTEGER NOT NULL,
+                            BookingDate DATETIME NOT NULL,
+                            FOREIGN KEY(UserId) REFERENCES Users(UserId),
+                            FOREIGN KEY(MovieId) REFERENCES Movies(MovieId)
+                        );";
 
-        // Execute the commands to create the tables
+        // Execute table creation commands
         using var command = new SQLiteCommand(userTable, connection);
         command.ExecuteNonQuery();
 
@@ -52,6 +53,7 @@ public class DatabaseContext
         command.CommandText = bookingTable;
         command.ExecuteNonQuery();
     }
+
 
     // Returns an active SQLite connection to be used by controllers
     public SQLiteConnection GetConnection()
