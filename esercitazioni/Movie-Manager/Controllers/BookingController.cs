@@ -137,10 +137,11 @@ public class BookingController
         AnsiConsole.Write(table); // Display the populated table in the console
     }
 
-    // Updates an existing booking in the database, allowing the user to change the movie and booking date.
-    // The method prompts the user for a booking ID, retrieves the current booking details,
-    // and allows the user to select a new movie. It then updates the booking in the database.
-    // A confirmation message is displayed upon successful update.
+    // Deletes a booking from the database based on the provided booking ID.
+    // The method prompts the user for a booking ID and checks if it is valid
+    // by attempting to parse it into an integer. If the booking exists,
+    // it constructs and executes an SQL DELETE command to remove the booking.
+    // The user is informed of the success or failure of the deletion operation.    
     public void DeleteBooking()
     {
         Console.Write("Enter Booking ID to delete: "); // Prompt the user for the booking ID
@@ -177,7 +178,10 @@ public class BookingController
         }
     }
 
-    // Updates a booking by allowing the user to change movie and booking date
+    // Updates an existing booking in the database, allowing the user to change the movie and booking date.
+    // The method prompts the user for a booking ID, retrieves the current booking details,
+    // and allows the user to select a new movie. It then updates the booking in the database.
+    // A confirmation message is displayed upon successful update
     public void UpdateBooking()
     {
         Console.Write("Enter Booking ID to update: "); // Prompt the user for the booking ID
