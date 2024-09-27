@@ -34,7 +34,7 @@ namespace PokerAppMVC
 
             // Start a new hand and save it to the database
             Console.WriteLine("Starting a new hand...");
-            handController.SaveHand(player.PlayerId, "AsKd", "QsJh", 500, 500);
+            handController.SaveHand(player.PlayerId);
 
             // Retrieve and display all hands for the player
             var hands = handController.GetHandsByPlayer(player.PlayerId);
