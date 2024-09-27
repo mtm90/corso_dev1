@@ -13,8 +13,6 @@ namespace PokerAppMVC
             var handView = new HandView();
 
             Console.WriteLine("Welcome to the Poker App!");
-
-            // Prompt for player's name and create/retrieve player
             Console.Write("Enter your name: ");
             string playerName = Console.ReadLine();
 
@@ -32,21 +30,27 @@ namespace PokerAppMVC
             // Start a new hand
             handController.InitializeNewHand();
 
-            // Deal preflop (no community cards shown)
+            // Post blinds
+            handController.PostBlinds();
+
+            // Deal preflop (both players receive cards)
             handController.DealPreflop();
-            handView.DisplayPreflop(handController.GetPlayerHand(), handController.GetComputerHand());
 
-            // Deal flop (3 community cards)
-            handController.DealFlop();
+            // Flop Stage
+            handController.BettingRound("Preflop");
+            handController.DealCardsForStage("Flop");
             handView.DisplayFlop(handController.GetCommunityCards());
+            handController.BettingRound("Flop");
 
-            // Deal turn (1 more community card)
-            handController.DealTurn();
+            // Turn Stage
+            handController.DealCardsForStage("Turn");
             handView.DisplayTurn(handController.GetCommunityCards());
+            handController.BettingRound("Turn");
 
-            // Deal river (1 more community card)
-            handController.DealRiver();
+            // River Stage
+            handController.DealCardsForStage("River");
             handView.DisplayRiver(handController.GetCommunityCards());
+            handController.BettingRound("River");
 
             // Save the current hand to the database
             handController.SaveCurrentHand(player.PlayerId);
