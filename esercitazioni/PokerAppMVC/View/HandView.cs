@@ -1,22 +1,33 @@
 using PokerAppMVC.Models;
 using System;
-using System.Collections.Generic;
 
 namespace PokerAppMVC.Views
 {
     public class HandView
     {
-        public void DisplayHandInfo(Hand hand)
+        public void DisplayPreflop(string playerHand, string computerHand)
         {
-            Console.WriteLine($"Hand ID: {hand.HandId}, Player Hand: {hand.PlayerHand}, Computer Hand: {hand.ComputerHand}, Player Stack: {hand.PlayerStack}, Computer Stack: {hand.ComputerStack}");
+            Console.WriteLine("Preflop Stage:");
+            Console.WriteLine($"Player's Hand: {playerHand}");
+            Console.WriteLine($"Computer's Hand: {computerHand}");
         }
 
-        public void DisplayAllHands(List<Hand> hands)
+        public void DisplayFlop(string communityCards)
         {
-            foreach (var hand in hands)
-            {
-                DisplayHandInfo(hand);
-            }
+            Console.WriteLine("Flop Stage:");
+            Console.WriteLine($"Community Cards: {communityCards}");
+        }
+
+        public void DisplayTurn(string communityCards)
+        {
+            Console.WriteLine("Turn Stage:");
+            Console.WriteLine($"Community Cards: {communityCards}");
+        }
+
+        public void DisplayRiver(string communityCards)
+        {
+            Console.WriteLine("River Stage:");
+            Console.WriteLine($"Community Cards: {communityCards}");
         }
     }
 }

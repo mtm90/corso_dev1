@@ -6,41 +6,42 @@ namespace PokerAppMVC.Models
 {
     public class Deck
     {
-        private List<Card> _cards;
-        private Random _random;
+        private List<Card> Cards { get; set; }
+        private Random random = new Random();
 
         public Deck()
         {
-            _random = new Random();
-            _cards = new List<Card>();
-
+            // Initialize the deck with 52 cards
             string[] suits = { "♠", "♥", "♦", "♣" };
-            string[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+            string[] values = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+
+            Cards = new List<Card>();
 
             foreach (var suit in suits)
             {
-                foreach (var rank in ranks)
+                foreach (var value in values)
                 {
-                    _cards.Add(new Card(suit, rank));
+                    Cards.Add(new Card(suit, value));
                 }
             }
         }
 
+        // Shuffle the deck
         public void Shuffle()
         {
-            _cards = _cards.OrderBy(c => _random.Next()).ToList();
+            Cards = Cards.OrderBy(x => random.Next()).ToList();
         }
 
-        public List<Card> Deal(int numberOfCards)
+        // Deal a single card from the deck
+        public Card Deal()
         {
-            if (numberOfCards > _cards.Count)
-                throw new InvalidOperationException("Not enough cards left in the deck.");
-
-            var dealtCards = _cards.Take(numberOfCards).ToList();
-            _cards = _cards.Skip(numberOfCards).ToList(); // Remove dealt cards from the deck
-            return dealtCards;
+            if (Cards.Count > 0)
+            {
+                var card = Cards[0];
+                Cards.RemoveAt(0);
+                return card;
+            }
+            throw new InvalidOperationException("No cards left in the deck");
         }
-
-        public int CardsRemaining => _cards.Count;
     }
 }

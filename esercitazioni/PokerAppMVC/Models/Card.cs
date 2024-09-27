@@ -3,17 +3,17 @@ namespace PokerAppMVC.Models
     public class Card
     {
         public string Suit { get; set; }
-        public string Rank { get; set; }
+        public string Value { get; set; }
 
-        public Card(string suit, string rank)
+        public Card(string suit, string value)
         {
             Suit = suit;
-            Rank = rank;
+            Value = value;
         }
 
         public override string ToString()
         {
-            return $"{Rank} of {Suit}";
+            return $"{Value}{Suit}";
         }
     }
 }
