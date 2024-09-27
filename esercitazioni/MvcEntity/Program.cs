@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Sqlite;
 
 class Program
 {
@@ -134,7 +133,7 @@ class View
     {
         foreach (var transaction in transactions)
         {
-            Console.WriteLine($" Transaction ID: {transaction.TransactionId} User ID: {transaction.UserId} SubscriptionID: {transaction.SubscriptionId} Start Date: {transaction.StartDate}");
+            Console.WriteLine($" Transaction ID: {transaction.TransactionId} User Name: {transaction.User.Name} SubscriptionID: {transaction.SubscriptionId} Start Date: {transaction.StartDate}");
         }
     }
 
@@ -260,6 +259,7 @@ class Controller
         {
             _db.Users.Remove(userToDelete);
             _db.SaveChanges();
+        Console.WriteLine("User deleted successfully!");
         }
     }
 
@@ -306,6 +306,7 @@ class Controller
             sub.Name = newName;
             sub.Price = newPrice;
             _db.SaveChanges();
+            Console.WriteLine("Subscription updated successfully!");
         }
     }
 
@@ -327,6 +328,7 @@ class Controller
         {
             _db.Subscriptions.Remove(subToDelete);
             _db.SaveChanges();
+            Console.WriteLine("Subscription deleted successfully!");
         }
 
     }
@@ -432,14 +434,9 @@ class Controller
         var subscriptionIdInput = _view.GetInput();
         int.TryParse(subscriptionIdInput, out int subscriptionId);
 
-        var transaction = new Transaction
-        {
-            UserId = userId,
-            SubscriptionId = subscriptionId,
-            StartDate = DateTime.Now // Set the StartDate as the current date/time
-        };
+        _db.Transactions.Add(new Transaction {UserId = userId, SubscriptionId = subscriptionId, StartDate = DateTime.Now});
 
-        _db.Transactions.Add(transaction);
+
         _db.SaveChanges();
         Console.WriteLine("Transaction added successfully!");
     }
@@ -450,7 +447,10 @@ class Controller
 
     private void ShowTransactions()
     {
-        var transactions = _db.Transactions.ToList();
+        var transactions = _db.Transactions
+                                .Include(t => t.User)
+                                .Include(t => t.Subscription)
+                                .ToList();
         _view.ShowTransactions(transactions);
     }
 
