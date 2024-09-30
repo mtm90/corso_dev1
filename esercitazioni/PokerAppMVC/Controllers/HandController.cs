@@ -91,100 +91,125 @@ namespace PokerAppMVC.Controllers
         }
 
         // Manage a betting round for the given stage
-        public void BettingRound(string stage)
+        // Modify the BettingRound method to ensure both player and computer take actions properly
+public void BettingRound(string stage)
+{
+    Console.WriteLine($"--- {stage} Betting Round ---");
+    bool playerTurn = _isPlayerSmallBlind ? false : true; // Determine who starts based on blinds
+    bool bettingComplete = false;  // Flag to indicate if betting round is complete
+
+    // Reset player and computer bets to 0 for a new round
+    _playerBet = 0;
+    _computerBet = 0;
+
+    // Keep looping until betting round is completed
+    while (!bettingComplete)
+    {
+        if (playerTurn)
         {
-            Console.WriteLine($"--- {stage} Betting Round ---");
-            bool playerTurn = _isPlayerSmallBlind ? false : true; // Determine who starts based on blinds
-
-            while (true)
-            {
-                if (playerTurn)
-                {
-                    PlayerAction(); // Handle player's betting action
-                }
-                else
-                {
-                    ComputerAction(); // Handle computer's betting action
-                }
-
-                // Check if betting is complete (both bets are equal)
-                if (_playerBet == _computerBet)
-                {
-                    Console.WriteLine("Betting round complete.");
-                    break;
-                }
-
-                playerTurn = !playerTurn; // Switch turns
-            }
+            PlayerAction(); // Handle player's betting action
+        }
+        else
+        {
+            ComputerAction(); // Handle computer's betting action
         }
 
-        // Handle player actions (bet, call, fold)
-        public void PlayerAction()
+        // Check if both player and computer have taken an action and if betting is complete (both bets are equal)
+        if (_playerBet == _computerBet && (_playerBet > 0 || _computerBet > 0))
         {
-            Console.WriteLine($"Player Stack: {_playerStack}, Computer Stack: {_computerStack}, Pot: {_pot}");
-            Console.WriteLine("Choose your action: (1) Bet/Raise (2) Call (3) Fold");
-            string input = Console.ReadLine();
-
-            switch (input)
-            {
-                case "1": // Bet/Raise
-                    Console.WriteLine("Enter the amount to bet/raise:");
-                    int raiseAmount = int.Parse(Console.ReadLine());
-                    if (raiseAmount > _playerStack)
-                    {
-                        Console.WriteLine("You cannot bet more than your stack.");
-                        return;
-                    }
-                    _playerBet += raiseAmount;
-                    _playerStack -= raiseAmount;
-                    _pot += raiseAmount;
-                    Console.WriteLine($"Player raises by {raiseAmount}. Player bet: {_playerBet}");
-                    break;
-
-                case "2": // Call
-                    int callAmount = _computerBet - _playerBet;
-                    if (callAmount > _playerStack)
-                    {
-                        callAmount = _playerStack; // Player goes all-in if call amount is more than stack
-                    }
-                    _playerBet += callAmount;
-                    _playerStack -= callAmount;
-                    _pot += callAmount;
-                    Console.WriteLine($"Player calls {callAmount}. Player bet: {_playerBet}");
-                    break;
-
-                case "3": // Fold
-                    Console.WriteLine("Player folds. Computer wins the pot.");
-                    _computerStack += _pot;
-                    _pot = 0;
-                    break;
-
-                default:
-                    Console.WriteLine("Invalid action. Try again.");
-                    PlayerAction(); // Retry on invalid action
-                    break;
-            }
+            bettingComplete = true;
+            Console.WriteLine("Betting round complete.");
         }
-
-        // Handle computer's action (simple logic for now)
-        public void ComputerAction()
+        else
         {
-            // Implement a simple strategy for computer's action (e.g., always call)
-            int callAmount = _playerBet - _computerBet;
-            if (callAmount <= _computerStack)
-            {
-                _computerBet += callAmount;
-                _computerStack -= callAmount;
-                _pot += callAmount;
-                Console.WriteLine($"Computer calls {callAmount}. Computer bet: {_computerBet}");
-            }
-            else
-            {
-                Console.WriteLine("Computer folds. Player wins the pot.");
-                _playerStack += _pot;
-                _pot = 0;
-            }
+            playerTurn = !playerTurn; // Switch turns if bets are not equal or no actions taken yet
         }
+    }
+}
+
+
+public void PlayerAction()
+{
+    Console.WriteLine($"Player Stack: {_playerStack}, Computer Stack: {_computerStack}, Pot: {_pot}");
+    Console.WriteLine("Choose your action: (1) Bet/Raise (2) Call (3) Fold");
+    string input = Console.ReadLine();
+
+    switch (input)
+    {
+        case "1": // Bet/Raise
+            Console.WriteLine("Enter the amount to bet/raise:");
+            int raiseAmount;
+            if (!int.TryParse(Console.ReadLine(), out raiseAmount) || raiseAmount <= 0)
+            {
+                Console.WriteLine("Invalid bet amount. Please enter a positive integer.");
+                PlayerAction(); // Retry on invalid input
+                return;
+            }
+            if (raiseAmount > _playerStack)
+            {
+                Console.WriteLine("You cannot bet more than your stack.");
+                PlayerAction(); // Retry if bet is too large
+                return;
+            }
+            _playerBet += raiseAmount;
+            _playerStack -= raiseAmount;
+            _pot += raiseAmount;
+            Console.WriteLine($"Player raises by {raiseAmount}. Player bet: {_playerBet}");
+            break;
+
+        case "2": // Call
+            int callAmount = _computerBet - _playerBet;
+            if (callAmount > _playerStack)
+            {
+                callAmount = _playerStack; // Player goes all-in if call amount is more than stack
+            }
+            _playerBet += callAmount;
+            _playerStack -= callAmount;
+            _pot += callAmount;
+            Console.WriteLine($"Player calls {callAmount}. Player bet: {_playerBet}");
+            break;
+
+        case "3": // Fold
+            Console.WriteLine("Player folds. Computer wins the pot.");
+            _computerStack += _pot;
+            _pot = 0;
+            return; // End the current betting round
+        default:
+            Console.WriteLine("Invalid action. Try again.");
+            PlayerAction(); // Retry on invalid action
+            break;
+    }
+}
+
+public void ComputerAction()
+{
+    // Calculate the amount the computer needs to call
+    int callAmount = _playerBet - _computerBet;
+
+    // Ensure the call amount is not negative
+    if (callAmount < 0)
+    {
+        callAmount = 0; // Reset call amount to 0 if negative
+    }
+
+    // If the computer has enough stack to call the amount
+    if (callAmount <= _computerStack)
+    {
+        // Computer calls the amount and updates its bet and stack
+        _computerBet += callAmount;
+        _computerStack -= callAmount;
+        _pot += callAmount;
+        Console.WriteLine($"Computer calls {callAmount}. Computer bet: {_computerBet}");
+    }
+    else
+    {
+        // If the computer doesn't have enough to call, it folds
+        Console.WriteLine("Computer folds. Player wins the pot.");
+        _playerStack += _pot; // Award the pot to the player
+        _pot = 0; // Reset the pot to 0
+    }
+}
+
 
         // Deal cards for different stages
         public void DealCardsForStage(string stage)
