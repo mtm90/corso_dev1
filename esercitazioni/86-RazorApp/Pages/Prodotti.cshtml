@@ -11,14 +11,19 @@
             <tr>
                 <th>Nome</th>
                 <th>Prezzo</th>
+                <th>Dettaglio</th>
+                <th>Immagine</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var prodotto in Model.Prodotti)
+            @foreach (var prodotto in Model.Prodotti) // Model è una variabile che contiene i ati e le funnzionalita di quella pagina
+                                                      // se vuoi accedere a qualcosa all'interno di model devi specificare che stai prendendo quell'informazione tipo MOdel .Prodotto
             {
                 <tr>
                     <td>@prodotto.Nome</td>
                     <td>@prodotto.Prezzo</td>
+                    <td>@prodotto.Dettaglio</td>
+                    <td><img src="@prodotto.Immagine" alt="@prodotto.Nome" width="100" height="100"></td>
                 </tr>
             }
         </tbody>

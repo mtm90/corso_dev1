@@ -10,6 +10,7 @@ public class ProdottiModel : PageModel
     public ProdottiModel(ILogger<ProdottiModel> logger)
     {
         _logger = logger;
+        _logger.LogInformation("Prodotti caricati");
     }
 
     public IEnumerable<Prodotto> Prodotti { get; set; } 
@@ -18,9 +19,9 @@ public class ProdottiModel : PageModel
     {
         Prodotti = new List<Prodotto>
         {
-            new Prodotto { Nome = "prodotto 1", Prezzo = 100 },
-            new Prodotto { Nome = "prodotto 2", Prezzo = 200 },
-            new Prodotto { Nome = "prodotto 3", Prezzo = 300 },
+            new Prodotto { Id = 1 , Nome = "github", Prezzo = 100, Dettaglio = "Robe", Immagine = "/img/github.png"},
+            new Prodotto { Id = 2, Nome = "instagram", Prezzo = 200, Dettaglio = "Cose", Immagine = "/img/instagram.png"},
+            new Prodotto { Id = 3, Nome = "linkedin", Prezzo = 300, Dettaglio = "Giri",Immagine = "/img/linkedin.png"},
         };
     }
 }
