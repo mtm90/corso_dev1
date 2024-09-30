@@ -1,29 +1,41 @@
 @page
-@model _86_RazorApp.Pages.ProdottiModel
+@model ProdottiModel
 @{
     ViewData["Title"] = "Prodotti";
 }
 <h1>@ViewData["Title"]</h1>
 
 <div>
+    <form method="get">
+        <div class="form-group">
+            <label for="minPrezzo">Prezzo Minimo</label>
+            <input type="number" name="minPrezzo" class="form-control" id="minPrezzo" step="1" placeholder="Inserisci Prezzo Minimo" />
+        </div>
+        <div class="form-group">
+            <label for="maxPrezzo">Prezzo Massimo</label>
+            <input type="number" name="maxPrezzo" class="form-control" id="maxPrezzo" step="1" placeholder="Inserisci Prezzo Massimo" />
+        </div>
+        <button type="submit" class="btn btn-primary">Filtra</button>
+    </form>
+</div>
+
+<div>
     <table class="table">
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Prezzo</th>
-                <th>Dettaglio</th>
                 <th>Immagine</th>
+                <th>Link</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var prodotto in Model.Prodotti) // Model è una variabile che contiene i ati e le funnzionalita di quella pagina
-                                                      // se vuoi accedere a qualcosa all'interno di model devi specificare che stai prendendo quell'informazione tipo MOdel .Prodotto
+                                                      // se vuoi accedere a qualcosa all'interno di model devi specificare che stai prendendo quell'informazione tipo Model.Prodotti
             {
                 <tr>
                     <td>@prodotto.Nome</td>
-                    <td>@prodotto.Prezzo</td>
-                    <td>@prodotto.Dettaglio</td>
                     <td><img src="@prodotto.Immagine" alt="@prodotto.Nome" width="100" height="100"></td>
+                    <td><a asp-page="ProdottoDettaglio" asp-route-id="@prodotto.Id" asp-route-nome="@prodotto.Nome" asp-route-prezzo="@prodotto.Prezzo" asp-route-dettaglio="@prodotto.Dettaglio">Dettaglio</a></td>
                 </tr>
             }
         </tbody>
