@@ -1,29 +1,47 @@
 @page
-@model ProdottoDettaglio
-@{
+@model ProdottoDettaglioModel
+
+@*@{
     ViewData["Title"] = "ProdottoDettaglio";
+}  *@--
+@{
+    // Se il prodotto esiste, imposta il titolo come il nome del prodotto
+    ViewData["Title"] = Model.prodotto?.Nome ?? "Prodotto non trovato";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>@ViewData["Title"]</h1> 
 
 <div>
-    <table class="table">
+    @if (Model.prodotto != null)
+    {
+     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Immagine</th>
                 <th>Nome</th>
                 <th>Prezzo</th>
                 <th>Dettaglio</th>
+               
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>@Model.Prodotto.Id</td>
-                <td>@Model.Prodotto.Nome</td>
-                <td>@Model.Prodotto.Prezzo</td>
-                <td>@Model.Prodotto.Dettaglio</td>
-            </tr>
+       
+                <tr>
+                    <td><img src="~/@Model.prodotto.Immagine" alt="@Model.prodotto.Nome" width="300" height="300" /></td>  <!-- Mostra l'immagine -->
+                    <td>@Model.prodotto.Nome</td>
+                    <td>@Model.prodotto.Prezzo</td>
+                    <td>@Model.prodotto.Dettaglio</td>
+                </tr>
+            
         </tbody>
     </table>
+
+       }
+    else
+    {
+        <!-- Mostra un messaggio di errore se il prodotto non è disponibile -->
+        <p>Il prodotto non è stato trovato.</p>
+    }
+    
     <a asp-page="/Prodotti">Torna a prodotti</a>
 </div>
