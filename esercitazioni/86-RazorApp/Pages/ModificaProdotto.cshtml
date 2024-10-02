@@ -27,6 +27,20 @@
                     <label for="immagine">URL Immagine Prodotto:</label>
                     <input type="text" class="form-control" id="immagine" name="immagine" value="@Model.Prodotto.Immagine" required />
                 </div>
+                <div class="form-group mb-3">
+                    <label for="quantita">Quantita Prodotto:</label>
+                    <input type="text" class="form-control" id="quantita" name="quantita" value="@Model.Prodotto.Quantita" required />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="categoria">Categoria Prodotto:</label>
+                    <select class="form-control" name="categoria">
+                        <option value="">Seleziona Categoria</option>
+                        @foreach (var categoria in Model.Categorie)
+                        {
+                            <option value="@categoria">@categoria</option>
+                        }
+                    </select>
+                </div>
                 <input type="hidden" name="id" value="@Model.Prodotto.Id" />
                 <button type="submit" class="btn btn-primary">Salva Modifiche</button>
             </form>

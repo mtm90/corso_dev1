@@ -1,114 +1,22 @@
 [
   {
+    "Id": 1,
+    "Nome": "prodotti apple",
+    "Prezzo": 1231.0,
+    "Dettaglio": "Semplicemente roba sovrapprezzata in modo insensato",
+    "Immagine": "img/apple.jpg",
+    "Quantita": 1,
+    "Categoria": null,
+    "Categorie": null
+  },
+  {
     "Id": 2,
     "Nome": "sigari",
-    "Prezzo": 150.0,
-    "Dettaglio": "scatola da 30",
-    "Immagine": "img/cigars.jpeg"
-  },
-  {
-    "Id": 4,
-    "Nome": "acqua costosa",
-    "Prezzo": 2300.0,
-    "Dettaglio": "Dettaglio4",
-    "Immagine": "img/profumo.webp"
-  },
-  {
-    "Id": 5,
-    "Nome": "orologi ",
-    "Prezzo": 3400.0,
-    "Dettaglio": "Dettaglio5",
-    "Immagine": "img/img2.webp"
-  },
-  {
-    "Id": 6,
-    "Nome": "Giacche",
-    "Prezzo": 400.0,
-    "Dettaglio": "Dettaglio6",
-    "Immagine": "img/suits.png"
-  },
-  {
-    "Id": 7,
-    "Nome": "Occhiali",
-    "Prezzo": 220.0,
-    "Dettaglio": "Dettaglio7",
-    "Immagine": "img/sunglasses.webp"
-  },
-  {
-    "Id": 8,
-    "Nome": "Quadri",
-    "Prezzo": 1200.0,
-    "Dettaglio": "Dettaglio8",
-    "Immagine": "img/arts.jpg"
-  },
-  {
-    "Id": 9,
-    "Nome": "Penna Figa",
-    "Prezzo": 1200.0,
-    "Dettaglio": "Dettaglio9",
-    "Immagine": "img/pens.jpg"
-  },
-  {
-    "Id": 10,
-    "Nome": "Libri",
-    "Prezzo": 2.0,
-    "Dettaglio": "Dettaglio10",
-    "Immagine": "img/books.jfif"
-  },
-  {
-    "Id": 11,
-    "Nome": "Vinco Antico",
-    "Prezzo": 1200.0,
-    "Dettaglio": "Dettaglio11",
-    "Immagine": "img/champagne.webp"
-  },
-  {
-    "Id": 12,
-    "Nome": "Valigetta antica",
-    "Prezzo": 110.0,
-    "Dettaglio": "Dettaglio12",
-    "Immagine": "img/borsa.jpg"
-  },
-  {
-    "Id": 13,
-    "Nome": "Gaming pc",
-    "Prezzo": 1100.0,
-    "Dettaglio": "Dettaglio13",
-    "Immagine": "img/pc.jpg"
-  },
-  {
-    "Id": 14,
-    "Nome": "Cuffie Scarse",
-    "Prezzo": 34.0,
-    "Dettaglio": "Dettaglio14",
-    "Immagine": "img/headphones.webp"
-  },
-  {
-    "Id": 15,
-    "Nome": "Xbox",
-    "Prezzo": 330.0,
-    "Dettaglio": "Dettaglio15",
-    "Immagine": "img/console.webp"
-  },
-  {
-    "Id": 16,
-    "Nome": "occhiali",
-    "Prezzo": 350.0,
-    "Dettaglio": "Dettaglio16",
-    "Immagine": "img/sunglasses.webp"
-  },
-  {
-    "Id": 17,
-    "Nome": "Smartphone",
-    "Prezzo": 1300.0,
-    "Dettaglio": "dettaglio17",
-    "Immagine": "img/phone.webp"
-  },
-  {
-    "Id": 18,
-    "Nome": "cose",
-    "Prezzo": 123.0,
-    "Dettaglio": "belle",
-    "Immagine": null
+    "Prezzo": 124.0,
+    "Dettaglio": "Sigari cubani originali",
+    "Immagine": "img/cigars.jpeg",
+    "Quantita": 30,
+    "Categoria": null,
+    "Categorie": null
   }
 ]

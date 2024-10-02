@@ -27,6 +27,20 @@
                     <label for="immagine">Immagine</label>
                     <input type="text" class="form-control" name="immagine" placeholder="Inserisci l'URL dell'immagine"/>
                 </div>
+                <div class="form-group mb-3">
+                    <label for="quantita">Quantita</label>
+                    <input type="text" class="form-control" name="quantita" placeholder="Inserisci la quantita"/>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="categoria">Categoria</label>
+                    <select class="form-control" name="categoria">
+                        <option value="">Seleziona Categoria</option>
+                        @foreach (var categoria in Model.Categorie)
+                        {
+                            <option value="@categoria">@categoria</option>
+                        }
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-success">Aggiungi</button>
             </form>
         </div>

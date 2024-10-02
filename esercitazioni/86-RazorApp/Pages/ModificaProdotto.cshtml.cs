@@ -17,12 +17,15 @@ public class ModificaProdottoModel : PageModel
     }
 
     public Prodotto Prodotto { get; set; }
+    public List<string> Categorie {get;set;}
 
     public void OnGet(int id)
     {
         // Carica tutti i prodotti dal file JSON
         var json = System.IO.File.ReadAllText("wwwroot/json/prodotti.json");
         var tuttiProdotti = JsonConvert.DeserializeObject<List<Prodotto>>(json);
+                var jsons = System.IO.File.ReadAllText("wwwroot/json/categorie.json");
+        Categorie = JsonConvert.DeserializeObject<List<string>>(jsons);
 
         // Trova il prodotto con l'ID corrispondente
         foreach (var prodotto in tuttiProdotti)
@@ -35,7 +38,7 @@ public class ModificaProdottoModel : PageModel
         }
     }
 
-    public IActionResult OnPost(int id, string nome, decimal prezzo, string dettaglio, string immagine)
+    public IActionResult OnPost(int id, string nome, decimal prezzo, string dettaglio, string immagine, int quantita, string categoria)
     {
         // Carica tutti i prodotti dal file JSON
         var json = System.IO.File.ReadAllText("wwwroot/json/prodotti.json");
@@ -50,6 +53,8 @@ public class ModificaProdottoModel : PageModel
                 prodotto.Prezzo = prezzo;
                 prodotto.Dettaglio = dettaglio;
                 prodotto.Immagine = immagine;
+                prodotto.Quantita = quantita;
+                prodotto.Categoria = categoria;
                 break;
             }
         }
