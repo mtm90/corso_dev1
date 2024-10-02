@@ -69,10 +69,10 @@ namespace WebAppProdotti.Pages
                 }
 
                 // Calcola il numero di pagine
-                numeroPagine = (int)Math.Ceiling(prodottiFiltrati.Count() / 6.0);
+                numeroPagine = (int)Math.Ceiling(prodottiFiltrati.Count() / 4.0);
 
                 // Paginazione: prendi i prodotti per la pagina richiesta
-                Prodotti = prodottiFiltrati.Skip(((pageIndex ?? 1) - 1) * 6).Take(6);
+                Prodotti = prodottiFiltrati.Skip(((pageIndex ?? 1) - 1) * 4).Take(4);
             }
             catch (FileNotFoundException)
             {

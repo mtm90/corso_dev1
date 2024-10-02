@@ -1,47 +1,45 @@
 @page
 @model ProdottoDettaglioModel
-
-@*@{
-    ViewData["Title"] = "ProdottoDettaglio";
-}  *@--
 @{
-    // Se il prodotto esiste, imposta il titolo come il nome del prodotto
     ViewData["Title"] = Model.prodotto?.Nome ?? "Prodotto non trovato";
 }
 
-<h1>@ViewData["Title"]</h1> 
-
-<div>
+<div class="container mt-5">
     @if (Model.prodotto != null)
     {
-     <table class="table">
-        <thead>
-            <tr>
-                <th>Immagine</th>
-                <th>Nome</th>
-                <th>Prezzo</th>
-                <th>Dettaglio</th>
-               
-            </tr>
-        </thead>
-        <tbody>
-       
-                <tr>
-                    <td><img src="~/@Model.prodotto.Immagine" alt="@Model.prodotto.Nome" width="300" height="300" /></td>  <!-- Mostra l'immagine -->
-                    <td>@Model.prodotto.Nome</td>
-                    <td>@Model.prodotto.Prezzo</td>
-                    <td>@Model.prodotto.Dettaglio</td>
-                </tr>
-            
-        </tbody>
-    </table>
-
-       }
+        <div class="card shadow-lg">
+            <div class="card-header bg-info text-white">
+                <h1 class="card-title">@Model.prodotto.Nome</h1>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Immagine</th>
+                            <th>Nome</th>
+                            <th>Prezzo</th>
+                            <th>Dettaglio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><img src="~/@Model.prodotto.Immagine" alt="@Model.prodotto.Nome" width="300" height="300" /></td>
+                            <td>@Model.prodotto.Nome</td>
+                            <td>€ @Model.prodotto.Prezzo</td>
+                            <td>@Model.prodotto.Dettaglio</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a asp-page="/Prodotti" class="btn btn-secondary">Torna ai prodotti</a>
+            </div>
+        </div>
+    }
     else
     {
-        <!-- Mostra un messaggio di errore se il prodotto non è disponibile -->
-        <p>Il prodotto non è stato trovato.</p>
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Errore</h4>
+            <p>Il prodotto non è stato trovato.</p>
+        </div>
+        <a asp-page="/Prodotti" class="btn btn-secondary">Torna ai prodotti</a>
     }
-    
-    <a asp-page="/Prodotti">Torna a prodotti</a>
 </div>

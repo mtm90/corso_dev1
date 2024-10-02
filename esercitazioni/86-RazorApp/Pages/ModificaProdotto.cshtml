@@ -1,35 +1,35 @@
-@page "{id:int}"  
+@page "{id:int}"
 @model ModificaProdottoModel
 @{
     ViewData["Title"] = "Modifica Prodotto";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<div>
-    <form method="post">
-        <div class="form-group">
-            <label for="nome">Nome Prodotto:</label>
-            <input type="text" class="form-control" id="nome" name="nome" value="@Model.Prodotto.Nome" required />
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h1 class="card-title">@ViewData["Title"]</h1>
         </div>
-
-        <div class="form-group">
-            <label for="prezzo">Prezzo Prodotto:</label>
-            <input type="number" class="form-control" id="prezzo" name="prezzo" value="@Model.Prodotto.Prezzo" required />
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group mb-3">
+                    <label for="nome">Nome Prodotto:</label>
+                    <input type="text" class="form-control" id="nome" name="nome" value="@Model.Prodotto.Nome" required />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="prezzo">Prezzo Prodotto:</label>
+                    <input type="number" class="form-control" id="prezzo" name="prezzo" value="@Model.Prodotto.Prezzo" required />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="dettaglio">Dettaglio Prodotto:</label>
+                    <textarea class="form-control" id="dettaglio" name="dettaglio" rows="3" required>@Model.Prodotto.Dettaglio</textarea>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="immagine">URL Immagine Prodotto:</label>
+                    <input type="text" class="form-control" id="immagine" name="immagine" value="@Model.Prodotto.Immagine" required />
+                </div>
+                <input type="hidden" name="id" value="@Model.Prodotto.Id" />
+                <button type="submit" class="btn btn-primary">Salva Modifiche</button>
+            </form>
         </div>
-
-        <div class="form-group">
-            <label for="dettaglio">Dettaglio Prodotto:</label>
-            <input type="text" class="form-control" id="dettaglio" name="dettaglio" value="@Model.Prodotto.Dettaglio" required />
-        </div>
-
-        <div class="form-group">
-            <label for="immagine">URL Immagine Prodotto:</label>
-            <input type="text" class="form-control" id="immagine" name="immagine" value="@Model.Prodotto.Immagine" required />
-        </div>
-
-        <input type="hidden" name="id" value="@Model.Prodotto.Id" />
-
-        <button type="submit" class="btn btn-primary">Salva Modifiche</button>
-    </form>
+    </div>
 </div>
