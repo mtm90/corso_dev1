@@ -2,21 +2,41 @@
   {
     "Id": 1,
     "Nome": "prodotti apple",
-    "Prezzo": 1231.0,
+    "Prezzo": 3000.0,
     "Dettaglio": "Semplicemente roba sovrapprezzata in modo insensato",
     "Immagine": "img/apple.jpg",
     "Quantita": 1,
-    "Categoria": null,
+    "Categoria": "altro",
     "Categorie": null
   },
   {
     "Id": 2,
     "Nome": "sigari",
-    "Prezzo": 124.0,
+    "Prezzo": 234.0,
     "Dettaglio": "Sigari cubani originali",
     "Immagine": "img/cigars.jpeg",
     "Quantita": 30,
-    "Categoria": null,
+    "Categoria": "altro",
+    "Categorie": null
+  },
+  {
+    "Id": 3,
+    "Nome": "Borsa",
+    "Prezzo": 123.0,
+    "Dettaglio": "Semplicissima borsa marrone un pò vintage",
+    "Immagine": "img/borsa.jpg",
+    "Quantita": 1,
+    "Categoria": "altro",
+    "Categorie": null
+  },
+  {
+    "Id": 4,
+    "Nome": "Gaming pc e schermo",
+    "Prezzo": 1200.0,
+    "Dettaglio": "Pc:\r\nIntel® Core™ i9-12900K\r\nWindows 11 Home\r\nASUS® TUF GAMING Z790-PLUS WIFI D4\r\nCorsair VENGEANCE RGB PRO 3200 MHz 16 GB\r\nGEFORCE RTX 3060 12 GB\r\nSAMSUNG 970 EVO PLUS M.2 1 TB\r\n\r\nSchermo:\r\nSamsung Monitor LED S31C, 24'', Flat\r\n1920x1080 (Full HD), Pannello IPS, 16:9\r\nRefresh Rate 75 Hz, Response Time 5 ms, FreeSync\r\n1 HDMI, D-Sub\r\nFlicker Free, Eye Saver Mode, Game Mode, Eco Saving Plus",
+    "Immagine": "img/pc.jpg",
+    "Quantita": 1,
+    "Categoria": "elettronica",
     "Categorie": null
   }
 ]

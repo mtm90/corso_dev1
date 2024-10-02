@@ -12,28 +12,32 @@
                 <h1 class="card-title">@Model.prodotto.Nome</h1>
             </div>
             <div class="card-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Immagine</th>
-                            <th>Nome</th>
-                            <th>Prezzo</th>
-                            <th>Dettaglio</th>
-                            <th>Quantita</th>
-                            <th>Categoria</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><img src="~/@Model.prodotto.Immagine" alt="@Model.prodotto.Nome" width="300" height="300" /></td>
-                            <td>@Model.prodotto.Nome</td>
-                            <td>€ @Model.prodotto.Prezzo</td>
-                            <td>@Model.prodotto.Dettaglio</td>
-                            <td>@Model.prodotto.Quantita</td>
-                            <td>@Model.prodotto.Categoria</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive"> <!-- Added responsive wrapper -->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Immagine</th>
+                                <th>Nome</th>
+                                <th>Prezzo</th>
+                                <th>Dettaglio</th>
+                                <th>Quantità</th>
+                                <th>Categoria</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img src="~/@Model.prodotto.Immagine" alt="@Model.prodotto.Nome" class="img-fluid" /> <!-- Added img-fluid class -->
+                                </td>
+                                <td>@Model.prodotto.Nome</td>
+                                <td>€ @Model.prodotto.Prezzo</td>
+                                <td>@Model.prodotto.Dettaglio</td>
+                                <td>@Model.prodotto.Quantita</td>
+                                <td>@Model.prodotto.Categoria</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> <!-- Closing table-responsive -->
                 <a asp-page="/Prodotti" class="btn btn-secondary">Torna ai prodotti</a>
             </div>
         </div>
