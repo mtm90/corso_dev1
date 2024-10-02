@@ -38,5 +38,15 @@
     "Quantita": 1,
     "Categoria": "elettronica",
     "Categorie": null
+  },
+  {
+    "Id": 5,
+    "Nome": "Penna Figa",
+    "Prezzo": 300.0,
+    "Dettaglio": "Penna strafiera",
+    "Immagine": "img/pens.jpg",
+    "Quantita": 1,
+    "Categoria": null,
+    "Categorie": null
   }
 ]
