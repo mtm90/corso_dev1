@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 
+
 public class AggiungiProdottoModel : PageModel
 {
     private readonly ILogger<AggiungiProdottoModel> _logger;
@@ -36,7 +37,7 @@ public class AggiungiProdottoModel : PageModel
     // i parametri vengono passati attraverso il form nella pagina web
     public IActionResult OnPost(string nome, decimal prezzo, string dettaglio, string immagine, int quantita, string categoria)
     {
-        if (Codice != "1234")
+        if (!ModelState.IsValid)
         {
             return RedirectToPage("Error", new { message = "Codice non valido"});
         }
