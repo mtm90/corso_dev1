@@ -8,8 +8,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebAppProdotti.Pages
-{
+
     public class AggiungiProdottoModel : PageModel
     {
         private readonly ILogger<AggiungiProdottoModel> _logger;
@@ -25,6 +24,7 @@ namespace WebAppProdotti.Pages
         public List<string> Categorie { get; set; }
 
         [BindProperty]
+        [Required(ErrorMessage = "Il codice è obbligatorio")]
         public string Codice { get; set; }
 
         public void OnGet()
@@ -72,4 +72,3 @@ namespace WebAppProdotti.Pages
             
         }
     }
-}
