@@ -6,62 +6,70 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
-
-
-public class AggiungiProdottoModel : PageModel
+namespace WebAppProdotti.Pages
 {
-    private readonly ILogger<AggiungiProdottoModel> _logger;
-
-    public AggiungiProdottoModel(ILogger<AggiungiProdottoModel> logger)
+    public class AggiungiProdottoModel : PageModel
     {
-        _logger = logger;
-    }
+        private readonly ILogger<AggiungiProdottoModel> _logger;
 
-
-    public Prodotto Prodotto { get; set; }
-    public List<string> Categorie { get; set; }
-    [BindProperty] // Viene utilizzato per includere la proprietà nella fase di model binding
-    public string Codice {get;set;}
-
-    // metodo che riceve i dati dal server
-    public void OnGet()
-    {
-        var json = System.IO.File.ReadAllText("wwwroot/json/categorie.json");
-        Categorie = JsonConvert.DeserializeObject<List<string>>(json);
-    }
-
-
-
-    //invia dati al server web
-    // i parametri vengono passati attraverso il form nella pagina web
-    public IActionResult OnPost(string nome, decimal prezzo, string dettaglio, string immagine, int quantita, string categoria)
-    {
-        if (!ModelState.IsValid)
+        public AggiungiProdottoModel(ILogger<AggiungiProdottoModel> logger)
         {
-            return RedirectToPage("Error", new { message = "Codice non valido"});
+            _logger = logger;
         }
 
-        var json = System.IO.File.ReadAllText("wwwroot/json/prodotti.json");
-        var tuttiProdotti = JsonConvert.DeserializeObject<List<Prodotto>>(json);
-        int id = 1;
-        if (tuttiProdotti.Count > 0)
+        [BindProperty]
+        public Prodotto Prodotto { get; set; }
+        
+        public List<string> Categorie { get; set; }
+
+        [BindProperty]
+        public string Codice { get; set; }
+
+        public void OnGet()
         {
-            id = tuttiProdotti[tuttiProdotti.Count - 1].Id + 1;
+            // Read the list of categories from JSON file and set it to the Categorie property
+            var json = System.IO.File.ReadAllText("wwwroot/json/categorie.json");
+            Categorie = JsonConvert.DeserializeObject<List<string>>(json);
         }
-        tuttiProdotti.Add(new Prodotto
+
+        public IActionResult OnPost()
         {
-            Id = id,
-            Nome = nome,
-            Prezzo = prezzo,
-            Dettaglio = dettaglio,
-            Immagine = immagine,
-            Quantita = quantita,
-            Categoria = categoria
-        });
-        System.IO.File.WriteAllText("wwwroot/json/prodotti.json", JsonConvert.SerializeObject(tuttiProdotti, Formatting.Indented));
-        return RedirectToPage("Prodotti");
+            // Check for a valid code before proceeding
+            if (Codice != "1234")
+            {
+                return RedirectToPage("Error", new { message = "Codice non valido" });
+            }
 
+            else
+            {
 
+            // Deserialize the existing products from JSON file
+            var json = System.IO.File.ReadAllText("wwwroot/json/prodotti.json");
+            var tuttiProdotti = JsonConvert.DeserializeObject<List<Prodotto>>(json) ?? new List<Prodotto>();
+
+            // Generate a new product ID
+            int id = 1;
+            if (tuttiProdotti.Count > 0)
+            {
+                id = tuttiProdotti[tuttiProdotti.Count - 1].Id + 1;
+            }
+            Prodotto.Id = id;
+
+            // Set a default image if not provided
+            if (Prodotto.Immagine == null)
+            {
+                Prodotto.Immagine = "img/default.jpg";
+            }
+
+            // Add the new product to the list and save it back to the JSON file
+            tuttiProdotti.Add(Prodotto);
+            System.IO.File.WriteAllText("wwwroot/json/prodotti.json", JsonConvert.SerializeObject(tuttiProdotti, Formatting.Indented));
+
+            return RedirectToPage("Prodotti");
+            }
+            
+        }
     }
 }
