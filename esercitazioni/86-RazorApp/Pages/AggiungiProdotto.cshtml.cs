@@ -24,7 +24,7 @@ using System.ComponentModel.DataAnnotations;
         public List<string> Categorie { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Il codice è obbligatorio")]
+        [Required(ErrorMessage = "Il codice è obbligatorio.")]
         public string Codice { get; set; }
 
         public void OnGet()

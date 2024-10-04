@@ -8,20 +8,20 @@
     @if (Model.prodotto != null)
     {
         <div class="card shadow-lg">
-            <div class="card-header bg-info text-white">
-                <h1 class="card-title">@Model.prodotto.Nome</h1>
+            <div class="card-header">
+                <h1 class="card-title"><i class="bi bi-box-seam"></i> @Model.prodotto.Nome</h1> <!-- Box-seam icon added -->
             </div>
             <div class="card-body">
                 <div class="table-responsive"> <!-- Added responsive wrapper -->
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Immagine</th>
-                                <th>Nome</th>
-                                <th>Prezzo</th>
-                                <th>Dettaglio</th>
-                                <th>Quantità</th>
-                                <th>Categoria</th>
+                                <th><i class="bi bi-image"></i> <br>Immagine</th> <!-- Image icon added -->
+                                <th><i class="bi bi-tag"></i><br> Nome</th> <!-- Tag icon added -->
+                                <th><i class="bi bi-currency-euro"></i> <br>Prezzo</th> <!-- Euro currency icon added -->
+                                <th><i class="bi bi-file-text"></i><br> Dettaglio</th> <!-- File text icon added -->
+                                <th><i class="bi bi-archive"></i><br> Quantità</th> <!-- Archive icon added -->
+                                <th><i class="bi bi-tags"></i><br> Categoria</th> <!-- Tags icon added -->
                             </tr>
                         </thead>
                         <tbody>
@@ -38,16 +38,20 @@
                         </tbody>
                     </table>
                 </div> <!-- Closing table-responsive -->
-                <a asp-page="/Prodotti" class="btn btn-secondary">Torna ai prodotti</a>
+                <a asp-page="/Prodotti" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left-circle"></i> Torna ai prodotti <!-- Arrow left-circle icon added -->
+                </a>
             </div>
         </div>
     }
     else
     {
         <div class="alert alert-danger" role="alert">
-            <h4 class="alert-heading">Errore</h4>
+            <h4 class="alert-heading"><i class="bi bi-exclamation-triangle-fill"></i> Errore</h4> <!-- Exclamation triangle icon added -->
             <p>Il prodotto non è stato trovato.</p>
         </div>
-        <a asp-page="/Prodotti" class="btn btn-secondary">Torna ai prodotti</a>
+        <a asp-page="/Prodotti" class="btn btn-secondary">
+            <i class="bi bi-arrow-left-circle"></i> Torna ai prodotti <!-- Arrow left-circle icon added -->
+        </a>
     }
 </div>

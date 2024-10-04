@@ -70,5 +70,14 @@
     "Immagine": "img/champagne.webp",
     "Quantita": 1,
     "Categoria": "altro"
+  },
+  {
+    "Id": 9,
+    "Nome": "Iphones",
+    "Prezzo": 1225.0,
+    "Dettaglio": "Iphones 13 rigenerati",
+    "Immagine": "img/phone.webp",
+    "Quantita": 5,
+    "Categoria": "elettronica"
   }
 ]

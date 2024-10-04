@@ -9,20 +9,28 @@
 
     <!-- Header Section -->
     <div class="text-center mb-5">
-        <h1 class="display-4">Benvenuto nell'applicazione di Gestione Prodotti</h1>
-        <p class="lead">Esplora i nostri prodotti e gestiscili con facilità!</p>
-        <p>Questa applicazione è stata costruita con <a href="https://learn.microsoft.com/aspnet/core" target="_blank">ASP.NET Core</a> e consente di visualizzare, modificare e gestire un catalogo prodotti.</p>
+        <h1 class="display-4"><i class="bi bi-house-door"></i> Benvenuto nell'applicazione di Gestione Prodotti</h1> <!-- House door icon added -->
+        <p class="lead"><i class="bi bi-boxes"></i> Esplora i nostri prodotti e gestiscili con facilità!</p> <!-- Boxes icon added -->
+        <p>
+            <i class="bi bi-info-circle"></i> Questa applicazione è stata costruita con 
+            <a href="https://learn.microsoft.com/aspnet/core" target="_blank">ASP.NET Core</a> 
+            e consente di visualizzare, modificare e gestire un catalogo prodotti.
+        </p>
     </div>
 
     <!-- Navigation Buttons -->
     <div class="d-flex justify-content-center mb-4">
-        <a asp-page="/Prodotti" class="btn btn-outline-primary btn-lg mx-2">Visualizza Prodotti</a>
-        <a asp-page="/AggiungiProdotto" class="btn btn-outline-success btn-lg mx-2">Aggiungi Nuovo Prodotto</a>
+        <a asp-page="/Prodotti" class="btn btn-outline-primary btn-lg mx-2">
+            <i class="bi bi-box-seam"></i> Visualizza Prodotti <!-- Box seam icon added -->
+        </a>
+        <a asp-page="/AggiungiProdotto" class="btn btn-outline-success btn-lg mx-2">
+            <i class="bi bi-plus-circle"></i> Aggiungi Nuovo Prodotto <!-- Plus circle icon added -->
+        </a>
     </div>
 
     <!-- Featured Products Section -->
     <div class="text-center my-5">
-        <h2 class="display-5">Prodotti in Evidenza</h2>
+        <h2 class="display-5"><i class="bi bi-stars"></i> Prodotti in Evidenza</h2> <!-- Stars icon added -->
         <div class="row mt-4">
             <!-- Loop through each featured product and display it -->
             @foreach (var prodotto in Model.FeaturedProdotti)
@@ -31,9 +39,11 @@
                     <div class="card shadow-sm h-100 w-100">
                         <img src="@prodotto.Immagine" class="card-img-top img-fluid" alt="@prodotto.Nome" style="height: 200px; object-fit: cover;" />
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">@prodotto.Nome</h5>
-                            <p class="card-text"><strong>Prezzo:</strong> @prodotto.Prezzo €</p>
-                            <a asp-page="ProdottoDettaglio" asp-route-id="@prodotto.Id" class="btn btn-outline-info w-100 mt-auto">Visualizza Dettagli</a>
+                            <h5 class="card-title">@prodotto.Nome</h5> <!-- Tag icon added -->
+                            <p class="card-text"><strong>Prezzo:</strong> @prodotto.Prezzo €</p> <!-- Euro currency icon added -->
+                            <a asp-page="ProdottoDettaglio" asp-route-id="@prodotto.Id" class="btn btn-outline-info w-100 mt-auto">
+                                <i class="bi bi-eye"></i> Visualizza Dettagli <!-- Eye icon added -->
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -43,7 +53,9 @@
 
     <!-- Footer Section -->
     <div class="text-center mt-5">
-        <p class="text-muted">Applicazione costruita utilizzando ASP.NET Core. <br /> © 2024 Gestione Prodotti, Inc.</p>
+        <p class="text-muted">
+            <i class="bi bi-code-slash"></i> Applicazione costruita utilizzando ASP.NET Core. <br /> <!-- Code icon added -->
+        </p>
     </div>
 
 </div>

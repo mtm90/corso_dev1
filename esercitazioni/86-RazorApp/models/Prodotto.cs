@@ -17,6 +17,8 @@ public class Prodotto
         [StringLength(500, MinimumLength = 10, ErrorMessage = "Il dettaglio deve essre compreso fra i 10 e i 500 caratteri.")]
         public string Dettaglio { get; set; }
         [BindProperty]
+        [Required(ErrorMessage = "L'immagine del prodotto è obbligatoria.")]
+
         public string Immagine{ get; set; }
         [BindProperty]
         [Required(ErrorMessage = "La quantità del prodotto è obbligatoria.")]

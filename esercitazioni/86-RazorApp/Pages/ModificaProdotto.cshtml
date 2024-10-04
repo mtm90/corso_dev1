@@ -6,33 +6,33 @@
 
 <div class="container mt-5">
     <div class="card shadow-lg">
-        <div class="card-header bg-primary text-white">
-            <h1 class="card-title">@ViewData["Title"]</h1>
+        <div class="card-header text-center">
+            <h1 class="card-title"><i class="bi bi-pencil-square"></i> @ViewData["Title"]</h1> <!-- Pencil icon added -->
         </div>
         <div class="card-body">
             <form method="post">
                 <div class="form-group mb-3">
-                    <label for="nome">Nome Prodotto:</label>
+                    <label for="nome"><i class="bi bi-tag"></i> Nome Prodotto:</label> <!-- Tag icon added -->
                     <input type="text" class="form-control" id="nome" name="nome" value="@Model.Prodotto.Nome" required />
                 </div>
                 <div class="form-group mb-3">
-                    <label for="prezzo">Prezzo Prodotto:</label>
+                    <label for="prezzo"><i class="bi bi-currency-euro"></i> Prezzo Prodotto:</label> <!-- Euro currency icon added -->
                     <input type="number" class="form-control" id="prezzo" name="prezzo" value="@Model.Prodotto.Prezzo" required />
                 </div>
                 <div class="form-group mb-3">
-                    <label for="dettaglio">Dettaglio Prodotto:</label>
+                    <label for="dettaglio"><i class="bi bi-file-text"></i> Dettaglio Prodotto:</label> <!-- File text icon added -->
                     <textarea class="form-control" id="dettaglio" name="dettaglio" rows="3" required>@Model.Prodotto.Dettaglio</textarea>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="immagine">URL Immagine Prodotto:</label>
+                    <label for="immagine"><i class="bi bi-image"></i> URL Immagine Prodotto:</label> <!-- Image icon added -->
                     <input type="text" class="form-control" id="immagine" name="immagine" value="@Model.Prodotto.Immagine" required />
                 </div>
                 <div class="form-group mb-3">
-                    <label for="quantita">Quantita Prodotto:</label>
+                    <label for="quantita"><i class="bi bi-archive"></i> Quantita Prodotto:</label> <!-- Archive icon added -->
                     <input type="text" class="form-control" id="quantita" name="quantita" value="@Model.Prodotto.Quantita" required />
                 </div>
                 <div class="form-group mb-3">
-                    <label for="categoria">Categoria Prodotto:</label>
+                    <label for="categoria"><i class="bi bi-tags"></i> Categoria Prodotto:</label> <!-- Tags icon added -->
                     <select class="form-control" name="categoria">
                         <option value="">Seleziona Categoria</option>
                         @foreach (var categoria in Model.Categorie)
@@ -42,7 +42,9 @@
                     </select>
                 </div>
                 <input type="hidden" name="id" value="@Model.Prodotto.Id" />
-                <button type="submit" class="btn btn-primary">Salva Modifiche</button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Salva Modifiche <!-- Save icon added -->
+                </button>
             </form>
         </div>
     </div>

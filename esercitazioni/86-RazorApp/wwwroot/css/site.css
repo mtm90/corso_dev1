@@ -19,4 +19,65 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: #F4F7F5;
 }
+
+.navbar, .card-header, .btn {
+  background-color: #A7A2A9; /* Darker neutral color */
+  color: #ECF0F1; /* Light text color */
+}
+
+.card {
+  border: none;
+  box-shadow: none; /* Remove shadow */
+  margin-bottom: 1.5rem; /* Add vertical space */
+}
+
+.form-group label, .table th, .table td {
+  padding: 0.5rem 0.75rem;
+}
+
+body, input, button, select {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+h1, h2, h3, .card-title {
+  font-weight: 600; /* Slightly bolder headings */
+}
+
+.btn {
+  border: none;
+  background-color: #A7A2A9; /* Consistent accent color */
+  color: #FFFFFF;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.btn:hover {
+  background-color: #575A5E; /* Darken on hover */
+}
+
+.container, .card-body, .card-header, .footer {
+  padding: 2rem; /* Increase padding */
+}
+
+.navbar-nav, .form-group, .table th, .table td {
+  text-align: center;
+}
+
+.navbar {
+  background-color: #34495E; /* Neutral dark background */
+  border: none; /* Remove border */
+}
+
+.navbar-brand, .navbar-nav .nav-link {
+  color: #ECF0F1;
+}
+
+.btn, .card {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+

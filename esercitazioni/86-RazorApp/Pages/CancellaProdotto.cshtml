@@ -6,20 +6,26 @@
 
 <div class="container mt-5">
     <div class="alert alert-warning">
-        <h1 class="alert-heading">@ViewData["Title"]</h1>
+        <h1 class="alert-heading">
+            <i class="bi bi-exclamation-circle-fill"></i> @ViewData["Title"] <!-- Warning icon added -->
+        </h1>
         <p>Sei sicuro di voler cancellare questo prodotto? Questa azione è irreversibile.</p>
     </div>
     <div class="card shadow-lg">
         <div class="card-body">
-            <h4 class="card-title">@Model.Prodotto.Nome</h4>
+            <h4 class="card-title"><i class="bi bi-box-seam"></i> @Model.Prodotto.Nome</h4> <!-- Box icon added -->
             <p class="card-text"><strong>Prezzo:</strong> € @Model.Prodotto.Prezzo</p>
             <p class="card-text"><strong>Dettaglio:</strong> @Model.Prodotto.Dettaglio</p>
             <p class="card-text"><strong>Immagine:</strong> <img src="~/@Model.Prodotto.Immagine" alt="@Model.Prodotto.Nome" width="150" /></p>
             <p class="card-text"><strong>Quantita:</strong> @Model.Prodotto.Quantita</p>
             <p class="card-text"><strong>Categoria:</strong> @Model.Prodotto.Categoria</p>
             <form method="post">
-                <button type="submit" class="btn btn-danger">Cancella</button>
-                <a asp-page="/Prodotti" class="btn btn-secondary">Annulla</a>
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Cancella <!-- Trash icon added -->
+                </button>
+                <a asp-page="/Prodotti" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Annulla <!-- Cancel/close icon added -->
+                </a>
             </form>
         </div>
     </div>
