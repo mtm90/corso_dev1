@@ -18,12 +18,11 @@ public class Prodotto
         public string Dettaglio { get; set; }
         [BindProperty]
         [Required(ErrorMessage = "L'immagine del prodotto è obbligatoria.")]
-
         public string Immagine{ get; set; }
         [BindProperty]
         [Required(ErrorMessage = "La quantità del prodotto è obbligatoria.")]
         [Range(1, int.MaxValue, ErrorMessage = "La quantita deve essere almeno 1.")]
-        public int Quantita {get; set;}
+        public float Quantita {get; set;}
         [BindProperty]
         [Required(ErrorMessage = "La categoria del prodotto è obbligatoria.")]
         public string Categoria {get;set;}

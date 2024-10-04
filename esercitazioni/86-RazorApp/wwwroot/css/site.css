@@ -95,3 +95,16 @@ h1, h2, h3, .card-title {
 .field-validation-valid {
   color: green;
 }
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important; /* Imposta lo sfondo bianco per sovrascrivere l'azzurro */
+  -webkit-text-fill-color: black !important; /* Imposta il colore del testo */
+}
+
+/* Rimuove lo sfondo azzurro per altri browser che usano il motore Blink (Chrome, Edge) */
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-text-fill-color: black !important;
+}
