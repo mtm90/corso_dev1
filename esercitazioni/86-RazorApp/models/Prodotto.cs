@@ -10,7 +10,7 @@ public class Prodotto
         public string Nome { get; set; }
         [BindProperty]
         [Required(ErrorMessage = "Il prezzo del prodotto è obbligatorio.")]
-        [Range(0.01, double.MaxValue, ErrorMessage = "Il prezzo deve essere u valore positivo.")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Il prezzo deve essere un valore positivo.")]
         public decimal Prezzo { get; set; }
         [BindProperty]
         [Required(ErrorMessage = "Il dettaglio del prodotto è obbligatorio.")]

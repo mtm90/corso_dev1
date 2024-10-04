@@ -20,11 +20,11 @@
   {
     "Id": 3,
     "Nome": "Borsa",
-    "Prezzo": 123.0,
+    "Prezzo": 344.0,
     "Dettaglio": "Semplicissima borsa marrone un pò vintage",
     "Immagine": "img/borsa.jpg",
     "Quantita": 1,
-    "Categoria": "altro"
+    "Categoria": null
   },
   {
     "Id": 4,

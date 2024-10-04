@@ -8,10 +8,6 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
 html {
   position: relative;
   min-height: 100%;
@@ -81,3 +77,21 @@ h1, h2, h3, .card-title {
 }
 
 
+.input-validation-error {
+  border-color: red !important; /* Bordo rosso per evidenziare gli errori */
+}
+
+/* Cambia il colore del messaggio di errore */
+.field-validation-error {
+  color: red; /* Colore rosso per i messaggi di errore */
+}
+
+/* Cambia il colore del bordo degli input validi */
+.input-validation-valid {
+  border-color: green !important; /* Bordo verde per evidenziare i campi validi */
+}
+
+/* Cambia il colore del messaggio di successo */
+.field-validation-valid {
+  color: green;
+}
