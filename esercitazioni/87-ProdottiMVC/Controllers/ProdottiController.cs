@@ -10,8 +10,7 @@ public class Categoria
 public class ProdottiController : Controller
 {
     private static List<Prodotto> prodotti;
-    private static List<Categoria> categorie; // Declare the categorie list here
-
+    private static List<Categoria> categorie;
 
     // Constructor: Load data from JSON file when controller is instantiated
     public ProdottiController()
@@ -48,7 +47,10 @@ public class ProdottiController : Controller
 
     public IActionResult Create()
 {
-    ViewBag.Categorie = categorie; // Pass the list of categories to the view
+    // Read the list of categories from JSON file and pass it to the view
+    var json = System.IO.File.ReadAllText("wwwroot/json/categorie.json");
+    ViewBag.Categorie = JsonConvert.DeserializeObject<List<string>>(json) ?? new List<string>();
+
     return View();
 }
 
@@ -56,8 +58,7 @@ public class ProdottiController : Controller
     [HttpPost]
     public IActionResult Create(Prodotto prodotto)
     {
-        if (ModelState.IsValid)
-        {
+
             prodotto.Id = prodotti.Count + 1;
             prodotti.Add(prodotto);
 
@@ -65,8 +66,7 @@ public class ProdottiController : Controller
             SaveToFile();
 
             return RedirectToAction("Index");
-        }
-        return View(prodotto);
+
     }
 
     public IActionResult Edit(int id)
