@@ -70,10 +70,12 @@ public class ProdottiController : Controller
     }
 
     public IActionResult Edit(int id)
-    {
-        var prodotto = prodotti.FirstOrDefault(p => p.Id == id);
-        return prodotto == null ? NotFound() : View(prodotto);
-    }
+{
+    var prodotto = prodotti.FirstOrDefault(p => p.Id == id);
+    ViewBag.Categorie = categorie; // Pass the list of categories to the view
+    return prodotto == null ? NotFound() : View(prodotto);
+}
+
 
     [HttpPost]
     public IActionResult Edit(Prodotto prodotto)
