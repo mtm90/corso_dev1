@@ -1,0 +1,46 @@
+@model IEnumerable<Prodotto>
+
+@{
+    ViewData["Title"] = "Prodotti";
+}
+@{ Layout = "_Layout"; }
+
+<h2>@ViewData["Title"]</h2>
+
+<a href="@Url.Action("Create", "Prodotti")" class="btn btn-success mb-3">
+    <i class="bi bi-plus-circle"></i> Aggiungi Nuovo Prodotto
+</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Prezzo</th>
+            <th>Categoria</th>
+            <th>Quantità</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var prodotto in Model)
+    {
+        <tr>
+            <td>@prodotto.Nome</td>
+            <td>@prodotto.Prezzo €</td>
+            <td>@prodotto.Categoria</td>
+            <td>@prodotto.Quantita</td>
+            <td>
+                <a href="@Url.Action("Details", "Prodotti", new { id = prodotto.Id })" class="btn btn-info">
+                    <i class="bi bi-eye"></i> Visualizza
+                </a>
+                <a href="@Url.Action("Edit", "Prodotti", new { id = prodotto.Id })" class="btn btn-warning">
+                    <i class="bi bi-pencil-square"></i> Modifica
+                </a>
+                <a href="@Url.Action("Delete", "Prodotti", new { id = prodotto.Id })" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Cancella
+                </a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

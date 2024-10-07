@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "Nome": "Prodotto A",
+    "Prezzo": 150.00,
+    "Dettaglio": "Descrizione Prodotto A",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 10,
+    "Categoria": "Elettronica"
+  },
+  {
+    "Id": 2,
+    "Nome": "Prodotto B",
+    "Prezzo": 200.0,
+    "Dettaglio": "Descrizione Prodotto B",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 20,
+    "Categoria": "Categoria 2"
+  }
+]

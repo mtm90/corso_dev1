@@ -1,0 +1,20 @@
+@model Prodotto
+
+@{
+    ViewData["Title"] = "Cancella Prodotto";
+}
+@{ Layout = "_Layout"; }
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-warning">
+    Sei sicuro di voler cancellare il prodotto: <strong>@Model.Nome</strong>?
+</div>
+
+<form asp-action="Delete" method="post"> <!-- POST request to Delete -->
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">
+        <i class="bi bi-trash"></i> Cancella
+    </button>
+    <a href="@Url.Action("Index", "Prodotti")" class="btn btn-secondary">Annulla</a>
+</form>

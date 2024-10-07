@@ -1,0 +1,29 @@
+[
+  {
+    "Id": 1,
+    "Nome": "Prodotto A",
+    "Prezzo": 100.0,
+    "Dettaglio": "Descrizione Prodotto A",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 10,
+    "Categoria": "Categoria 1"
+  },
+  {
+    "Id": 2,
+    "Nome": "Prodotto B",
+    "Prezzo": 200.0,
+    "Dettaglio": "Descrizione Prodotto B",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 20,
+    "Categoria": "Categoria 2"
+  },
+  {
+    "Id": 3,
+    "Nome": "Cuffie Scarse",
+    "Prezzo": 234.0,
+    "Dettaglio": "f fhdfgbb",
+    "Immagine": "regr",
+    "Quantita": 1,
+    "Categoria": "cose"
+  }
+]
