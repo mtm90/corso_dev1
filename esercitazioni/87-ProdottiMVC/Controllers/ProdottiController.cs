@@ -48,9 +48,7 @@ public class ProdottiController : Controller
     public IActionResult Create()
 {
     // Read the list of categories from JSON file and pass it to the view
-    var json = System.IO.File.ReadAllText("wwwroot/json/categorie.json");
-    ViewBag.Categorie = JsonConvert.DeserializeObject<List<string>>(json) ?? new List<string>();
-
+    ViewBag.Categorie = categorie;
     return View();
 }
 
