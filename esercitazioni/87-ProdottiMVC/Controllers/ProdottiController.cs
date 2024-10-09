@@ -112,25 +112,34 @@ public IActionResult Create(Prodotto prodotto)
 
 
     [HttpPost]
-    public IActionResult Edit(Prodotto prodotto)
+public IActionResult Edit(Prodotto prodotto)
+{
+    if (!ModelState.IsValid)
     {
-        var existingProdotto = prodotti.FirstOrDefault(p => p.Id == prodotto.Id);
-        if (existingProdotto != null && ModelState.IsValid)
-        {
-            existingProdotto.Nome = prodotto.Nome;
-            existingProdotto.Prezzo = prodotto.Prezzo;
-            existingProdotto.Dettaglio = prodotto.Dettaglio;
-            existingProdotto.Immagine = prodotto.Immagine;
-            existingProdotto.Quantita = prodotto.Quantita;
-            existingProdotto.Categoria = prodotto.Categoria;
-
-            // Save updated list to JSON file
-            SaveToFile();
-
-            return RedirectToAction("Index");
-        }
+        ViewBag.Categorie = categorie; // Re-populate categories in case of a validation error
         return View(prodotto);
     }
+
+    var existingProdotto = prodotti.FirstOrDefault(p => p.Id == prodotto.Id);
+    if (existingProdotto != null)
+    {
+        existingProdotto.Nome = prodotto.Nome;
+        existingProdotto.Prezzo = prodotto.Prezzo;
+        existingProdotto.Dettaglio = prodotto.Dettaglio;
+        existingProdotto.Immagine = prodotto.Immagine;
+        existingProdotto.Quantita = prodotto.Quantita;
+        existingProdotto.Categoria = prodotto.Categoria;
+
+        // Save updated list to JSON file
+        SaveToFile();
+
+        return RedirectToAction("Index");
+    }
+
+    ViewBag.Categorie = categorie; // Ensure categories are populated
+    return View(prodotto);
+}
+
     [HttpGet]
     public IActionResult Delete(int id)
     {

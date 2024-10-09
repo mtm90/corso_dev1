@@ -14,7 +14,7 @@ public class Prodotto
 
     [Required(ErrorMessage = "Il dettaglio è obbligatorio.")]
     public string Dettaglio { get; set; }
-
+    [Required(ErrorMessage = "L'immagine è obbligatoria.")]
     public string Immagine { get; set; }
 
     [Required(ErrorMessage = "La quantità è obbligatoria.")]
