@@ -24,7 +24,7 @@
             {
                 <div class="carousel-item @(i == 0 ? "active" : "")">
                     <div class="card text-center shadow-lg w-75 mx-auto">
-                        <img src="@Model[i].Immagine" class="card-img-top img-fluid" alt="@Model[i].Nome" style="height: 400px; object-fit: cover;" />
+                        <img src="@Model[i].Immagine" class="card-img-top img-fluid" alt="@Model[i].Nome" />
                         <div class="card-body">
                             <h5 class="card-title">@Model[i].Nome</h5>
                             <p class="card-text">Prezzo: <strong>@Model[i].Prezzo €</strong></p>
@@ -59,3 +59,16 @@
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+.carousel-item {
+    height: 500px; /* Adjust the height as necessary */
+}
+
+.carousel-item img {
+    height: 100%; /* Make images cover the height of the carousel item */
+    width: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Adjust this to 'cover' if you want to fill the container */
+    margin: 0 auto; /* Center the image */
+}
+</style>

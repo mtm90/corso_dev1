@@ -44,3 +44,14 @@ body {
 .card:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Increase shadow on hover */
 }
+
+.carousel-item {
+  height: 500px; /* Adjust the height as necessary */
+}
+
+.carousel-item img {
+  height: 100%; /* Make images cover the height of the carousel item */
+  width: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Adjust this to 'cover' if you want to fill the container */
+  margin: 0 auto; /* Center the image */
+}
