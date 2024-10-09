@@ -28,7 +28,7 @@
                         <div class="card-body">
                             <h5 class="card-title">@Model[i].Nome</h5>
                             <p class="card-text">Prezzo: <strong>@Model[i].Prezzo €</strong></p>
-                            <a href="@Url.Action("Details", "Prodotti", new { id = Model[i].Id })" class="btn btn-primary">Visualizza Dettagli</a>
+                            <a href="@Url.Action("Details", "Prodotti", new { id = Model[i].Id })" class="btn btn-outline-dark">Visualizza Dettagli</a>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
     </div>
 
     <!-- Navigation Buttons -->
-    <div class="d-flex justify-content-center mt-5">
+    <div class="d-flex justify-content-center">
         <a href="@Url.Action("Index", "Prodotti")" class="btn btn-outline-primary btn-lg mx-2">
             <i class="bi bi-box-seam"></i> Visualizza Prodotti
         </a>
@@ -60,15 +60,3 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-<style>
-.carousel-item {
-    height: 500px; /* Adjust the height as necessary */
-}
-
-.carousel-item img {
-    height: 100%; /* Make images cover the height of the carousel item */
-    width: auto; /* Maintain aspect ratio */
-    object-fit: contain; /* Adjust this to 'cover' if you want to fill the container */
-    margin: 0 auto; /* Center the image */
-}
-</style>
