@@ -40,6 +40,18 @@ public class ProdottiController : Controller
         }
     }
 
+    public IActionResult Home()
+{
+    // Randomly select 5 best-selling products (modify the logic as needed)
+    var random = new Random();
+    var bestSellingProducts = prodotti
+        .OrderBy(p => random.Next())
+        .Take(5)
+        .ToList();
+
+    return View(bestSellingProducts);
+}
+
     public IActionResult Index(decimal? minPrezzo, decimal? maxPrezzo, int pageIndex = 1)
     {
         // Filter products based on price range

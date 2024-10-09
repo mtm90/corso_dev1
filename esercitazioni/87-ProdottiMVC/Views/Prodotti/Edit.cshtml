@@ -34,14 +34,14 @@
         <input asp-for="Quantita" class="form-control" />
         <span asp-validation-for="Quantita" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label asp-for="Categoria">Categoria</label>
         <select asp-for="Categoria" class="form-control" asp-items="@(new SelectList(ViewBag.Categorie, "Nome", "Nome", Model.Categoria))">
             <option value="">Seleziona una categoria</option>
         </select>
         <span asp-validation-for="Categoria" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-outline-dark">
         <i class="bi bi-save"></i> Salva Modifiche
     </button>
     <a href="@Url.Action("Index", "Prodotti")" class="btn btn-secondary">Annulla</a>
