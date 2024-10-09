@@ -3,44 +3,70 @@
 @{
     ViewData["Title"] = "Prodotti";
 }
+
 @{ Layout = "_Layout"; }
 
 <h2>@ViewData["Title"]</h2>
 
-<a href="@Url.Action("Create", "Prodotti")" class="btn btn-success mb-3">
+<a href="@Url.Action("Create", "Prodotti")" class="btn btn-outline-dark mb-3">
     <i class="bi bi-plus-circle"></i> Aggiungi Nuovo Prodotto
 </a>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Prezzo</th>
-            <th>Categoria</th>
-            <th>Quantità</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<!-- Filter Form -->
+<div class="card p-4 shadow-lg mb-5">
+    <h4 class="card-title"><i class="bi bi-funnel"></i> Filtra Prodotti</h4>
+    <form method="get">
+        <div class="row">
+            <div class="col-md-5 mb-3">
+                <label for="minPrezzo">Min Prezzo</label>
+                <input type="number" class="form-control" name="minPrezzo" placeholder="Inserisci prezzo minimo" value="@ViewBag.MinPrezzo"/>
+            </div>
+            <div class="col-md-5 mb-3">
+                <label for="maxPrezzo">Max Prezzo</label>
+                <input type="number" class="form-control" name="maxPrezzo" placeholder="Inserisci prezzo massimo" value="@ViewBag.MaxPrezzo"/>
+            </div>
+            <div class="col-md-2 d-flex align-items-end mb-3">
+                <button type="submit" class="btn btn-outline-dark w-100">Filtra</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Product List -->
+<div class="row g-4">
     @foreach (var prodotto in Model)
     {
-        <tr>
-            <td>@prodotto.Nome</td>
-            <td>@prodotto.Prezzo €</td>
-            <td>@prodotto.Categoria</td>
-            <td>@prodotto.Quantita</td>
-            <td>
-                <a href="@Url.Action("Details", "Prodotti", new { id = prodotto.Id })" class="btn btn-info">
-                    <i class="bi bi-eye"></i> Visualizza
-                </a>
-                <a href="@Url.Action("Edit", "Prodotti", new { id = prodotto.Id })" class="btn btn-warning">
-                    <i class="bi bi-pencil-square"></i> Modifica
-                </a>
-                <a href="@Url.Action("Delete", "Prodotti", new { id = prodotto.Id })" class="btn btn-danger">
-                    <i class="bi bi-trash"></i> Cancella
-                </a>
-            </td>
-        </tr>
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card shadow-lg h-100"> <!-- Added shadow-lg class to card for shadow effect -->
+                <div class="card-body">
+                    <h5 class="card-title">@prodotto.Nome</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Categoria: @prodotto.Categoria</h6>
+                    <p class="card-text">
+                        Prezzo: <strong>@prodotto.Prezzo €</strong><br />
+                        Quantità: @prodotto.Quantita
+                    </p>
+                </div>
+                <div class="card-footer d-flex flex-column  justify-content-between">
+                    <a href="@Url.Action("Details", "Prodotti", new { id = prodotto.Id })" class="btn btn-outline-dark btn-card mb-1">Visualizza</a>
+                    <a href="@Url.Action("Edit", "Prodotti", new { id = prodotto.Id })" class="btn btn-outline-dark btn-card mb-1">Modifica</a>
+                    <a href="@Url.Action("Delete", "Prodotti", new { id = prodotto.Id })" class="btn btn-outline-dark btn-card">Cancella</a>
+                </div>
+            </div>
+        </div>
     }
-    </tbody>
-</table>
+</div>
+
+<!-- Pagination Controls -->
+<div class="d-flex justify-content-center my-4">
+    <form method="get">
+        <!-- Preserve filter parameters -->
+        <input type="hidden" name="minPrezzo" value="@ViewBag.MinPrezzo" />
+        <input type="hidden" name="maxPrezzo" value="@ViewBag.MaxPrezzo" />
+        <div class="btn-group">
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <button type="submit" class="btn @(ViewBag.CurrentPage == i ? "btn-dark" : "btn-outline-dark")" name="pageIndex" value="@i">@i</button>
+            }
+        </div>
+    </form>
+</div>

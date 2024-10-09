@@ -11,68 +11,87 @@ public class ProdottiController : Controller
 {
     private static List<Prodotto> prodotti;
     private static List<Categoria> categorie;
+    private const int PageSize = 4; // Number of items per page
 
-    // Constructor: Load data from JSON file when controller is instantiated
     public ProdottiController()
-{
-    // Load products
-    var prodottiFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "json/prodotti.json");
-    if (System.IO.File.Exists(prodottiFilePath))
     {
-        var jsonData = System.IO.File.ReadAllText(prodottiFilePath);
-        prodotti = JsonConvert.DeserializeObject<List<Prodotto>>(jsonData) ?? new List<Prodotto>();
-    }
-    else
-    {
-        prodotti = new List<Prodotto>();
+        // Load products from JSON
+        var prodottiFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "json/prodotti.json");
+        if (System.IO.File.Exists(prodottiFilePath))
+        {
+            var jsonData = System.IO.File.ReadAllText(prodottiFilePath);
+            prodotti = JsonConvert.DeserializeObject<List<Prodotto>>(jsonData) ?? new List<Prodotto>();
+        }
+        else
+        {
+            prodotti = new List<Prodotto>();
+        }
+
+        // Load categories from JSON
+        var categorieFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "json/categorie.json");
+        if (System.IO.File.Exists(categorieFilePath))
+        {
+            var jsonData = System.IO.File.ReadAllText(categorieFilePath);
+            categorie = JsonConvert.DeserializeObject<List<Categoria>>(jsonData) ?? new List<Categoria>();
+        }
+        else
+        {
+            categorie = new List<Categoria>();
+        }
     }
 
-    // Load categories
-    var categorieFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "json/categorie.json");
-    if (System.IO.File.Exists(categorieFilePath))
+    public IActionResult Index(decimal? minPrezzo, decimal? maxPrezzo, int pageIndex = 1)
     {
-        var jsonData = System.IO.File.ReadAllText(categorieFilePath);
-        categorie = JsonConvert.DeserializeObject<List<Categoria>>(jsonData) ?? new List<Categoria>();
-    }
-    else
-    {
-        categorie = new List<Categoria>(); // Initialize with an empty list if file is not found
-    }
-}
+        // Filter products based on price range
+        var filteredProducts = prodotti.Where(p => 
+            (!minPrezzo.HasValue || p.Prezzo >= minPrezzo.Value) &&
+            (!maxPrezzo.HasValue || p.Prezzo <= maxPrezzo.Value)).ToList();
 
-    public IActionResult Index()
-    {
-        return View(prodotti);
+        // Calculate total pages based on filtered products count
+        int totalProducts = filteredProducts.Count;
+        int totalPages = (int)Math.Ceiling(totalProducts / (double)PageSize);
+
+        // Get the products for the current page
+        var paginatedProducts = filteredProducts.Skip((pageIndex - 1) * PageSize).Take(PageSize).ToList();
+
+        // Pass data to view
+        ViewBag.MinPrezzo = minPrezzo;
+        ViewBag.MaxPrezzo = maxPrezzo;
+        ViewBag.CurrentPage = pageIndex;
+        ViewBag.TotalPages = totalPages;
+        ViewBag.Categorie = categorie;
+
+        return View(paginatedProducts);
     }
 
     public IActionResult Create()
-{
-    // Read the list of categories from JSON file and pass it to the view
-    ViewBag.Categorie = categorie;
-    return View();
-}
+    {
+        // Read the list of categories from JSON file and pass it to the view
+        ViewBag.Categorie = categorie;
+        return View();
+    }
 
 
     [HttpPost]
     public IActionResult Create(Prodotto prodotto)
     {
 
-            prodotto.Id = prodotti.Count + 1;
-            prodotti.Add(prodotto);
+        prodotto.Id = prodotti.Count + 1;
+        prodotti.Add(prodotto);
 
-            // Save updated list to JSON file
-            SaveToFile();
+        // Save updated list to JSON file
+        SaveToFile();
 
-            return RedirectToAction("Index");
+        return RedirectToAction("Index");
 
     }
 
     public IActionResult Edit(int id)
-{
-    var prodotto = prodotti.FirstOrDefault(p => p.Id == id);
-    ViewBag.Categorie = categorie; // Pass the list of categories to the view
-    return prodotto == null ? NotFound() : View(prodotto);
-}
+    {
+        var prodotto = prodotti.FirstOrDefault(p => p.Id == id);
+        ViewBag.Categorie = categorie; // Pass the list of categories to the view
+        return prodotto == null ? NotFound() : View(prodotto);
+    }
 
 
     [HttpPost]
@@ -95,13 +114,18 @@ public class ProdottiController : Controller
         }
         return View(prodotto);
     }
-
+    [HttpGet]
     public IActionResult Delete(int id)
-{
-    var prodotto = prodotti.FirstOrDefault(p => p.Id == id);
-
-    if (HttpContext.Request.Method == "POST") // Check if it's a POST request
     {
+        var prodotto = prodotti.FirstOrDefault(p => p.Id == id);
+        return View(prodotto);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public IActionResult DeleteConfirmed(int id) // Rename this method
+    {
+        var prodotto = prodotti.FirstOrDefault(p => p.Id == id);
+
         if (prodotto != null)
         {
             prodotti.Remove(prodotto);
@@ -110,16 +134,12 @@ public class ProdottiController : Controller
         return RedirectToAction("Index"); // Redirect after deletion
     }
 
-    
-
-    return prodotto == null ? NotFound() : View(prodotto); // Return the view if it's a GET request
-}
 
     public IActionResult Details(int id)
-{
-    var prodotto = prodotti.FirstOrDefault(p => p.Id == id);
-    return prodotto == null ? NotFound() : View(prodotto);
-}
+    {
+        var prodotto = prodotti.FirstOrDefault(p => p.Id == id);
+        return prodotto == null ? NotFound() : View(prodotto);
+    }
 
 
 

@@ -11,10 +11,172 @@
   {
     "Id": 2,
     "Nome": "Prodotto B",
-    "Prezzo": 200.0,
+    "Prezzo": 200.00,
     "Dettaglio": "Descrizione Prodotto B",
     "Immagine": "https://via.placeholder.com/150",
     "Quantita": 20,
     "Categoria": "Categoria 2"
+  },
+  {
+    "Id": 3,
+    "Nome": "Prodotto C",
+    "Prezzo": 99.99,
+    "Dettaglio": "Descrizione Prodotto C",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 15,
+    "Categoria": "Abbigliamento"
+  },
+  {
+    "Id": 4,
+    "Nome": "Prodotto D",
+    "Prezzo": 450.50,
+    "Dettaglio": "Descrizione Prodotto D",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 5,
+    "Categoria": "Sport"
+  },
+  {
+    "Id": 5,
+    "Nome": "Prodotto E",
+    "Prezzo": 129.99,
+    "Dettaglio": "Descrizione Prodotto E",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 8,
+    "Categoria": "Cucina"
+  },
+  {
+    "Id": 6,
+    "Nome": "Prodotto F",
+    "Prezzo": 75.00,
+    "Dettaglio": "Descrizione Prodotto F",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 12,
+    "Categoria": "Giochi"
+  },
+  {
+    "Id": 7,
+    "Nome": "Prodotto G",
+    "Prezzo": 599.99,
+    "Dettaglio": "Descrizione Prodotto G",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 3,
+    "Categoria": "Tecnologia"
+  },
+  {
+    "Id": 8,
+    "Nome": "Prodotto H",
+    "Prezzo": 49.99,
+    "Dettaglio": "Descrizione Prodotto H",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 25,
+    "Categoria": "Libri"
+  },
+  {
+    "Id": 9,
+    "Nome": "Prodotto I",
+    "Prezzo": 34.99,
+    "Dettaglio": "Descrizione Prodotto I",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 50,
+    "Categoria": "Accessori"
+  },
+  {
+    "Id": 10,
+    "Nome": "Prodotto J",
+    "Prezzo": 79.99,
+    "Dettaglio": "Descrizione Prodotto J",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 18,
+    "Categoria": "Cura Personale"
+  },
+  {
+    "Id": 11,
+    "Nome": "Prodotto K",
+    "Prezzo": 39.90,
+    "Dettaglio": "Descrizione Prodotto K",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 30,
+    "Categoria": "Casa"
+  },
+  {
+    "Id": 12,
+    "Nome": "Prodotto L",
+    "Prezzo": 259.00,
+    "Dettaglio": "Descrizione Prodotto L",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 4,
+    "Categoria": "Salute"
+  },
+  {
+    "Id": 13,
+    "Nome": "Prodotto M",
+    "Prezzo": 399.00,
+    "Dettaglio": "Descrizione Prodotto M",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 7,
+    "Categoria": "Bellezza"
+  },
+  {
+    "Id": 14,
+    "Nome": "Prodotto N",
+    "Prezzo": 99.90,
+    "Dettaglio": "Descrizione Prodotto N",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 11,
+    "Categoria": "Moda"
+  },
+  {
+    "Id": 15,
+    "Nome": "Prodotto O",
+    "Prezzo": 1500.00,
+    "Dettaglio": "Descrizione Prodotto O",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 2,
+    "Categoria": "Lusso"
+  },
+  {
+    "Id": 16,
+    "Nome": "Prodotto P",
+    "Prezzo": 22.50,
+    "Dettaglio": "Descrizione Prodotto P",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 40,
+    "Categoria": "Cartoleria"
+  },
+  {
+    "Id": 17,
+    "Nome": "Prodotto Q",
+    "Prezzo": 55.90,
+    "Dettaglio": "Descrizione Prodotto Q",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 16,
+    "Categoria": "Gioielli"
+  },
+  {
+    "Id": 18,
+    "Nome": "Prodotto R",
+    "Prezzo": 12.99,
+    "Dettaglio": "Descrizione Prodotto R",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 70,
+    "Categoria": "Cartoleria"
+  },
+  {
+    "Id": 19,
+    "Nome": "Prodotto S",
+    "Prezzo": 599.00,
+    "Dettaglio": "Descrizione Prodotto S",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 6,
+    "Categoria": "Elettronica"
+  },
+  {
+    "Id": 20,
+    "Nome": "Prodotto T",
+    "Prezzo": 19.99,
+    "Dettaglio": "Descrizione Prodotto T",
+    "Immagine": "https://via.placeholder.com/150",
+    "Quantita": 100,
+    "Categoria": "Articoli Vari"
   }
 ]

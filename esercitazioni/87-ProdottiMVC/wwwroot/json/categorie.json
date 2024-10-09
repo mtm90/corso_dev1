@@ -3,5 +3,20 @@
     { "Nome": "Abbigliamento" },
     { "Nome": "Cibo" },
     { "Nome": "Casa" },
-    { "Nome": "Giocattoli" }
+    { "Nome": "Giocattoli" },
+    { "Nome": "Sport" },
+    { "Nome": "Cucina" },
+    { "Nome": "Giochi" },
+    { "Nome": "Tecnologia" },
+    { "Nome": "Libri" },
+    { "Nome": "Accessori" },
+    { "Nome": "Cura Personale" },
+    { "Nome": "Salute" },
+    { "Nome": "Bellezza" },
+    { "Nome": "Moda" },
+    { "Nome": "Lusso" },
+    { "Nome": "Cartoleria" },
+    { "Nome": "Gioielli" },
+    { "Nome": "Categoria 2" }, 
+    { "Nome": "Articoli Vari" }
 ]
