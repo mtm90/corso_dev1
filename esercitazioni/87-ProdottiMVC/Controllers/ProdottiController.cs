@@ -85,18 +85,23 @@ public class ProdottiController : Controller
 
 
     [HttpPost]
-    public IActionResult Create(Prodotto prodotto)
+public IActionResult Create(Prodotto prodotto)
+{
+    if (!ModelState.IsValid)
     {
-
-        prodotto.Id = prodotti.Count + 1;
-        prodotti.Add(prodotto);
-
-        // Save updated list to JSON file
-        SaveToFile();
-
-        return RedirectToAction("Index");
-
+        ViewBag.Categorie = categorie; // Ensure categories are available
+        return View(prodotto);
     }
+
+    prodotto.Id = prodotti.Count + 1;
+    prodotti.Add(prodotto);
+
+    // Save updated list to JSON file
+    SaveToFile();
+
+    return RedirectToAction("Index");
+}
+
 
     public IActionResult Edit(int id)
     {
