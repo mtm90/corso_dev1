@@ -1,6 +1,5 @@
 ﻿using PokerAppMVC.Controllers;
 using PokerAppMVC.Views;
-using System;
 
 namespace PokerAppMVC
 {
