@@ -1,0 +1,48 @@
+@model Prodotto
+
+@{
+    ViewData["Title"] = "Modifica Prodotto";
+}
+@{ Layout = "_Layout"; }
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Nome">Nome</label>
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Prezzo">Prezzo</label>
+        <input asp-for="Prezzo" class="form-control" />
+        <span asp-validation-for="Prezzo" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Dettaglio">Dettaglio</label>
+        <textarea asp-for="Dettaglio" class="form-control"></textarea>
+        <span asp-validation-for="Dettaglio" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Immagine">Immagine</label>
+        <input asp-for="Immagine" class="form-control" />
+        <span asp-validation-for="Immagine" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Quantita">Quantita</label>
+        <input asp-for="Quantita" class="form-control" />
+        <span asp-validation-for="Quantita" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="Categoria">Categoria</label>
+        <select asp-for="Categoria" class="form-control" asp-items="@(new SelectList(ViewBag.Categorie, "Nome", "Nome", Model.Categoria))">
+            <option value="">Seleziona una categoria</option>
+        </select>
+        <span asp-validation-for="Categoria" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-outline-dark">
+        <i class="bi bi-save"></i> Salva Modifiche
+    </button>
+    <a href="@Url.Action("Index", "Prodotti")" class="btn btn-secondary">Annulla</a>
+</form>

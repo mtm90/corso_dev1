@@ -1,0 +1,23 @@
+@model Prodotto
+
+@{
+    ViewData["Title"] = "Prodotto Dettaglio";
+}
+
+<h2>@Model.Nome</h2>
+
+<div class="card">
+    <div class="card-body">
+        <p><strong>Prezzo:</strong> @Model.Prezzo €</p>
+        <p><strong>Dettaglio:</strong> @Model.Dettaglio</p>
+        <p><strong>Quantita:</strong> @Model.Quantita</p>
+        <p><strong>Categoria:</strong> @Model.Categoria</p>
+        <p>
+            <img src="@Model.Immagine" alt="@Model.Nome" class="img-fluid" />
+        </p>
+    </div>
+</div>
+
+<a href="@Url.Action("Index", "Prodotti")" class="btn btn-secondary mt-3">
+    <i class="bi bi-arrow-left-circle"></i> Torna ai prodotti
+</a>

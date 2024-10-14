@@ -1,0 +1,62 @@
+@model List<Prodotto>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Container for the homepage content -->
+<div class="container mt-5">
+    <!-- Header Section -->
+    <div class="text-center mb-5">
+        <h1 class="display-4"><i class="bi bi-house-door"></i> Benvenuto nell'applicazione di Gestione Prodotti</h1>
+        <p class="lead"><i class="bi bi-boxes"></i> Esplora i nostri prodotti e gestiscili con facilità!</p>
+        <p>
+            <i class="bi bi-info-circle"></i> Questa applicazione è stata costruita con 
+            <a href="https://learn.microsoft.com/aspnet/core" target="_blank">ASP.NET Core</a>
+            e consente di visualizzare, modificare e gestire un catalogo prodotti.
+        </p>
+    </div>
+
+    <!-- Carousel Section -->
+    <div id="featuredProductsCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="carousel-item @(i == 0 ? "active" : "")">
+                    <div class="card text-center shadow-lg w-75 mx-auto">
+                        <img src="@Model[i].Immagine" class="card-img-top img-fluid" alt="@Model[i].Nome" />
+                        <div class="card-body">
+                            <h5 class="card-title">@Model[i].Nome</h5>
+                            <p class="card-text">Prezzo: <strong>@Model[i].Prezzo €</strong></p>
+                            <a href="@Url.Action("Details", "Prodotti", new { id = Model[i].Id })" class="btn btn-outline-dark">Visualizza Dettagli</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Carousel controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="d-flex justify-content-center">
+        <a href="@Url.Action("Index", "Prodotti")" class="btn btn-outline-primary btn-lg mx-2">
+            <i class="bi bi-box-seam"></i> Visualizza Prodotti
+        </a>
+        <a href="@Url.Action("Create", "Prodotti")" class="btn btn-outline-success btn-lg mx-2">
+            <i class="bi bi-plus-circle"></i> Aggiungi Nuovo Prodotto
+        </a>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
