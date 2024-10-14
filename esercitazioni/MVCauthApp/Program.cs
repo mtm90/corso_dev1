@@ -35,6 +35,36 @@ using (var scope = app.Services.CreateScope())
         logger.LogError(ex, "Un errore è avvenuto durante la creazione dei ruoli");
     }
 }
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    await SeedAdminUser(userManager, roleManager);
+}
+
+async Task SeedAdminUser(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+{
+    if (!await roleManager.RoleExistsAsync("Admin"))
+    {
+        await roleManager.CreateAsync(new IdentityRole("Admin"));
+    }
+    if (await userManager.FindByEmailAsync("info3@admin.com") == null)
+    {
+        var user = new IdentityUser
+        {
+            UserName =  "info3@admin.com",
+            Email =  "info3@admin.com",
+            EmailConfirmed = true
+        };
+
+        var result = await userManager.CreateAsync(user, "Admin123!");
+        if (result.Succeeded)
+        {
+            await userManager.AddToRoleAsync(user, "Admin");
+        }
+    }
+}
 
 
 // Configure the HTTP request pipeline.
@@ -55,6 +85,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseStatusCodePagesWithReExecute("/Home/Error");
 
 app.MapControllerRoute(
     name: "default",
