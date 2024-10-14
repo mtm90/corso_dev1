@@ -1,3 +1,5 @@
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
 @model IEnumerable<Prodotto>
 
 @{
@@ -48,8 +50,12 @@
                 </div>
                 <div class="card-footer d-flex flex-column  justify-content-between">
                     <a href="@Url.Action("Details", "Prodotti", new { id = prodotto.Id })" class="btn btn-outline-dark btn-card mb-1">Visualizza</a>
+                    @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin"))
+                    {
+
                     <a href="@Url.Action("Edit", "Prodotti", new { id = prodotto.Id })" class="btn btn-outline-dark btn-card mb-1">Modifica</a>
                     <a href="@Url.Action("Delete", "Prodotti", new { id = prodotto.Id })" class="btn btn-outline-dark btn-card">Cancella</a>
+                    }
                 </div>
             </div>
         </div>
