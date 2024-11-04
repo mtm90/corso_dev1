@@ -1,0 +1,25 @@
+﻿@page
+@model TwoFactorAuthenticationModel
+@{
+    ViewData["Title"] = "Set password";
+    ViewData["ActivePage"] = ManageNavPages.Subscription;
+}
+
+<h2>Subscription</h2>
+
+<p>
+    Click the button below to subscribe to our service.
+</p>
+
+<form method="post">
+    <button type="submit" class="btn btn-primary">Subscribe</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.StatusMessage))
+{
+    <div class="alert alert-info mt-3">@Model.StatusMessage</div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
